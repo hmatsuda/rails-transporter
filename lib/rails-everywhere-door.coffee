@@ -8,7 +8,7 @@ module.exports =
     atom.workspaceView.command 'rails-everywhere-door:toggle-view-finder', =>
       @createViewFinderView().toggle()
     atom.workspaceView.command 'rails-everywhere-door:open-model', =>
-      @goToModel()
+      @openModel()
 
   deactivate: ->
     if @viewFinderView?
@@ -20,7 +20,7 @@ module.exports =
       
     @viewFinderView
 
-  goToModel: ->
+  openModel: ->
     currentFile = atom.workspace.getActiveEditor().getPath()
     if currentFile.indexOf("_controller.rb") isnt -1
       resourceName = pluralize.singular(currentFile.match(/([\w]+)_controller\.rb$/)[1])
