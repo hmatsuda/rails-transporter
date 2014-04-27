@@ -3,12 +3,16 @@
   "main": "./lib/rails-everywhere-door",
   "version": "0.0.0",
   "description": "Powerful support development for Ruby on Rails",
-  "activationEvents": ["rails-everywhere-door:toggle-view-finder"],
+  "activationEvents": [
+    "rails-everywhere-door:toggle-view-finder",
+    "rails-everywhere-door:open-model"
+  ],
   "repository": "https://github.com/hmatsuda/rails-everywhere-door",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
   },
   "dependencies": {
+    "pluralize": "0.0.9"
   }
 }

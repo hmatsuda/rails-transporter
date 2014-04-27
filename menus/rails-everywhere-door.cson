@@ -5,6 +5,7 @@
       'label': 'rails-everywhere-door'
       'submenu': [
         { 'label': 'Toggle View Finder', 'command': 'rails-everywhere-door:toggle-view-finder' }
+        { 'label': 'Open Model', 'command': 'rails-everywhere-door:open-model' }
       ]
     ]
   }
