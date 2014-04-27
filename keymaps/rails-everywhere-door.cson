@@ -10,3 +10,4 @@
 '.workspace':
   'ctrl-alt-v': 'rails-everywhere-door:toggle-view-finder'
   'ctrl-alt-r m': 'rails-everywhere-door:open-model'
+  'ctrl-alt-r h': 'rails-everywhere-door:open-helper'
