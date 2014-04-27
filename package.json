@@ -13,5 +13,6 @@
     "atom": ">0.50.0"
   },
   "dependencies": {
+    "pluralize": "0.0.9"
   }
 }
