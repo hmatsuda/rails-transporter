@@ -5,7 +5,8 @@
   "description": "Powerful support development for Ruby on Rails",
   "activationEvents": [
     "rails-everywhere-door:toggle-view-finder",
-    "rails-everywhere-door:open-model"
+    "rails-everywhere-door:open-model",
+    "rails-everywhere-door:open-helper"
   ],
   "repository": "https://github.com/hmatsuda/rails-everywhere-door",
   "license": "MIT",
