@@ -3,7 +3,10 @@
   "main": "./lib/rails-power",
   "version": "0.0.0",
   "description": "Powerful support development for Ruby on Rails",
-  "activationEvents": ["rails-power:toggle-view-finder"],
+  "activationEvents": [
+    "rails-power:toggle-view-finder",
+    "rails-power:go-to-model"
+  ],
   "repository": "https://github.com/hmatsuda/rails-power",
   "license": "MIT",
   "engines": {
