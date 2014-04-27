@@ -1,13 +1,13 @@
 {
-  "name": "rails-power",
-  "main": "./lib/rails-power",
+  "name": "rails-everywhere-door",
+  "main": "./lib/rails-everywhere-door",
   "version": "0.0.0",
   "description": "Powerful support development for Ruby on Rails",
   "activationEvents": [
-    "rails-power:toggle-view-finder",
-    "rails-power:go-to-model"
+    "rails-everywhere-door:toggle-view-finder",
+    "rails-everywhere-door:go-to-model"
   ],
-  "repository": "https://github.com/hmatsuda/rails-power",
+  "repository": "https://github.com/hmatsuda/rails-everywhere-door",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"

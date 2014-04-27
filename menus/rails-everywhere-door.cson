@@ -1,0 +1,11 @@
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'rails-everywhere-door'
+      'submenu': [
+        { 'label': 'Toggle View Finder', 'command': 'rails-everywhere-door:toggle-view-finder' }
+      ]
+    ]
+  }
+]
