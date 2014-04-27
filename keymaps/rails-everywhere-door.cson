@@ -9,4 +9,4 @@
 # https://atom.io/docs/latest/advanced/keymaps
 '.workspace':
   'ctrl-alt-v': 'rails-everywhere-door:toggle-view-finder'
-  'ctrl-alt-r m': 'rails-everywhere-door:go-to-model'
+  'ctrl-alt-r m': 'rails-everywhere-door:open-model'

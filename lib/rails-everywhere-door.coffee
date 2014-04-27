@@ -7,7 +7,7 @@ module.exports =
   activate: (state) ->
     atom.workspaceView.command 'rails-everywhere-door:toggle-view-finder', =>
       @createViewFinderView().toggle()
-    atom.workspaceView.command 'rails-everywhere-door:go-to-model', =>
+    atom.workspaceView.command 'rails-everywhere-door:open-model', =>
       @goToModel()
 
   deactivate: ->
