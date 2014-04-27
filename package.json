@@ -1,0 +1,14 @@
+{
+  "name": "rails-power",
+  "main": "./lib/rails-power",
+  "version": "0.0.0",
+  "description": "Powerful support development for Ruby on Rails",
+  "activationEvents": ["rails-power:toggle-view-finder"],
+  "repository": "https://github.com/hmatsuda/rails-power",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+  }
+}
