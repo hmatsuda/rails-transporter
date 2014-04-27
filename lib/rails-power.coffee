@@ -2,7 +2,7 @@ ViewFinderView = require './view-finder-view'
 
 module.exports =
   activate: (state) ->
-    atom.workspaceView.command 'rails-power:toggle-view-finder', =>
+    atom.workspaceView.command 'rails-everywhere-door:toggle-view-finder', =>
       @createViewFinderView().toggle()
 
   deactivate: ->

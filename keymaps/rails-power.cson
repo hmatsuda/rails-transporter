@@ -8,4 +8,4 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
 '.workspace':
-  'ctrl-alt-v': 'rails-power:toggle-view-finder'
+  'ctrl-alt-v': 'rails-everywhere-door:toggle-view-finder'
