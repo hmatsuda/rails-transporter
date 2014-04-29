@@ -25,7 +25,8 @@ module.exports =
     @viewFinderView
 
   open: (type) ->
-    currentFile = atom.workspace.getActiveEditor().getPath()
+    editor = atom.workspace.getActiveEditor()
+    currentFile = editor.getPath()
     if currentFile.indexOf("_controller.rb") isnt -1
       resourceName = pluralize.singular(currentFile.match(/([\w]+)_controller\.rb$/)[1])
       if type is 'model'
@@ -36,6 +37,14 @@ module.exports =
                           .replace('controller.rb', 'helper.rb')
     else if currentFile.indexOf("/views/") isnt -1
       if type is 'partial'
-        console.log "open partial template"
-
-      atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
+        line = editor.getCursor().getCurrentBufferLine()
+        if line.indexOf("render") isnt -1
+          if line.indexOf("partial") is -1
+            result = line.match(/render\s+(\S+)/)
+            partialName = result[1].replace(/['"]/g, '')
+            templateExt = path.extname(currentFile)
+            mimeExt = path.extname(path.basename(currentFile, templateExt))
+            targetFile = "#{path.dirname(currentFile)}/_#{partialName}#{mimeExt}#{templateExt}"
+            
+    # open file to new tab
+    atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
