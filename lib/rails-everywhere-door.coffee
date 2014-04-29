@@ -42,9 +42,9 @@ module.exports =
           if line.indexOf("partial") is -1
             result = line.match(/render\s+(\S+)/)
             partialName = result[1].replace(/['"]/g, '')
-            templateExt = path.extname(currentFile)
-            mimeExt = path.extname(path.basename(currentFile, templateExt))
-            targetFile = "#{path.dirname(currentFile)}/_#{partialName}#{mimeExt}#{templateExt}"
+            tmplEngine = path.extname(currentFile)
+            ext = path.extname(path.basename(currentFile, tmplEngine))
+            targetFile = "#{path.dirname(currentFile)}/_#{partialName}#{ext}#{tmplEngine}"
             
     # open file to new tab
     atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
