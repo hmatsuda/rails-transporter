@@ -49,8 +49,7 @@ module.exports =
     # open file to new tab
     atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
 
-  partialFullPath: (currentFile, partialFile) ->
-    partialName = partialFile.replace(/['"]/g, '')
+  partialFullPath: (currentFile, partialName) ->
     tmplEngine = path.extname(currentFile)
     ext = path.extname(path.basename(currentFile, tmplEngine))
     return "#{path.dirname(currentFile)}/_#{partialName}#{ext}#{tmplEngine}"
