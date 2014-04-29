@@ -43,7 +43,7 @@ module.exports =
             result = line.match(/render\s+["']([a-zA-Z_/]+)["']/)
             targetFile = @partialFullPath(currentFile, result[1])
           else
-            result = line.match(/render\s+\:partial\s*=>\s*["']([a-zA-Z_/]+)["']/)
+            result = line.match(/render\s+\:?partial(\s*=>|:*)\s*["']([a-zA-Z_/]+)["']/)
             targetFile = @partialFullPath(currentFile, result[1])
             
     # open file to new tab
