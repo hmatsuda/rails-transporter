@@ -40,11 +40,18 @@ module.exports =
         line = editor.getCursor().getCurrentBufferLine()
         if line.indexOf("render") isnt -1
           if line.indexOf("partial") is -1
-            result = line.match(/render\s+(\S+)/)
-            partialName = result[1].replace(/['"]/g, '')
-            tmplEngine = path.extname(currentFile)
-            ext = path.extname(path.basename(currentFile, tmplEngine))
-            targetFile = "#{path.dirname(currentFile)}/_#{partialName}#{ext}#{tmplEngine}"
+            result = line.match(/render\s+["']([a-zA-Z_/]+)["']/)
+            targetFile = @partialFullPath(currentFile, result[1])
+          else
+            result = line.match(/render\s+\:partial\s*=>\s*["']([a-zA-Z_/]+)["']/)
+            targetFile = @partialFullPath(currentFile, result[1])
             
     # open file to new tab
     atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
+
+  partialFullPath: (currentFile, partialFile) ->
+    partialName = partialFile.replace(/['"]/g, '')
+    tmplEngine = path.extname(currentFile)
+    ext = path.extname(path.basename(currentFile, tmplEngine))
+    return "#{path.dirname(currentFile)}/_#{partialName}#{ext}#{tmplEngine}"
+    
