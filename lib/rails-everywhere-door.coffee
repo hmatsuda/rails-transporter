@@ -28,10 +28,10 @@ module.exports =
     if currentFile.indexOf("_controller.rb") isnt -1
       resourceName = pluralize.singular(currentFile.match(/([\w]+)_controller\.rb$/)[1])
       if type is 'model'
-        path = currentFile.replace('controllers', 'models')
+        targetFile = currentFile.replace('controllers', 'models')
                           .replace(/([\w]+)_controller\.rb$/, "#{resourceName}.rb")
       else if type is 'helper'
-        path = currentFile.replace('controllers', 'helpers')
+        targetFile = currentFile.replace('controllers', 'helpers')
                           .replace('controller.rb', 'helper.rb')
 
-      atom.workspaceView.open(path) if fs.existsSync(path)
+      atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
