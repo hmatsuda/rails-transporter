@@ -6,7 +6,8 @@
   "activationEvents": [
     "rails-everywhere-door:toggle-view-finder",
     "rails-everywhere-door:open-model",
-    "rails-everywhere-door:open-helper"
+    "rails-everywhere-door:open-helper",
+    "rails-everywhere-door:open-partial-template"
   ],
   "repository": "https://github.com/hmatsuda/rails-everywhere-door",
   "license": "MIT",

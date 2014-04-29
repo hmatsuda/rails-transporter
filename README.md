@@ -11,3 +11,4 @@ Open another files using following keybindings.
 * `ctrl-alt-r v` - Open SelectListView for view list related active file
 * `ctrl-alt-r m` - Open Model related active file
 * `ctrl-alt-r h` - Open Helper related active file
+* `ctrl-alt-r p` - Open partial template when cursor is on render method of view

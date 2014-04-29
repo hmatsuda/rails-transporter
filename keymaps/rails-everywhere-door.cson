@@ -11,3 +11,4 @@
   'ctrl-alt-r v': 'rails-everywhere-door:toggle-view-finder'
   'ctrl-alt-r m': 'rails-everywhere-door:open-model'
   'ctrl-alt-r h': 'rails-everywhere-door:open-helper'
+  'ctrl-alt-r p': 'rails-everywhere-door:open-partial-template'

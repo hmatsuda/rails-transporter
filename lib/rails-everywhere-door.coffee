@@ -11,7 +11,8 @@ module.exports =
       @open('model')
     atom.workspaceView.command 'rails-everywhere-door:open-helper', =>
       @open('helper')
-
+    atom.workspaceView.command 'rails-everywhere-door:open-partial-template', =>
+      @open('partial')
 
   deactivate: ->
     if @viewFinderView?
@@ -33,5 +34,8 @@ module.exports =
       else if type is 'helper'
         targetFile = currentFile.replace('controllers', 'helpers')
                           .replace('controller.rb', 'helper.rb')
+    else if currentFile.indexOf("/views/") isnt -1
+      if type is 'partial'
+        console.log "open partial template"
 
       atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
