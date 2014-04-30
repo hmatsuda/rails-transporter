@@ -11,7 +11,7 @@ module.exports =
       @open('model')
     atom.workspaceView.command 'rails-transporter:open-helper', =>
       @open('helper')
-    atom.workspaceView.command 'rails-everywhere-door:open-partial-template', =>
+    atom.workspaceView.command 'rails-transporter:open-partial-template', =>
       @open('partial')
 
   deactivate: ->
