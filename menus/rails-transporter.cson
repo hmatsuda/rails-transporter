@@ -1,0 +1,13 @@
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'rails-transporter'
+      'submenu': [
+        { 'label': 'Toggle View Finder', 'command': 'rails-transporter:toggle-view-finder' }
+        { 'label': 'Open Model', 'command': 'rails-transporter:open-model' }
+        { 'label': 'Open Helper', 'command': 'rails-transporter:open-helper' }
+      ]
+    ]
+  }
+]
