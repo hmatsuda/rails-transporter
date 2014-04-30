@@ -5,11 +5,11 @@ pluralize = require 'pluralize'
 
 module.exports =
   activate: (state) ->
-    atom.workspaceView.command 'rails-everywhere-door:toggle-view-finder', =>
+    atom.workspaceView.command 'rails-transporter:toggle-view-finder', =>
       @createViewFinderView().toggle()
-    atom.workspaceView.command 'rails-everywhere-door:open-model', =>
+    atom.workspaceView.command 'rails-transporter:open-model', =>
       @open('model')
-    atom.workspaceView.command 'rails-everywhere-door:open-helper', =>
+    atom.workspaceView.command 'rails-transporter:open-helper', =>
       @open('helper')
 
 

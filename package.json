@@ -1,14 +1,14 @@
 {
-  "name": "rails-everywhere-door",
-  "main": "./lib/rails-everywhere-door",
+  "name": "rails-transporter",
+  "main": "./lib/rails-transporter",
   "version": "0.0.0",
   "description": "Powerful support development for Ruby on Rails",
   "activationEvents": [
-    "rails-everywhere-door:toggle-view-finder",
-    "rails-everywhere-door:open-model",
-    "rails-everywhere-door:open-helper"
+    "rails-transporter:toggle-view-finder",
+    "rails-transporter:open-model",
+    "rails-transporter:open-helper"
   ],
-  "repository": "https://github.com/hmatsuda/rails-everywhere-door",
+  "repository": "https://github.com/hmatsuda/rails-transporter",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"

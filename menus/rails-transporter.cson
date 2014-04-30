@@ -2,11 +2,11 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'rails-everywhere-door'
+      'label': 'rails-transporter'
       'submenu': [
-        { 'label': 'Toggle View Finder', 'command': 'rails-everywhere-door:toggle-view-finder' }
-        { 'label': 'Open Model', 'command': 'rails-everywhere-door:open-model' }
-        { 'label': 'Open Helper', 'command': 'rails-everywhere-door:open-helper' }
+        { 'label': 'Toggle View Finder', 'command': 'rails-transporter:toggle-view-finder' }
+        { 'label': 'Open Model', 'command': 'rails-transporter:open-model' }
+        { 'label': 'Open Helper', 'command': 'rails-transporter:open-helper' }
       ]
     ]
   }

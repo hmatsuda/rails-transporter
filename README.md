@@ -1,9 +1,9 @@
-# rails-everywhere-door package
+# rails-transporter package
 
 Ruby on Rails powerful support tool on Atom editor.
 
 ## Installing
-Run `apm install rails-everywhere-door` from the command line.
+Run `apm install rails-transporter` from the command line.
 
 ## Usage
 Open another files using following keybindings.
