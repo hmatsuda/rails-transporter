@@ -19,14 +19,12 @@ describe "RailsTransporter", ->
     atom.project.setPath(path.join(tempPath, 'rals-transporter'))
 
     atom.workspaceView = new WorkspaceView
-    atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
-    atom.workspace = atom.workspaceView.model
-    atom.editorView = atom.workspaceView.getActiveView()
-    atom.editor = atom.editorView.getEditor()
-
     activationPromise = atom.packages.activatePackage('rails-transporter')
 
   describe "view-finder behavior", ->
+    beforeEach ->
+      atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
+
     describe "when the rails-transporter:toggle-view-finder event is triggered", ->
       it "shows the ViewFinder or hides it if it's already showing", ->
         expect(atom.workspaceView.find('.select-list')).not.toExist()
@@ -61,6 +59,9 @@ describe "RailsTransporter", ->
           expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'
 
   describe "open-model behavior", ->
+    beforeEach ->
+      atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
+
     it "opens model related controller if active editor is controller", ->
       atom.workspaceView.trigger 'rails-transporter:open-model'
 
@@ -74,6 +75,9 @@ describe "RailsTransporter", ->
         expect(atom.workspace.getActiveEditor().getPath()).toBe modelPath
 
   describe "open-helper behavior", ->
+    beforeEach ->
+      atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
+
     it "opens helper related controller if active editor is controller", ->
       atom.workspaceView.trigger 'rails-transporter:open-helper'
 
