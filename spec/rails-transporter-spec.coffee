@@ -4,12 +4,12 @@ temp = require 'temp'
 wrench = require 'wrench'
 
 
-{$, WorkspaceView} = require 'atom'
+{$, WorkspaceView, Point} = require 'atom'
 RailsTransporter = require '../lib/rails-transporter'
 
 describe "RailsTransporter", ->
   activationPromise = null
-  [viewFinderView, workspaceView] = []
+  [viewFinderView, workspaceView, editor] = []
 
   beforeEach ->
     # set Project Path to temporaly directory.
@@ -89,3 +89,22 @@ describe "RailsTransporter", ->
       runs ->
         modelPath = path.join(atom.project.getPath(), "app/helpers/blogs_helper.rb")
         expect(atom.workspace.getActiveEditor().getPath()).toBe modelPath
+
+  describe "open-patial-template", ->
+    beforeEach ->
+      atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/views/blogs/edit.html.erb'))
+      editorView = atom.workspaceView.getActiveView()
+      editor = editorView.getEditor()
+      editor.setCursorBufferPosition new Point(2, 0)
+
+    it "opens partial templates if active editor is view and its cursor on the line with render method", ->
+      atom.workspaceView.trigger 'rails-transporter:open-partial-template'
+
+      # Waits until package is activated and active panes count is 2
+      waitsFor ->
+        activationPromise
+        atom.workspaceView.getActivePane().getItems().length == 2
+        
+      runs ->
+        partialPath = path.join(atom.project.getPath(), "app/views/blogs/_form.html.erb")
+        expect(atom.workspace.getActiveEditor().getPath()).toBe partialPath
