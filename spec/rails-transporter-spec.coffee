@@ -95,16 +95,59 @@ describe "RailsTransporter", ->
       atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/views/blogs/edit.html.erb'))
       editorView = atom.workspaceView.getActiveView()
       editor = editorView.getEditor()
-      editor.setCursorBufferPosition new Point(2, 0)
 
-    it "opens partial templates if active editor is view and its cursor on the line with render method", ->
-      atom.workspaceView.trigger 'rails-transporter:open-partial-template'
+    describe "when current line is simple render method", ->
+      it "opens partial template", ->
+        editor.setCursorBufferPosition new Point(2, 0)
+        atom.workspaceView.trigger 'rails-transporter:open-partial-template'
 
-      # Waits until package is activated and active panes count is 2
-      waitsFor ->
-        activationPromise
-        atom.workspaceView.getActivePane().getItems().length == 2
-        
-      runs ->
-        partialPath = path.join(atom.project.getPath(), "app/views/blogs/_form.html.erb")
-        expect(atom.workspace.getActiveEditor().getPath()).toBe partialPath
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+          
+        runs ->
+          partialPath = path.join(atom.project.getPath(), "app/views/blogs/_form.html.erb")
+          expect(atom.workspace.getActiveEditor().getPath()).toBe partialPath
+
+    describe "when current line is render method including ':partial =>'", ->
+      it "opens partial template", ->
+        editor.setCursorBufferPosition new Point(3, 0)
+        atom.workspaceView.trigger 'rails-transporter:open-partial-template'
+
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+          
+        runs ->
+          partialPath = path.join(atom.project.getPath(), "app/views/blogs/_form.html.erb")
+          expect(atom.workspace.getActiveEditor().getPath()).toBe partialPath
+
+    describe "when current line is render method including 'partial:'", ->
+      it "opens partial template", ->
+        editor.setCursorBufferPosition new Point(4, 0)
+        atom.workspaceView.trigger 'rails-transporter:open-partial-template'
+
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+          
+        runs ->
+          partialPath = path.join(atom.project.getPath(), "app/views/blogs/_form.html.erb")
+          expect(atom.workspace.getActiveEditor().getPath()).toBe partialPath
+
+    describe "when current line is render method with shared partial", ->
+      it "opens shared partial template", ->
+        editor.setCursorBufferPosition new Point(5, 0)
+        atom.workspaceView.trigger 'rails-transporter:open-partial-template'
+
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+          
+        runs ->
+          partialPath = path.join(atom.project.getPath(), "app/views/shared/_form.html.erb")
+          expect(atom.workspace.getActiveEditor().getPath()).toBe partialPath
