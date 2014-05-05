@@ -26,7 +26,7 @@ describe "RailsTransporter", ->
     activationPromise = atom.packages.activatePackage('rails-transporter')
 
   describe "when the rails-transporter:toggle-view-finder event is triggered", ->
-    it "opens View Finder", ->
+    it "shows the ViewFinder or hides it if it's already showing", ->
       expect(atom.workspaceView.find('.select-list')).not.toExist()
       
       # This is an activation event, triggering it will cause the package to be
@@ -37,5 +37,7 @@ describe "RailsTransporter", ->
       waitsForPromise ->
         activationPromise
 
-      expect(atom.editor.getPath()).toBe path.join atom.project.getPath(), "app/controllers/blogs_controller.rb"
-      expect(atom.workspaceView.find('.select-list')).toExist()
+      runs ->
+        expect(atom.workspaceView.find('.select-list')).toExist()
+        atom.workspaceView.trigger 'rails-transporter:toggle-view-finder'
+        expect(atom.workspaceView.find('.select-list')).not.toExist()
