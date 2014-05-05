@@ -12,6 +12,12 @@ describe "RailsTransporter", ->
   [viewFinderView, workspaceView] = []
 
   beforeEach ->
+    # set Project Path to temporaly directory.
+    tempPath = fs.realpathSync(temp.mkdirSync('atom'))
+    fixturesPath = atom.project.getPath()
+    wrench.copyDirSyncRecursive(fixturesPath, tempPath, forceDelete: true)
+    atom.project.setPath(path.join(tempPath, 'rals-transporter'))
+
     atom.workspaceView = new WorkspaceView
     atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
     atom.editorView = atom.workspaceView.getActiveView()
