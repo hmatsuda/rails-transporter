@@ -20,6 +20,7 @@ describe "RailsTransporter", ->
 
     atom.workspaceView = new WorkspaceView
     atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
+    atom.workspace = atom.workspaceView.model
     atom.editorView = atom.workspaceView.getActiveView()
     atom.editor = atom.editorView.getEditor()
 
