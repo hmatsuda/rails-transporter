@@ -59,3 +59,16 @@ describe "RailsTransporter", ->
             expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(viewDir, view)})")).toExist()
 
           expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'
+
+  describe "open-model behavior", ->
+    it "opens model related controller if active editor is controller", ->
+      atom.workspaceView.trigger 'rails-transporter:open-model'
+
+      # Waits until package is activated and active panes count is 2
+      waitsFor ->
+        activationPromise
+        atom.workspaceView.getActivePane().getItems().length == 2
+        
+      runs ->
+        modelPath = path.join(atom.project.getPath(), "app/models/blog.rb")
+        expect(atom.workspace.getActiveEditor().getPath()).toBe modelPath
