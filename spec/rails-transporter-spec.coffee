@@ -72,3 +72,16 @@ describe "RailsTransporter", ->
       runs ->
         modelPath = path.join(atom.project.getPath(), "app/models/blog.rb")
         expect(atom.workspace.getActiveEditor().getPath()).toBe modelPath
+
+  describe "open-helper behavior", ->
+    it "opens helper related controller if active editor is controller", ->
+      atom.workspaceView.trigger 'rails-transporter:open-helper'
+
+      # Waits until package is activated and active panes count is 2
+      waitsFor ->
+        activationPromise
+        atom.workspaceView.getActivePane().getItems().length == 2
+        
+      runs ->
+        modelPath = path.join(atom.project.getPath(), "app/helpers/blogs_helper.rb")
+        expect(atom.workspace.getActiveEditor().getPath()).toBe modelPath
