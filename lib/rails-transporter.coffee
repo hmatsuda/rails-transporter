@@ -11,7 +11,8 @@ module.exports =
       @open('model')
     atom.workspaceView.command 'rails-transporter:open-helper', =>
       @open('helper')
-
+    atom.workspaceView.command 'rails-everywhere-door:open-partial-template', =>
+      @open('partial')
 
   deactivate: ->
     if @viewFinderView?
@@ -24,7 +25,8 @@ module.exports =
     @viewFinderView
 
   open: (type) ->
-    currentFile = atom.workspace.getActiveEditor().getPath()
+    editor = atom.workspace.getActiveEditor()
+    currentFile = editor.getPath()
     if currentFile.indexOf("_controller.rb") isnt -1
       resourceName = pluralize.singular(currentFile.match(/([\w]+)_controller\.rb$/)[1])
       if type is 'model'
@@ -33,5 +35,26 @@ module.exports =
       else if type is 'helper'
         targetFile = currentFile.replace('controllers', 'helpers')
                           .replace('controller.rb', 'helper.rb')
+    else if currentFile.indexOf("/views/") isnt -1
+      if type is 'partial'
+        line = editor.getCursor().getCurrentBufferLine()
+        if line.indexOf("render") isnt -1
+          if line.indexOf("partial") is -1
+            result = line.match(/render\s+["']([a-zA-Z_/]+)["']/)
+            targetFile = @partialFullPath(currentFile, result[1])
+          else
+            result = line.match(/render\s+\:?partial(\s*=>|:*)\s*["']([a-zA-Z_/]+)["']/)
+            targetFile = @partialFullPath(currentFile, result[2])
+            
+    # open file to new tab
+    atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
 
-      atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
+  partialFullPath: (currentFile, partialName) ->
+    tmplEngine = path.extname(currentFile)
+    ext = path.extname(path.basename(currentFile, tmplEngine))
+    if partialName.indexOf("/") is -1
+      "#{path.dirname(currentFile)}/_#{partialName}#{ext}#{tmplEngine}"
+    else
+      "#{atom.project.getPath()}/app/views/#{path.dirname(partialName)}/_#{path.basename(partialName)}#{ext}#{tmplEngine}"
+  
+    

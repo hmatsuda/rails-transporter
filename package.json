@@ -6,7 +6,8 @@
   "activationEvents": [
     "rails-transporter:toggle-view-finder",
     "rails-transporter:open-model",
-    "rails-transporter:open-helper"
+    "rails-transporter:open-helper",
+    "rails-transporter:open-partial-template"
   ],
   "repository": "https://github.com/hmatsuda/rails-transporter",
   "license": "MIT",
