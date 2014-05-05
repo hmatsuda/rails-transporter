@@ -4,7 +4,7 @@ temp = require 'temp'
 wrench = require 'wrench'
 
 
-{WorkspaceView} = require 'atom'
+{$, WorkspaceView} = require 'atom'
 RailsTransporter = require '../lib/rails-transporter'
 
 describe "RailsTransporter", ->
