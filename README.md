@@ -1,4 +1,4 @@
-# rails-transporter package
+# rails-transporter package [![Build Status](https://travis-ci.org/hmatsuda/rails-transporter.svg?branch=master)](https://travis-ci.org/hmatsuda/rails-transporter)
 
 Ruby on Rails powerful support tool on Atom editor.
 
