@@ -151,3 +151,20 @@ describe "RailsTransporter", ->
         runs ->
           partialPath = path.join(atom.project.getPath(), "app/views/shared/_form.html.erb")
           expect(atom.workspace.getActiveEditor().getPath()).toBe partialPath
+          
+  describe "open spec behavior", ->
+    describe "when current editor opens controller", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
+
+      it "opens controller spec related current controller", ->
+        atom.workspaceView.trigger 'rails-transporter:open-spec'
+
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+          
+        runs ->
+          specPath = path.join(atom.project.getPath(), "spec/controllers/blogs_controller_spec.rb")
+          expect(atom.workspace.getActiveEditor().getPath()).toBe specPath
+      
