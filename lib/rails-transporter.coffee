@@ -13,6 +13,9 @@ module.exports =
       @open('helper')
     atom.workspaceView.command 'rails-transporter:open-partial-template', =>
       @open('partial')
+    atom.workspaceView.command 'rails-transporter:open-spec', =>
+      @open('spec')
+
 
   deactivate: ->
     if @viewFinderView?
