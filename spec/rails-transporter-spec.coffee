@@ -168,3 +168,17 @@ describe "RailsTransporter", ->
           specPath = path.join(atom.project.getPath(), "spec/controllers/blogs_controller_spec.rb")
           expect(atom.workspace.getActiveEditor().getPath()).toBe specPath
       
+    describe "when current editor opens model", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/models/blog.rb'))
+
+      it "opens model spec related current model", ->
+        atom.workspaceView.trigger 'rails-transporter:open-spec'
+
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+          
+        runs ->
+          specPath = path.join(atom.project.getPath(), "spec/models/blog_spec.rb")
+          expect(atom.workspace.getActiveEditor().getPath()).toBe specPath
