@@ -38,6 +38,10 @@ module.exports =
       else if type is 'helper'
         targetFile = currentFile.replace('controllers', 'helpers')
                           .replace('controller.rb', 'helper.rb')
+      else if type is 'spec'
+        targetFile = currentFile.replace('app/controllers', 'spec/controllers')
+                                .replace('controller.rb', 'controller_spec.rb')
+
     else if currentFile.indexOf("/views/") isnt -1
       if type is 'partial'
         line = editor.getCursor().getCurrentBufferLine()
