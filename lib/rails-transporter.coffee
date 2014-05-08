@@ -41,8 +41,13 @@ module.exports =
       else if type is 'spec'
         targetFile = currentFile.replace('app/controllers', 'spec/controllers')
                                 .replace('controller.rb', 'controller_spec.rb')
-
-    else if currentFile.indexOf("/views/") isnt -1
+                                
+    else if currentFile.indexOf("app/models/") isnt -1
+      if type is 'spec'
+        targetFile = currentFile.replace('app/models', 'spec/models')
+                                .replace('.rb', '_spec.rb')
+                                
+    else if currentFile.indexOf("app/views/") isnt -1
       if type is 'partial'
         line = editor.getCursor().getCurrentBufferLine()
         if line.indexOf("render") isnt -1
