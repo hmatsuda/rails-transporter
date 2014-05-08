@@ -30,7 +30,7 @@ module.exports =
   open: (type) ->
     editor = atom.workspace.getActiveEditor()
     currentFile = editor.getPath()
-    if currentFile.indexOf("_controller.rb") isnt -1
+    if currentFile.search(/app\/controllers\/.+_controller.rb$/) isnt -1
       resourceName = pluralize.singular(currentFile.match(/([\w]+)_controller\.rb$/)[1])
       if type is 'model'
         targetFile = currentFile.replace('controllers', 'models')
