@@ -58,6 +58,12 @@ module.exports =
             result = line.match(/render\s+\:?partial(\s*=>|:*)\s*["']([a-zA-Z_/]+)["']/)
             targetFile = @partialFullPath(currentFile, result[2])
             
+    else if currentFile.search(/app\/helpers\/.+_helper.rb$/) isnt -1
+      if type is 'spec'
+        targetFile = currentFile.replace('app/helpers', 'spec/helpers')
+                                .replace('.rb', '_spec.rb')
+
+            
     # open file to new tab
     atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
 
