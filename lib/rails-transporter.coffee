@@ -13,6 +13,9 @@ module.exports =
       @open('helper')
     atom.workspaceView.command 'rails-transporter:open-partial-template', =>
       @open('partial')
+    atom.workspaceView.command 'rails-transporter:open-spec', =>
+      @open('spec')
+
 
   deactivate: ->
     if @viewFinderView?
@@ -27,7 +30,7 @@ module.exports =
   open: (type) ->
     editor = atom.workspace.getActiveEditor()
     currentFile = editor.getPath()
-    if currentFile.indexOf("_controller.rb") isnt -1
+    if currentFile.search(/app\/controllers\/.+_controller.rb$/) isnt -1
       resourceName = pluralize.singular(currentFile.match(/([\w]+)_controller\.rb$/)[1])
       if type is 'model'
         targetFile = currentFile.replace('controllers', 'models')
@@ -35,7 +38,16 @@ module.exports =
       else if type is 'helper'
         targetFile = currentFile.replace('controllers', 'helpers')
                           .replace('controller.rb', 'helper.rb')
-    else if currentFile.indexOf("/views/") isnt -1
+      else if type is 'spec'
+        targetFile = currentFile.replace('app/controllers', 'spec/controllers')
+                                .replace('controller.rb', 'controller_spec.rb')
+                                
+    else if currentFile.indexOf("app/models/") isnt -1
+      if type is 'spec'
+        targetFile = currentFile.replace('app/models', 'spec/models')
+                                .replace('.rb', '_spec.rb')
+                                
+    else if currentFile.indexOf("app/views/") isnt -1
       if type is 'partial'
         line = editor.getCursor().getCurrentBufferLine()
         if line.indexOf("render") isnt -1
@@ -45,6 +57,12 @@ module.exports =
           else
             result = line.match(/render\s+\:?partial(\s*=>|:*)\s*["']([a-zA-Z_/]+)["']/)
             targetFile = @partialFullPath(currentFile, result[2])
+            
+    else if currentFile.search(/app\/helpers\/.+_helper.rb$/) isnt -1
+      if type is 'spec'
+        targetFile = currentFile.replace('app/helpers', 'spec/helpers')
+                                .replace('.rb', '_spec.rb')
+
             
     # open file to new tab
     atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
