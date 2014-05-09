@@ -223,3 +223,20 @@ describe "RailsTransporter", ->
           editor.setCursorBufferPosition new Point(12, 0)
           expect(editor.getPath()).toBe specPath
           expect(editor.getCursor().getCurrentBufferLine()).toMatch /^describe BlogsHelper/
+
+  describe "open-asset behavior",  ->
+    describe "when cursor is on line including javascript_include_tag", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/views/layouts/application.html.erb'))
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
+
+      it "opens related asset javascript", ->
+        editor.setCursorBufferPosition new Point(5, 0)
+        atom.workspaceView.trigger 'rails-transporter:open-assets'
+
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+
+        expect(1).toBe 2
