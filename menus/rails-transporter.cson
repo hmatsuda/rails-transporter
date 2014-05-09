@@ -2,7 +2,7 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'rails-transporter'
+      'label': 'Rails Transporter'
       'submenu': [
         { 'label': 'Toggle View Finder', 'command': 'rails-transporter:toggle-view-finder' }
         { 'label': 'Open Model', 'command': 'rails-transporter:open-model' }
