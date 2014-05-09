@@ -13,3 +13,4 @@
   'ctrl-alt-r h': 'rails-transporter:open-helper'
   'ctrl-alt-r p': 'rails-transporter:open-partial-template'
   'ctrl-alt-r s': 'rails-transporter:open-spec'
+  'ctrl-alt-r a': 'rails-transporter:open-asset'

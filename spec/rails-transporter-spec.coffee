@@ -231,12 +231,34 @@ describe "RailsTransporter", ->
         editorView = atom.workspaceView.getActiveView()
         editor = editorView.getEditor()
 
-      it "opens related asset javascript", ->
-        editor.setCursorBufferPosition new Point(5, 0)
-        atom.workspaceView.trigger 'rails-transporter:open-assets'
+      describe "when it puts parentheses around arguments", ->
+        it "opens related asset javascript", ->
+          editor.setCursorBufferPosition new Point(5, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
 
-        waitsFor ->
-          activationPromise
-          atom.workspaceView.getActivePane().getItems().length == 2
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
 
-        expect(1).toBe 2
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/javascripts/application01.js")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(12, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/= require jquery$/
+    
+      describe "when it doesn't put parentheses around arguments", ->
+        it "opens related asset javascript", ->
+          editor.setCursorBufferPosition new Point(6, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/javascripts/application01.js")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(12, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/= require jquery$/

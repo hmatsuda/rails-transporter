@@ -15,6 +15,9 @@ module.exports =
       @open('partial')
     atom.workspaceView.command 'rails-transporter:open-spec', =>
       @open('spec')
+    atom.workspaceView.command 'rails-transporter:open-asset', =>
+      @open('asset')
+
 
 
   deactivate: ->
@@ -57,6 +60,12 @@ module.exports =
           else
             result = line.match(/render\s+\:?partial(\s*=>|:*)\s*["']([a-zA-Z_/]+)["']/)
             targetFile = @partialFullPath(currentFile, result[2])
+      else if type is 'asset'
+        line = editor.getCursor().getCurrentBufferLine()
+        if line.indexOf("javascript_include_tag") isnt -1
+          result = line.match(/javascript_include_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
+          targetFile = @assetJSFullPath(result[1])
+
             
     else if currentFile.search(/app\/helpers\/.+_helper.rb$/) isnt -1
       if type is 'spec'
@@ -75,4 +84,10 @@ module.exports =
     else
       "#{atom.project.getPath()}/app/views/#{path.dirname(partialName)}/_#{path.basename(partialName)}#{ext}#{tmplEngine}"
   
-    
+  assetJSFullPath: (assetName) ->
+    if path.extname(assetName) is ""
+      fileName = "#{path.basename(assetName)}.js"
+    else
+      fileName = path.basename(assetName)
+      
+    "#{atom.project.getPath()}/app/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
