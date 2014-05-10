@@ -55,10 +55,10 @@ module.exports =
         line = editor.getCursor().getCurrentBufferLine()
         if line.indexOf("render") isnt -1
           if line.indexOf("partial") is -1
-            result = line.match(/render\s+["']([a-zA-Z_/]+)["']/)
+            result = line.match(/render\s+["']([a-zA-Z0-9_\-\./]+)["']/)
             targetFile = @partialFullPath(currentFile, result[1])
           else
-            result = line.match(/render\s+\:?partial(\s*=>|:*)\s*["']([a-zA-Z_/]+)["']/)
+            result = line.match(/render\s+\:?partial(\s*=>|:*)\s*["']([a-zA-Z0-9_\-\./]+)["']/)
             targetFile = @partialFullPath(currentFile, result[2])
       else if type is 'asset'
         line = editor.getCursor().getCurrentBufferLine()
