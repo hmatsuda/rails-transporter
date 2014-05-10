@@ -71,10 +71,11 @@ module.exports =
       if type is 'spec'
         targetFile = currentFile.replace('app/helpers', 'spec/helpers')
                                 .replace('.rb', '_spec.rb')
-
-            
-    # open file to new tab
-    atom.workspaceView.open(targetFile) if fs.existsSync(targetFile)
+                                
+    return unless targetFile?
+    files = if typeof(targetFile) is 'string' then [targetFile] else targetFile
+    for file in files
+      atom.workspaceView.open(file) if fs.existsSync(file)
 
   partialFullPath: (currentFile, partialName) ->
     tmplEngine = path.extname(currentFile)
@@ -90,10 +91,10 @@ module.exports =
     else
       fileName = path.basename(assetName)
       
-    targetFile = "#{atom.project.getPath()}/app/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
-    if fs.existsSync(targetFile)
-      targetFile
+    if assetName.match(/^\//)
+      "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"
     else
-      "#{atom.project.getPath()}/vendor/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
-      
-      
+      [
+        "#{atom.project.getPath()}/app/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
+        "#{atom.project.getPath()}/vendor/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
+      ]

@@ -294,3 +294,19 @@ describe "RailsTransporter", ->
             editor.setCursorBufferPosition new Point(0, 0)
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's popular library$/
+
+      describe "when it includes in public directory", ->
+        it "opens related asset javascript in public directory", ->
+          editor.setCursorBufferPosition new Point(9, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "public/no_asset_pipeline.js")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's in public directory$/
