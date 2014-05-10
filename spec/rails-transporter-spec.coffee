@@ -16,8 +16,7 @@ describe "RailsTransporter", ->
     tempPath = fs.realpathSync(temp.mkdirSync('atom'))
     fixturesPath = atom.project.getPath()
     wrench.copyDirSyncRecursive(fixturesPath, tempPath, forceDelete: true)
-    atom.project.setPath(path.join(tempPath, 'rals-transporter'))
-
+    atom.project.setPath(tempPath)
     atom.workspaceView = new WorkspaceView
     activationPromise = atom.packages.activatePackage('rails-transporter')
 
