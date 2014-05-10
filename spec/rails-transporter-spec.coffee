@@ -262,3 +262,19 @@ describe "RailsTransporter", ->
             editor.setCursorBufferPosition new Point(12, 0)
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/= require jquery$/
+
+      describe "when it specifies name with slash", ->
+        it "opens related asset javascript", ->
+          editor.setCursorBufferPosition new Point(7, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/javascripts/application02/common.js")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/= require jquery$/
