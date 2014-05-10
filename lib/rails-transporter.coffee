@@ -64,10 +64,10 @@ module.exports =
         line = editor.getCursor().getCurrentBufferLine()
         if line.indexOf("javascript_include_tag") isnt -1
           result = line.match(/javascript_include_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
-          targetFile = @assetJSFullPath(result[1])
+          targetFile = @assetManifestFullPath(result[1], 'js')
         else if line.indexOf("stylesheet_link_tag") isnt -1
           result = line.match(/stylesheet_link_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
-          targetFile = @assetCSSFullPath(result[1])
+          targetFile = @assetManifestFullPath(result[1], 'css')
 
     else if currentFile.search(/app\/helpers\/.+_helper.rb$/) isnt -1
       if type is 'spec'
@@ -87,30 +87,18 @@ module.exports =
     else
       "#{atom.project.getPath()}/app/views/#{path.dirname(partialName)}/_#{path.basename(partialName)}#{ext}#{tmplEngine}"
   
-  assetJSFullPath: (assetName) ->
+  assetManifestFullPath: (assetName, ext) ->
     if path.extname(assetName) is ""
-      fileName = "#{path.basename(assetName)}.js"
+      fileName = "#{path.basename(assetName)}.#{ext}"
     else
       fileName = path.basename(assetName)
+    
+    dirName = if ext is 'js' then "javascripts" else "stylesheets"
       
     if assetName.match(/^\//)
       "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"
     else
       [
-        "#{atom.project.getPath()}/app/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
-        "#{atom.project.getPath()}/vendor/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
-      ]
-
-  assetCSSFullPath: (assetName) ->
-    if path.extname(assetName) is ""
-      fileName = "#{path.basename(assetName)}.css"
-    else
-      fileName = path.basename(assetName)
-      
-    if assetName.match(/^\//)
-      "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"
-    else
-      [
-        "#{atom.project.getPath()}/app/assets/stylesheets/#{path.dirname(assetName)}/#{fileName}"
-        "#{atom.project.getPath()}/vendor/assets/stylesheets/#{path.dirname(assetName)}/#{fileName}"
+        "#{atom.project.getPath()}/app/assets/#{dirName}/#{path.dirname(assetName)}/#{fileName}"
+        "#{atom.project.getPath()}/vendor/assets/#{dirName}/#{path.dirname(assetName)}/#{fileName}"
       ]
