@@ -2,12 +2,17 @@
 <html>
 <head>
   <title>Website</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  
   <%= javascript_include_tag "application01", "data-turbolinks-track" => true %>
   <%= javascript_include_tag("application01", "data-turbolinks-track" => true) %>
   <%= javascript_include_tag "application02/common", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "popular_library", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "/no_asset_pipeline" %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag("application", media: "all", "data-turbolinks-track" => true) %>
+  <%= stylesheet_link_tag    "application02/common" %>
+  <%= stylesheet_link_tag    "popular_style" %>
+  <%= stylesheet_link_tag    "/no_asset_pipeline" %>
   <%= csrf_meta_tags %>
 </head>
 <body>

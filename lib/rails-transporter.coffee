@@ -65,8 +65,10 @@ module.exports =
         if line.indexOf("javascript_include_tag") isnt -1
           result = line.match(/javascript_include_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
           targetFile = @assetJSFullPath(result[1])
+        else if line.indexOf("stylesheet_link_tag") isnt -1
+          result = line.match(/stylesheet_link_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
+          targetFile = @assetCSSFullPath(result[1])
 
-            
     else if currentFile.search(/app\/helpers\/.+_helper.rb$/) isnt -1
       if type is 'spec'
         targetFile = currentFile.replace('app/helpers', 'spec/helpers')
@@ -97,4 +99,18 @@ module.exports =
       [
         "#{atom.project.getPath()}/app/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
         "#{atom.project.getPath()}/vendor/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
+      ]
+
+  assetCSSFullPath: (assetName) ->
+    if path.extname(assetName) is ""
+      fileName = "#{path.basename(assetName)}.css"
+    else
+      fileName = path.basename(assetName)
+      
+    if assetName.match(/^\//)
+      "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"
+    else
+      [
+        "#{atom.project.getPath()}/app/assets/stylesheets/#{path.dirname(assetName)}/#{fileName}"
+        "#{atom.project.getPath()}/vendor/assets/stylesheets/#{path.dirname(assetName)}/#{fileName}"
       ]
