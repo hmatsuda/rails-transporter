@@ -169,6 +169,41 @@ describe "RailsTransporter", ->
           expect(editor.getPath()).toBe partialPath
           expect(editor.getCursor().getCurrentBufferLine()).toMatch /^Shared Form Partial$/
   
+    describe "when current line is to call render method with integer", ->
+      it "opens partial template", ->
+        editor.setCursorBufferPosition new Point(6, 0)
+        atom.workspaceView.trigger 'rails-transporter:open-partial-template'
+
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+
+        runs ->
+          partialPath = path.join(atom.project.getPath(), "app/views/blogs/_form02.html.erb")
+          editor = atom.workspace.getActiveEditor()
+          editor.setCursorBufferPosition new Point(0, 0)
+          expect(editor.getPath()).toBe partialPath
+          expect(editor.getCursor().getCurrentBufferLine()).toMatch /^Form02 Partial$/
+          
+    describe "when current line is to call render method with integer and including ':partial =>'", ->
+      it "opens partial template", ->
+        editor.setCursorBufferPosition new Point(7, 0)
+        atom.workspaceView.trigger 'rails-transporter:open-partial-template'
+  
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+  
+        runs ->
+          partialPath = path.join(atom.project.getPath(), "app/views/blogs/_form02.html.erb")
+          editor = atom.workspace.getActiveEditor()
+          editor.setCursorBufferPosition new Point(0, 0)
+          expect(editor.getPath()).toBe partialPath
+          expect(editor.getCursor().getCurrentBufferLine()).toMatch /^Form02 Partial$/
+
+
   describe "open spec behavior", ->
     describe "when current editor opens controller", ->
       beforeEach ->
