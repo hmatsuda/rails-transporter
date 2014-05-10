@@ -90,4 +90,10 @@ module.exports =
     else
       fileName = path.basename(assetName)
       
-    "#{atom.project.getPath()}/app/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
+    targetFile = "#{atom.project.getPath()}/app/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
+    if fs.existsSync(targetFile)
+      targetFile
+    else
+      "#{atom.project.getPath()}/vendor/assets/javascripts/#{path.dirname(assetName)}/#{fileName}"
+      
+      
