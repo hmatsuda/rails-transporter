@@ -9,6 +9,7 @@
         { 'label': 'Open Helper', 'command': 'rails-transporter:open-helper' }
         { 'label': 'Open Partial Template', 'command': 'rails-transporter:open-partial-template' }
         { 'label': 'Open Spec', 'command': 'rails-transporter:open-spec' }
+        { 'label': 'Open Asset', 'command': 'rails-transporter:open-asset' }
       ]
     ]
   }
