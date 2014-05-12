@@ -364,6 +364,22 @@ describe "RailsTransporter", ->
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's popular library$/
 
+      describe "when it includes in lib directory", ->
+        it "opens related asset javascript in lib directory", ->
+          editor.setCursorBufferPosition new Point(15, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "lib/assets/javascripts/my_library.js")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's my library$/
+
       describe "when it includes in public directory", ->
         it "opens related asset javascript in public directory", ->
           editor.setCursorBufferPosition new Point(9, 0)
@@ -450,6 +466,22 @@ describe "RailsTransporter", ->
           expect(editor.getPath()).toBe assetPath
           expect(editor.getCursor().getCurrentBufferLine()).toMatch /it's popular css file$/
     
+    describe "when it includes in lib directory", ->
+      it "opens related asset stylesheet in lib directory", ->
+        editor.setCursorBufferPosition new Point(16, 0)
+        atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+
+        runs ->
+          assetPath = path.join(atom.project.getPath(), "lib/assets/stylesheets/my_style.css")
+          editor = atom.workspace.getActiveEditor()
+          editor.setCursorBufferPosition new Point(0, 0)
+          expect(editor.getPath()).toBe assetPath
+          expect(editor.getCursor().getCurrentBufferLine()).toMatch /it's my css file$/
+
     describe "when it includes in public directory", ->
       it "opens related asset stylesheet in public directory", ->
         editor.setCursorBufferPosition new Point(14, 0)
