@@ -109,5 +109,6 @@ module.exports =
     else
       [
         "#{atom.project.getPath()}/app/assets/#{dirName}/#{path.dirname(assetName)}/#{fileName}"
+        "#{atom.project.getPath()}/lib/assets/#{dirName}/#{path.dirname(assetName)}/#{fileName}"
         "#{atom.project.getPath()}/vendor/assets/#{dirName}/#{path.dirname(assetName)}/#{fileName}"
       ]
