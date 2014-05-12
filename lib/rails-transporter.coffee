@@ -83,6 +83,14 @@ module.exports =
         targetFile = currentFile.replace('app/helpers', 'spec/helpers')
                                 .replace('.rb', '_spec.rb')
                                 
+    else if currentFile.indexOf("app/assets/") isnt -1
+      if type is 'asset'
+        line = editor.getCursor().getCurrentBufferLine()
+        if line.indexOf("require ") isnt -1
+          result = line.match(/require\s*([a-zA-Z0-9_\-\./]+)\s*$/)
+          targetFile = @assetFileFullPath(result[1], 'js')
+
+                                
     return unless targetFile?
     files = if typeof(targetFile) is 'string' then [targetFile] else targetFile
     for file in files
@@ -108,3 +116,18 @@ module.exports =
       assetsDir = if ext is 'js' then "javascripts" else "stylesheets"
       for location in ['app', 'lib', 'vendor']
         "#{atom.project.getPath()}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}"
+
+  assetFileFullPath: (assetName, ext) ->
+    if path.extname(assetName) is ""
+      fileName = "#{path.basename(assetName)}.#{ext}"
+    else
+      fileName = path.basename(assetName)
+    
+    if assetName.match(/^\//)
+      "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"
+    else
+      assetsDir = if ext is 'js' then "javascripts" else "stylesheets"
+      for location in ['app', 'lib', 'vendor']
+        for fileName in ["#{fileName}.coffee", fileName]
+          asset = "#{atom.project.getPath()}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}"
+          return asset if fs.existsSync asset
