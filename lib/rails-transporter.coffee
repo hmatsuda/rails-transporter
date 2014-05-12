@@ -102,12 +102,9 @@ module.exports =
     else
       fileName = path.basename(assetName)
     
-    dirName = if ext is 'js' then "javascripts" else "stylesheets"
-      
     if assetName.match(/^\//)
       "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"
     else
-      [
-        "#{atom.project.getPath()}/app/assets/#{dirName}/#{path.dirname(assetName)}/#{fileName}"
-        "#{atom.project.getPath()}/vendor/assets/#{dirName}/#{path.dirname(assetName)}/#{fileName}"
-      ]
+      assetsDir = if ext is 'js' then "javascripts" else "stylesheets"
+      for location in ['app', 'lib', 'vendor']
+        "#{atom.project.getPath()}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}"
