@@ -20,6 +20,40 @@ describe "RailsTransporter", ->
     atom.workspaceView = new WorkspaceView
     activationPromise = atom.packages.activatePackage('rails-transporter')
   
+  describe "migration-finder behavior", ->
+    describe "when the rails-transporter:toggle-migration-finder event is triggered", ->
+      it "shows the MigrationFinder or hides it if it's already showing", ->
+        expect(atom.workspaceView.find('.select-list')).not.toExist()
+  
+        # This is an activation event, triggering it will cause the package to be
+        # activated.
+        atom.workspaceView.trigger 'rails-transporter:toggle-migration-finder'
+  
+        # Waits until package is activated
+        waitsForPromise ->
+          activationPromise
+  
+        runs ->
+          expect(atom.workspaceView.find('.select-list')).toExist()
+          atom.workspaceView.trigger 'rails-transporter:toggle-migration-finder'
+          expect(atom.workspaceView.find('.select-list')).not.toExist()
+  
+      it "shows all migration paths and selects the first", ->
+        atom.workspaceView.trigger 'rails-transporter:toggle-migration-finder'
+  
+        # Waits until package is activated
+        waitsForPromise ->
+          activationPromise
+  
+        runs ->
+          migrationDir = path.join(atom.project.getPath(), "db/migrate")
+          expect(atom.workspaceView.find('.select-list li').length).toBe fs.readdirSync(migrationDir).length
+          for migration in fs.readdirSync(migrationDir)
+            expect(atom.workspaceView.find(".select-list .primary-line:contains(#{migration})")).toExist()
+            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(migrationDir, migration)})")).toExist()
+  
+          expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'
+  
   describe "view-finder behavior", ->
     beforeEach ->
       atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
