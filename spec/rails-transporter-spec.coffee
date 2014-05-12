@@ -396,104 +396,104 @@ describe "RailsTransporter", ->
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's in public directory$/
 
-  describe "when cursor is on line including stylesheet_link_tag", ->
-    beforeEach ->
-      atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/views/layouts/application.html.erb'))
-      editorView = atom.workspaceView.getActiveView()
-      editor = editorView.getEditor()
+    describe "when cursor is on line including stylesheet_link_tag", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/views/layouts/application.html.erb'))
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
 
-    describe "when it puts parentheses around arguments", ->
-      it "opens related asset stylesheet", ->
-        editor.setCursorBufferPosition new Point(10, 0)
-        atom.workspaceView.trigger 'rails-transporter:open-asset'
-
-        waitsFor ->
-          activationPromise
-          atom.workspaceView.getActivePane().getItems().length == 2
-
-        runs ->
-          assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/application.css")
-          editor = atom.workspace.getActiveEditor()
+      describe "when it puts parentheses around arguments", ->
+        it "opens related asset stylesheet", ->
           editor.setCursorBufferPosition new Point(10, 0)
-          expect(editor.getPath()).toBe assetPath
-          expect(editor.getCursor().getCurrentBufferLine()).toMatch /require_self$/
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
 
-    describe "when it doesn't put parentheses around arguments", ->
-      it "opens related asset stylesheet", ->
-        editor.setCursorBufferPosition new Point(11, 0)
-        atom.workspaceView.trigger 'rails-transporter:open-asset'
-    
-        waitsFor ->
-          activationPromise
-          atom.workspaceView.getActivePane().getItems().length == 2
-    
-        runs ->
-          assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/application.css")
-          editor = atom.workspace.getActiveEditor()
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/application.css")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(10, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /require_self$/
+
+      describe "when it doesn't put parentheses around arguments", ->
+        it "opens related asset stylesheet", ->
           editor.setCursorBufferPosition new Point(11, 0)
-          expect(editor.getPath()).toBe assetPath
-          expect(editor.getCursor().getCurrentBufferLine()).toMatch /require_tree/
-    
-    describe "when it specifies name with slash", ->
-      it "opens related asset stylesheet", ->
-        editor.setCursorBufferPosition new Point(12, 0)
-        atom.workspaceView.trigger 'rails-transporter:open-asset'
-    
-        waitsFor ->
-          activationPromise
-          atom.workspaceView.getActivePane().getItems().length == 2
-    
-        runs ->
-          assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/application02/common.css")
-          editor = atom.workspace.getActiveEditor()
-          editor.setCursorBufferPosition new Point(1, 0)
-          expect(editor.getPath()).toBe assetPath
-          expect(editor.getCursor().getCurrentBufferLine()).toMatch /require_self/
-    
-    describe "when it includes in vendor directory", ->
-      it "opens related asset stylesheet in vendor directory", ->
-        editor.setCursorBufferPosition new Point(13, 0)
-        atom.workspaceView.trigger 'rails-transporter:open-asset'
-    
-        waitsFor ->
-          activationPromise
-          atom.workspaceView.getActivePane().getItems().length == 2
-    
-        runs ->
-          assetPath = path.join(atom.project.getPath(), "vendor/assets/stylesheets/popular_style.css")
-          editor = atom.workspace.getActiveEditor()
-          editor.setCursorBufferPosition new Point(0, 0)
-          expect(editor.getPath()).toBe assetPath
-          expect(editor.getCursor().getCurrentBufferLine()).toMatch /it's popular css file$/
-    
-    describe "when it includes in lib directory", ->
-      it "opens related asset stylesheet in lib directory", ->
-        editor.setCursorBufferPosition new Point(16, 0)
-        atom.workspaceView.trigger 'rails-transporter:open-asset'
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/application.css")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(11, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /require_tree/
+      
+      describe "when it specifies name with slash", ->
+        it "opens related asset stylesheet", ->
+          editor.setCursorBufferPosition new Point(12, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/application02/common.css")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(1, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /require_self/
+      
+      describe "when it includes in vendor directory", ->
+        it "opens related asset stylesheet in vendor directory", ->
+          editor.setCursorBufferPosition new Point(13, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "vendor/assets/stylesheets/popular_style.css")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /it's popular css file$/
+      
+      describe "when it includes in lib directory", ->
+        it "opens related asset stylesheet in lib directory", ->
+          editor.setCursorBufferPosition new Point(16, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
 
-        waitsFor ->
-          activationPromise
-          atom.workspaceView.getActivePane().getItems().length == 2
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
 
-        runs ->
-          assetPath = path.join(atom.project.getPath(), "lib/assets/stylesheets/my_style.css")
-          editor = atom.workspace.getActiveEditor()
-          editor.setCursorBufferPosition new Point(0, 0)
-          expect(editor.getPath()).toBe assetPath
-          expect(editor.getCursor().getCurrentBufferLine()).toMatch /it's my css file$/
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "lib/assets/stylesheets/my_style.css")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /it's my css file$/
 
-    describe "when it includes in public directory", ->
-      it "opens related asset stylesheet in public directory", ->
-        editor.setCursorBufferPosition new Point(14, 0)
-        atom.workspaceView.trigger 'rails-transporter:open-asset'
-    
-        waitsFor ->
-          activationPromise
-          atom.workspaceView.getActivePane().getItems().length == 2
-    
-        runs ->
-          assetPath = path.join(atom.project.getPath(), "public/no_asset_pipeline.css")
-          editor = atom.workspace.getActiveEditor()
-          editor.setCursorBufferPosition new Point(0, 0)
-          expect(editor.getPath()).toBe assetPath
-          expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's css in public directory$/
+      describe "when it includes in public directory", ->
+        it "opens related asset stylesheet in public directory", ->
+          editor.setCursorBufferPosition new Point(14, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "public/no_asset_pipeline.css")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's css in public directory$/
