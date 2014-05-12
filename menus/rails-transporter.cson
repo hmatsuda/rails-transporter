@@ -5,6 +5,7 @@
       'label': 'Rails Transporter'
       'submenu': [
         { 'label': 'Toggle View Finder', 'command': 'rails-transporter:toggle-view-finder' }
+        { 'label': 'Toggle Migration Finder', 'command': 'rails-transporter:toggle-migration-finder' }
         { 'label': 'Open Model', 'command': 'rails-transporter:open-model' }
         { 'label': 'Open Helper', 'command': 'rails-transporter:open-helper' }
         { 'label': 'Open Partial Template', 'command': 'rails-transporter:open-partial-template' }

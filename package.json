@@ -5,6 +5,7 @@
   "description": "Powerful support development for Ruby on Rails",
   "activationEvents": [
     "rails-transporter:toggle-view-finder",
+    "rails-transporter:toggle-migration-finder",
     "rails-transporter:open-model",
     "rails-transporter:open-helper",
     "rails-transporter:open-partial-template",

@@ -9,6 +9,7 @@
 # https://atom.io/docs/latest/advanced/keymaps
 '.workspace':
   'ctrl-alt-r v': 'rails-transporter:toggle-view-finder'
+  'ctrl-alt-r v m': 'rails-transporter:toggle-migration-finder'
   'ctrl-alt-r m': 'rails-transporter:open-model'
   'ctrl-alt-r h': 'rails-transporter:open-helper'
   'ctrl-alt-r p': 'rails-transporter:open-partial-template'

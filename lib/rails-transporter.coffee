@@ -1,4 +1,5 @@
 ViewFinderView = require './view-finder-view'
+MigrationFinderView = require './migration-finder-view'
 path = require 'path'
 fs = require 'fs'
 pluralize = require 'pluralize'
@@ -7,6 +8,8 @@ module.exports =
   activate: (state) ->
     atom.workspaceView.command 'rails-transporter:toggle-view-finder', =>
       @createViewFinderView().toggle()
+    atom.workspaceView.command 'rails-transporter:toggle-migration-finder', =>
+      @createMigrationFinderView().toggle()
     atom.workspaceView.command 'rails-transporter:open-model', =>
       @open('model')
     atom.workspaceView.command 'rails-transporter:open-helper', =>
@@ -29,6 +32,12 @@ module.exports =
       @viewFinderView = new ViewFinderView()
       
     @viewFinderView
+    
+  createMigrationFinderView: ->
+    unless @migrationFinderView?
+      @migrationFinderView = new MigrationFinderView()
+      
+    @migrationFinderView
 
   open: (type) ->
     editor = atom.workspace.getActiveEditor()
