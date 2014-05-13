@@ -397,13 +397,13 @@ describe "RailsTransporter", ->
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's in public directory$/
             
     describe "when editor opens asset manifest and cursor is on line including require", ->
-      describe "when cursor is on line including require of assets manifest", ->
-        beforeEach ->
-          atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/assets/javascripts/application01.js'))
-          editorView = atom.workspaceView.getActiveView()
-          editor = editorView.getEditor()
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/assets/javascripts/application01.js'))
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
       
-        it "opens related asset javascript", ->
+      describe "when it requires coffeescript in same directory", ->
+        it "opens related asset coffeescript", ->
           editor.setCursorBufferPosition new Point(16, 0)
           atom.workspaceView.trigger 'rails-transporter:open-asset'
       
