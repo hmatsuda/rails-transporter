@@ -791,8 +791,12 @@ describe "RailsTransporter", ->
         editor.setCursorBufferPosition new Point(15, 0)
         activationPromise = atom.packages.activatePackage('rails-transporter')
         
-      describe "when editor opens asset manifest and current buffer line contains 'require_tree'", ->
-        it "shows all migration paths and selects the first", ->
+      describe "when active editor opens manifest file and current line contains 'require_tree'", ->
+        it "shows the RequireTreeFinder or hides it if it's already showing", ->
+          expect(atom.workspaceView.find('.select-list')).not.toExist()
+
+          # This is an activation event, triggering it will cause the package to be
+          # activated.
           atom.workspaceView.trigger 'rails-transporter:open-asset'
 
           # Waits until package is activated
@@ -800,5 +804,22 @@ describe "RailsTransporter", ->
             activationPromise
 
           runs ->
-            editor = atom.workspace.getActiveEditor()
-            expect(editor.getPath()).toBe 2
+            expect(atom.workspaceView.find('.select-list')).toExist()
+            atom.workspaceView.trigger 'rails-transporter:open-asset'
+            expect(atom.workspaceView.find('.select-list')).not.toExist()
+
+        it "shows files in required directory and selects the first", ->
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          # Waits until package is activated
+          waitsForPromise ->
+            activationPromise
+
+          runs ->
+            requireDir = path.join(atom.project.getPath(), "app/assets/javascripts/shared")
+            expect(atom.workspaceView.find('.select-list li').length).toBe fs.readdirSync(requireDir).length
+            for asset in fs.readdirSync(requireDir)
+              expect(atom.workspaceView.find(".select-list .primary-line:contains(#{asset})")).toExist()
+              expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(requireDir, asset)})")).toExist()
+
+            expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'
