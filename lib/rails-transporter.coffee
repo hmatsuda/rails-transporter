@@ -118,10 +118,11 @@ module.exports =
         "#{atom.project.getPath()}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}"
 
   assetFileFullPath: (assetName, ext) ->
-    if path.extname(assetName) is "js"
-      fileName = path.basename(assetName)
-    else
-      fileName = "#{path.basename(assetName)}.#{ext}"
+    switch path.extname(assetName)
+      when ".coffee", ".js"
+        fileName = path.basename(assetName)
+      else
+        fileName = "#{path.basename(assetName)}.#{ext}"
     
     if assetName.match(/^\//)
       "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"

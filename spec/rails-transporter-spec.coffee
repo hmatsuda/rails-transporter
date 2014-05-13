@@ -402,6 +402,38 @@ describe "RailsTransporter", ->
         editorView = atom.workspaceView.getActiveView()
         editor = editorView.getEditor()
       
+      describe "when it requires .js file", ->
+        it "opens related asset coffeescript", ->
+          editor.setCursorBufferPosition new Point(22, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/javascripts/blogs.js.coffee")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^# blogs js$/
+
+      describe "when it requires .js.coffee file", ->
+        it "opens related asset coffeescript", ->
+          editor.setCursorBufferPosition new Point(23, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/javascripts/blogs.js.coffee")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^# blogs js$/
+
       describe "when it requires coffeescript in same directory", ->
         it "opens related asset coffeescript", ->
           editor.setCursorBufferPosition new Point(16, 0)

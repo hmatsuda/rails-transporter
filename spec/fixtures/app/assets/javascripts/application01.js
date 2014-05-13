@@ -20,3 +20,5 @@
 //= require shared/pure-js-common
 //= require my_library
 //= require jquery.popular_library
+//= require blogs.js
+//= require blogs.js.coffee
