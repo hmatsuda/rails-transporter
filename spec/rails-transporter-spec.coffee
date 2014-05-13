@@ -417,6 +417,22 @@ describe "RailsTransporter", ->
             editor.setCursorBufferPosition new Point(0, 0)
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^# blogs js$/
+            
+      describe "when it requires javascript in same directory", ->
+        it "opens related asset javascript", ->
+          editor.setCursorBufferPosition new Point(17, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/javascripts/pure-js-blogs.js")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^# pure blogs js$/
       
     describe "when cursor is on line including stylesheet_link_tag", ->
       beforeEach ->
