@@ -73,16 +73,26 @@ module.exports =
         line = editor.getCursor().getCurrentBufferLine()
         if line.indexOf("javascript_include_tag") isnt -1
           result = line.match(/javascript_include_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
-          targetFile = @assetManifestFullPath(result[1], 'js')
+          targetFile = @assetFullPath(result[1], 'js')
         else if line.indexOf("stylesheet_link_tag") isnt -1
           result = line.match(/stylesheet_link_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
-          targetFile = @assetManifestFullPath(result[1], 'css')
+          targetFile = @assetFullPath(result[1], 'css')
 
     else if currentFile.search(/app\/helpers\/.+_helper.rb$/) isnt -1
       if type is 'spec'
         targetFile = currentFile.replace('app/helpers', 'spec/helpers')
                                 .replace('.rb', '_spec.rb')
                                 
+    else if currentFile.indexOf("app/assets/") isnt -1
+      if type is 'asset'
+        line = editor.getCursor().getCurrentBufferLine()
+        if line.indexOf("require ") isnt -1
+          result = line.match(/require\s*([a-zA-Z0-9_\-\./]+)\s*$/)
+          if currentFile.indexOf("app/assets/javascripts") isnt -1
+            targetFile = @assetFullPath(result[1], 'js')
+          else if currentFile.indexOf("app/assets/stylesheets") isnt -1
+            targetFile = @assetFullPath(result[1], 'css')
+
     return unless targetFile?
     files = if typeof(targetFile) is 'string' then [targetFile] else targetFile
     for file in files
@@ -96,15 +106,18 @@ module.exports =
     else
       "#{atom.project.getPath()}/app/views/#{path.dirname(partialName)}/_#{path.basename(partialName)}#{ext}#{tmplEngine}"
   
-  assetManifestFullPath: (assetName, ext) ->
-    if path.extname(assetName) is ""
-      fileName = "#{path.basename(assetName)}.#{ext}"
-    else
-      fileName = path.basename(assetName)
+  assetFullPath: (assetName, ext) ->
+    switch path.extname(assetName)
+      when ".coffee", ".js", ".scss", ".css"
+        fileName = path.basename(assetName)
+      else
+        fileName = "#{path.basename(assetName)}.#{ext}"
     
     if assetName.match(/^\//)
       "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"
     else
       assetsDir = if ext is 'js' then "javascripts" else "stylesheets"
       for location in ['app', 'lib', 'vendor']
-        "#{atom.project.getPath()}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}"
+        for fileName in ["#{fileName}.scss", "#{fileName}.coffee", fileName]
+          asset = "#{atom.project.getPath()}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}"
+          return asset if fs.existsSync asset

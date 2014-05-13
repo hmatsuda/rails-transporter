@@ -10,4 +10,15 @@
  *
  *= require_self
  *= require_tree .
+ *= require blogs.css
+ *= require blogs.css.scss
+ *= require pure-css-blogs
+ *= require blogs
+ *= require shared/pure-css-common
+ *= require shared/common
+ *= require my_style
+ *= require pure_css_my_style
+ *= require jquery.popular_style
+ *= require jquery.pure_css_popular_style
  */
+ 

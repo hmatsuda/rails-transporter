@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= require blogs
+//= require pure-js-blogs
+//= require shared/common
+//= require shared/pure-js-common
+//= require my_library
+//= require jquery.popular_library
+//= require blogs.js
+//= require blogs.js.coffee
