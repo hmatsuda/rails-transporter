@@ -14,8 +14,12 @@ class RequireTreeFinderView extends BaseFinderView
     result = line.match(/require_tree\s*([a-zA-Z0-9_\-\./]+)\s*$/)
     
     for asset in fs.readdirSync(path.join(dir, result[1]))
-      if fs.statSync(asset).isFile()
-        @displayFiles.push "#{dir}/#{asset}"
+      fullPath = path.join(dir, result[1], asset)
+      stat = fs.statSync fullPath
+      if stat.isFile()
+        @displayFiles.push fullPath
 
-          
     @setItems(@displayFiles)
+
+
+    
