@@ -433,6 +433,38 @@ describe "RailsTransporter", ->
             editor.setCursorBufferPosition new Point(0, 0)
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^# pure blogs js$/
+            
+      describe "when it requires coffeescript in another directory", ->
+        it "opens related asset coffeescript", ->
+          editor.setCursorBufferPosition new Point(18, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/javascripts/shared/common.js.coffee")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^# shared coffee$/
+            
+      describe "when it requires javascript in another directory", ->
+        it "opens related asset javascript", ->
+          editor.setCursorBufferPosition new Point(19, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/javascripts/shared/pure-js-common.js")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^# shared js$/
       
     describe "when cursor is on line including stylesheet_link_tag", ->
       beforeEach ->

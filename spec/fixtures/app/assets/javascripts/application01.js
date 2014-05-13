@@ -16,3 +16,5 @@
 //= require_tree .
 //= require blogs
 //= require pure-js-blogs
+//= require shared/common
+//= require shared/pure-js-common
