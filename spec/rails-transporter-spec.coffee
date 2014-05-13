@@ -434,7 +434,7 @@ describe "RailsTransporter", ->
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^# blogs js$/
 
-      describe "when it requires coffeescript in same directory", ->
+      describe "when it requires coffeescript w/o suffix", ->
         it "opens related asset coffeescript", ->
           editor.setCursorBufferPosition new Point(16, 0)
           atom.workspaceView.trigger 'rails-transporter:open-asset'
@@ -450,7 +450,7 @@ describe "RailsTransporter", ->
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^# blogs js$/
             
-      describe "when it requires javascript in same directory", ->
+      describe "when it requires javascript w/o suffix", ->
         it "opens related asset javascript", ->
           editor.setCursorBufferPosition new Point(17, 0)
           atom.workspaceView.trigger 'rails-transporter:open-asset'
@@ -595,11 +595,11 @@ describe "RailsTransporter", ->
             atom.workspaceView.getActivePane().getItems().length == 2
       
           runs ->
-            assetPath = path.join(atom.project.getPath(), "vendor/assets/stylesheets/jquery.popular_style.css")
+            assetPath = path.join(atom.project.getPath(), "vendor/assets/stylesheets/jquery.popular_style.css.scss")
             editor = atom.workspace.getActiveEditor()
             editor.setCursorBufferPosition new Point(0, 0)
             expect(editor.getPath()).toBe assetPath
-            expect(editor.getCursor().getCurrentBufferLine()).toMatch /it's popular css file$/
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /it's popular scss file$/
       
       describe "when it includes in lib directory", ->
         it "opens related asset stylesheet in lib directory", ->
@@ -611,11 +611,11 @@ describe "RailsTransporter", ->
             atom.workspaceView.getActivePane().getItems().length == 2
 
           runs ->
-            assetPath = path.join(atom.project.getPath(), "lib/assets/stylesheets/my_style.css")
+            assetPath = path.join(atom.project.getPath(), "lib/assets/stylesheets/my_style.css.scss")
             editor = atom.workspace.getActiveEditor()
             editor.setCursorBufferPosition new Point(0, 0)
             expect(editor.getPath()).toBe assetPath
-            expect(editor.getCursor().getCurrentBufferLine()).toMatch /it's my css file$/
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /it's my scss file$/
 
       describe "when it includes in public directory", ->
         it "opens related asset stylesheet in public directory", ->
@@ -632,3 +632,153 @@ describe "RailsTransporter", ->
             editor.setCursorBufferPosition new Point(0, 0)
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's css in public directory$/
+
+    describe "when editor opens asset manifest and cursor is on line including require", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/assets/stylesheets/application.css'))
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
+      
+      describe "when it requires .css file", ->
+        it "opens related asset css", ->
+          editor.setCursorBufferPosition new Point(12, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/blogs.css.scss")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's blogs.css$/
+
+      describe "when it requires .css.scss file", ->
+        it "opens related asset css", ->
+          editor.setCursorBufferPosition new Point(13, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/blogs.css.scss")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's blogs.css$/
+      
+      describe "when it requires css w/o suffix", ->
+        it "opens related asset css", ->
+          editor.setCursorBufferPosition new Point(14, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/pure-css-blogs.css")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's pure css$/
+      
+      describe "when it requires scss w/o suffix", ->
+        it "opens related asset javascript", ->
+          editor.setCursorBufferPosition new Point(15, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/blogs.css.scss")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's blogs.css$/
+      
+      describe "when it requires scss in another directory", ->
+        it "opens scss from another directory", ->
+          editor.setCursorBufferPosition new Point(16, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/shared/pure-css-common.css")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's pure css$/
+      
+      describe "when it requires css in another directory", ->
+        it "opens css from another directory", ->
+          editor.setCursorBufferPosition new Point(17, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "app/assets/stylesheets/shared/common.css.scss")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's scss$/
+      
+      describe "when it requires scss in lib directory", ->
+        it "opens scss from lib directory", ->
+          editor.setCursorBufferPosition new Point(18, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "lib/assets/stylesheets/my_style.css.scss")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's my scss file$/
+      
+      describe "when it requires css from lib directory", ->
+        it "opens css from lib directory", ->
+          editor.setCursorBufferPosition new Point(19, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "lib/assets/stylesheets/pure_css_my_style.css")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's my css file$/
+
+      describe "when it requires scss in vendor directory", ->
+        it "opens scss from vendor directory", ->
+          editor.setCursorBufferPosition new Point(20, 0)
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          waitsFor ->
+            activationPromise
+            atom.workspaceView.getActivePane().getItems().length == 2
+      
+          runs ->
+            assetPath = path.join(atom.project.getPath(), "vendor/assets/stylesheets/jquery.popular_style.css.scss")
+            editor = atom.workspace.getActiveEditor()
+            editor.setCursorBufferPosition new Point(0, 0)
+            expect(editor.getPath()).toBe assetPath
+            expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's popular scss file$/
