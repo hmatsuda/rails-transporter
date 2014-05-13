@@ -90,7 +90,7 @@ module.exports =
           result = line.match(/require\s*([a-zA-Z0-9_\-\./]+)\s*$/)
           targetFile = @assetFileFullPath(result[1], 'js')
 
-                                
+
     return unless targetFile?
     files = if typeof(targetFile) is 'string' then [targetFile] else targetFile
     for file in files
@@ -105,10 +105,10 @@ module.exports =
       "#{atom.project.getPath()}/app/views/#{path.dirname(partialName)}/_#{path.basename(partialName)}#{ext}#{tmplEngine}"
   
   assetManifestFullPath: (assetName, ext) ->
-    if path.extname(assetName) is ""
-      fileName = "#{path.basename(assetName)}.#{ext}"
-    else
+    if path.extname(assetName) is "js"
       fileName = path.basename(assetName)
+    else
+      fileName = "#{path.basename(assetName)}.#{ext}"
     
     if assetName.match(/^\//)
       "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"
@@ -118,10 +118,10 @@ module.exports =
         "#{atom.project.getPath()}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}"
 
   assetFileFullPath: (assetName, ext) ->
-    if path.extname(assetName) is ""
-      fileName = "#{path.basename(assetName)}.#{ext}"
-    else
+    if path.extname(assetName) is "js"
       fileName = path.basename(assetName)
+    else
+      fileName = "#{path.basename(assetName)}.#{ext}"
     
     if assetName.match(/^\//)
       "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"

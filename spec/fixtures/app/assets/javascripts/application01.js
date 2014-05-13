@@ -19,4 +19,4 @@
 //= require shared/common
 //= require shared/pure-js-common
 //= require my_library
-//= require popular_library
+//= require jquery.popular_library

@@ -358,7 +358,7 @@ describe "RailsTransporter", ->
             atom.workspaceView.getActivePane().getItems().length == 2
 
           runs ->
-            assetPath = path.join(atom.project.getPath(), "vendor/assets/javascripts/popular_library.js")
+            assetPath = path.join(atom.project.getPath(), "vendor/assets/javascripts/jquery.popular_library.js")
             editor = atom.workspace.getActiveEditor()
             editor.setCursorBufferPosition new Point(0, 0)
             expect(editor.getPath()).toBe assetPath
@@ -492,7 +492,7 @@ describe "RailsTransporter", ->
             atom.workspaceView.getActivePane().getItems().length == 2
 
           runs ->
-            assetPath = path.join(atom.project.getPath(), "vendor/assets/javascripts/popular_library.js")
+            assetPath = path.join(atom.project.getPath(), "vendor/assets/javascripts/jquery.popular_library.js")
             editor = atom.workspace.getActiveEditor()
             editor.setCursorBufferPosition new Point(0, 0)
             expect(editor.getPath()).toBe assetPath
@@ -563,7 +563,7 @@ describe "RailsTransporter", ->
             atom.workspaceView.getActivePane().getItems().length == 2
       
           runs ->
-            assetPath = path.join(atom.project.getPath(), "vendor/assets/stylesheets/popular_style.css")
+            assetPath = path.join(atom.project.getPath(), "vendor/assets/stylesheets/jquery.popular_style.css")
             editor = atom.workspace.getActiveEditor()
             editor.setCursorBufferPosition new Point(0, 0)
             expect(editor.getPath()).toBe assetPath
