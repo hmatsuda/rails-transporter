@@ -782,3 +782,23 @@ describe "RailsTransporter", ->
             editor.setCursorBufferPosition new Point(0, 0)
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's popular scss file$/
+
+    describe "require-tree-finder behavior", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/assets/javascripts/application01.js'))
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
+        editor.setCursorBufferPosition new Point(15, 0)
+        activationPromise = atom.packages.activatePackage('rails-transporter')
+        
+      describe "when editor opens asset manifest and current buffer line contains 'require_tree'", ->
+        it "shows all migration paths and selects the first", ->
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          # Waits until package is activated
+          waitsForPromise ->
+            activationPromise
+
+          runs ->
+            editor = atom.workspace.getActiveEditor()
+            expect(editor.getPath()).toBe 2

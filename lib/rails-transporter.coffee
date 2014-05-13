@@ -1,5 +1,6 @@
 ViewFinderView = require './view-finder-view'
 MigrationFinderView = require './migration-finder-view'
+RequireTreeFinderView = require './require-tree-finder-view'
 path = require 'path'
 fs = require 'fs'
 pluralize = require 'pluralize'
@@ -38,6 +39,12 @@ module.exports =
       @migrationFinderView = new MigrationFinderView()
       
     @migrationFinderView
+
+  createRequireTreeFinderView: ->
+    unless @requireTreeFinderView?
+      @requireTreeFinderView = new RequireTreeFinderView()
+      
+    @requireTreeFinderView
 
   open: (type) ->
     editor = atom.workspace.getActiveEditor()
@@ -92,6 +99,8 @@ module.exports =
             targetFile = @assetFullPath(result[1], 'js')
           else if currentFile.indexOf("app/assets/stylesheets") isnt -1
             targetFile = @assetFullPath(result[1], 'css')
+        else if line.indexOf("require_tree ") isnt -1
+          @createRequireTreeFinderView().toggle()
 
     return unless targetFile?
     files = if typeof(targetFile) is 'string' then [targetFile] else targetFile
