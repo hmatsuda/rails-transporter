@@ -15,8 +15,8 @@ class SprocketsFinderView extends BaseFinderView
     
     for asset in fs.readdirSync(path.join(dir, result[1]))
       fullPath = path.join(dir, result[1], asset)
-      stat = fs.statSync fullPath
-      if stat.isFile()
+      stats = fs.statSync fullPath
+      if stats.isFile()
         @displayFiles.push fullPath
 
     @setItems(@displayFiles)
