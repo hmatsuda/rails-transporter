@@ -782,3 +782,47 @@ describe "RailsTransporter", ->
             editor.setCursorBufferPosition new Point(0, 0)
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's popular scss file$/
+
+    describe "asset-finder behavior", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/assets/javascripts/application01.js'))
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
+        editor.setCursorBufferPosition new Point(15, 0)
+        activationPromise = atom.packages.activatePackage('rails-transporter')
+        
+      describe "when active editor opens manifest file and current line contains 'require_tree'", ->
+        it "shows the RequireTreeFinder or hides it if it's already showing", ->
+          expect(atom.workspaceView.find('.select-list')).not.toExist()
+
+          # This is an activation event, triggering it will cause the package to be
+          # activated.
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          # Waits until package is activated
+          waitsForPromise ->
+            activationPromise
+
+          runs ->
+            expect(atom.workspaceView.find('.select-list')).toExist()
+            atom.workspaceView.trigger 'rails-transporter:open-asset'
+            expect(atom.workspaceView.find('.select-list')).not.toExist()
+
+        it "shows files in required directory and selects the first", ->
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+          # Waits until package is activated
+          waitsForPromise ->
+            activationPromise
+
+          runs ->
+            requireDir = path.join(atom.project.getPath(), "app/assets/javascripts/shared")
+            expect(atom.workspaceView.find('.select-list li').length).toBe fs.readdirSync(requireDir).length
+            # file be located directly below
+            expect(atom.workspaceView.find(".select-list .primary-line:contains(common.js.coffee)")).toExist()
+            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(requireDir, 'common.js.coffee')})")).toExist()
+            # file be located subdirectory
+            expect(atom.workspaceView.find(".select-list .primary-line:contains(subdir.js.coffee)")).toExist()
+            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(requireDir, 'subdir/subdir.js.coffee')})")).toExist()
+
+            expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'

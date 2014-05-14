@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require_tree shared
 //= require blogs
 //= require pure-js-blogs
 //= require shared/common
