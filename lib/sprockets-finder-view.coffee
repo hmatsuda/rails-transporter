@@ -13,10 +13,14 @@ class SprocketsFinderView extends BaseFinderView
     line = editor.getCursor().getCurrentBufferLine()
     result = line.match(/require_tree\s*([a-zA-Z0-9_\-\./]+)\s*$/)
     
-    for asset in fs.readdirSync(path.join(dir, result[1]))
-      fullPath = path.join(dir, result[1], asset)
-      stats = fs.statSync fullPath
-      if stats.isFile()
-        @displayFiles.push fullPath
-
+    @loadFolder path.join(dir, result[1])
     @setItems(@displayFiles)
+
+  loadFolder: (folderPath) ->
+    for asset in fs.readdirSync(folderPath)
+      fullPath = path.join(folderPath, asset)
+      stats = fs.statSync fullPath
+      if stats.isDirectory()
+        @loadFolder fullPath
+      else if stats.isFile()
+        @displayFiles.push fullPath
