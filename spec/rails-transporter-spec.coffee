@@ -818,8 +818,11 @@ describe "RailsTransporter", ->
           runs ->
             requireDir = path.join(atom.project.getPath(), "app/assets/javascripts/shared")
             expect(atom.workspaceView.find('.select-list li').length).toBe fs.readdirSync(requireDir).length
-            for asset in fs.readdirSync(requireDir)
-              expect(atom.workspaceView.find(".select-list .primary-line:contains(#{asset})")).toExist()
-              expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(requireDir, asset)})")).toExist()
+            # file be located directly below
+            expect(atom.workspaceView.find(".select-list .primary-line:contains(common.js.coffee)")).toExist()
+            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(requireDir, 'common.js.coffee')})")).toExist()
+            # file be located subdirectory
+            expect(atom.workspaceView.find(".select-list .primary-line:contains(subdir.js.coffee)")).toExist()
+            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(requireDir, 'subdir/subdir.js.coffee')})")).toExist()
 
             expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'
