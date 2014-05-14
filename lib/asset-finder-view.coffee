@@ -4,7 +4,7 @@ path = require 'path'
 BaseFinderView = require './base-finder-view'
 
 module.exports =
-class SprocketsFinderView extends BaseFinderView
+class AssetFinderView extends BaseFinderView
   populate: ->
     @displayFiles.length = 0
     

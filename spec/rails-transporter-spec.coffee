@@ -783,7 +783,7 @@ describe "RailsTransporter", ->
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's popular scss file$/
 
-    describe "require-tree-finder behavior", ->
+    describe "asset-finder behavior", ->
       beforeEach ->
         atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/assets/javascripts/application01.js'))
         editorView = atom.workspaceView.getActiveView()

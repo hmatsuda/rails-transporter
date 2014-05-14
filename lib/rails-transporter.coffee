@@ -1,6 +1,6 @@
 ViewFinderView = require './view-finder-view'
 MigrationFinderView = require './migration-finder-view'
-SprocketsFinderView = require './sprockets-finder-view'
+AssetFinderView = require './asset-finder-view'
 path = require 'path'
 fs = require 'fs'
 pluralize = require 'pluralize'
@@ -40,11 +40,11 @@ module.exports =
       
     @migrationFinderView
 
-  createSprocketsFinderView: ->
-    unless @sprocketsFinderView?
-      @sprocketsFinderView = new SprocketsFinderView()
+  createAssetFinderView: ->
+    unless @assetFinderView?
+      @assetFinderView = new AssetFinderView()
       
-    @sprocketsFinderView
+    @assetFinderView
 
   open: (type) ->
     editor = atom.workspace.getActiveEditor()
@@ -100,7 +100,7 @@ module.exports =
           else if currentFile.indexOf("app/assets/stylesheets") isnt -1
             targetFile = @assetFullPath(result[1], 'css')
         else if line.indexOf("require_tree ") isnt -1
-          @createSprocketsFinderView().toggle()
+          @createAssetFinderView().toggle()
 
     return unless targetFile?
     files = if typeof(targetFile) is 'string' then [targetFile] else targetFile
