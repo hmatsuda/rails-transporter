@@ -27,7 +27,7 @@ class BaseFinderView extends SelectListView
     $$ ->
       @li class: 'two-lines', =>
         @div path.basename(item), class: "primary-line file icon icon-file-text"
-        @div item, class: 'secondary-line path no-icon'
+        @div atom.project.relativize(item), class: 'secondary-line path no-icon'
   
   confirmed: (item) ->
     atom.workspaceView.open item

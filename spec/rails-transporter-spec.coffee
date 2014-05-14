@@ -50,7 +50,7 @@ describe "RailsTransporter", ->
           expect(atom.workspaceView.find('.select-list li').length).toBe fs.readdirSync(migrationDir).length
           for migration in fs.readdirSync(migrationDir)
             expect(atom.workspaceView.find(".select-list .primary-line:contains(#{migration})")).toExist()
-            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(migrationDir, migration)})")).toExist()
+            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(migrationDir, migration))})")).toExist()
   
           expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'
   
@@ -87,7 +87,7 @@ describe "RailsTransporter", ->
           expect(atom.workspaceView.find('.select-list li').length).toBe fs.readdirSync(viewDir).length
           for view in fs.readdirSync(viewDir)
             expect(atom.workspaceView.find(".select-list .primary-line:contains(#{view})")).toExist()
-            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(viewDir, view)})")).toExist()
+            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(viewDir, view))})")).toExist()
   
           expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'
   
@@ -820,9 +820,9 @@ describe "RailsTransporter", ->
             expect(atom.workspaceView.find('.select-list li').length).toBe fs.readdirSync(requireDir).length
             # file be located directly below
             expect(atom.workspaceView.find(".select-list .primary-line:contains(common.js.coffee)")).toExist()
-            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(requireDir, 'common.js.coffee')})")).toExist()
+            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(requireDir, 'common.js.coffee'))})")).toExist()
             # file be located subdirectory
             expect(atom.workspaceView.find(".select-list .primary-line:contains(subdir.js.coffee)")).toExist()
-            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{path.join(requireDir, 'subdir/subdir.js.coffee')})")).toExist()
+            expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(requireDir, 'subdir/subdir.js.coffee'))})")).toExist()
 
             expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'
