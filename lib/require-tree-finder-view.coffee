@@ -20,6 +20,3 @@ class RequireTreeFinderView extends BaseFinderView
         @displayFiles.push fullPath
 
     @setItems(@displayFiles)
-
-
-    
