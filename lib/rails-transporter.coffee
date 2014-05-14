@@ -99,7 +99,7 @@ module.exports =
             targetFile = @assetFullPath(result[1], 'js')
           else if currentFile.indexOf("app/assets/stylesheets") isnt -1
             targetFile = @assetFullPath(result[1], 'css')
-        else if line.indexOf("require_tree ") isnt -1
+        else if line.indexOf("require_tree ") isnt -1 or line.indexOf("require_directory ") isnt -1
           @createAssetFinderView().toggle()
 
     return unless targetFile?
