@@ -54,6 +54,7 @@ describe "RailsTransporter", ->
   
           expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'
   
+  
   describe "view-finder behavior", ->
     beforeEach ->
       atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
@@ -530,7 +531,6 @@ describe "RailsTransporter", ->
             expect(editor.getPath()).toBe assetPath
             expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's popular library$/
 
-      
     describe "when cursor is on line including stylesheet_link_tag", ->
       beforeEach ->
         atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/views/layouts/application.html.erb'))
@@ -788,33 +788,34 @@ describe "RailsTransporter", ->
         atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/assets/javascripts/application01.js'))
         editorView = atom.workspaceView.getActiveView()
         editor = editorView.getEditor()
-        editor.setCursorBufferPosition new Point(15, 0)
-        activationPromise = atom.packages.activatePackage('rails-transporter')
-        
-      describe "when active editor opens manifest file and current line contains 'require_tree'", ->
-        it "shows the RequireTreeFinder or hides it if it's already showing", ->
-          expect(atom.workspaceView.find('.select-list')).not.toExist()
 
+      describe "when active editor opens manifest file and current line contains 'require_tree'", ->
+        beforeEach ->
+          editor.setCursorBufferPosition new Point(15, 0)
+
+        it "shows the AssetFinder or hides it if it's already showing", ->
+          expect(atom.workspaceView.find('.select-list')).not.toExist()
+      
           # This is an activation event, triggering it will cause the package to be
           # activated.
           atom.workspaceView.trigger 'rails-transporter:open-asset'
-
+      
           # Waits until package is activated
           waitsForPromise ->
             activationPromise
-
+      
           runs ->
             expect(atom.workspaceView.find('.select-list')).toExist()
             atom.workspaceView.trigger 'rails-transporter:open-asset'
             expect(atom.workspaceView.find('.select-list')).not.toExist()
-
-        it "shows files in required directory and selects the first", ->
+      
+        it "shows file paths in required directory and its subdirectories and selects the first", ->
           atom.workspaceView.trigger 'rails-transporter:open-asset'
-
+      
           # Waits until package is activated
           waitsForPromise ->
             activationPromise
-
+      
           runs ->
             requireDir = path.join(atom.project.getPath(), "app/assets/javascripts/shared")
             expect(atom.workspaceView.find('.select-list li').length).toBe fs.readdirSync(requireDir).length
@@ -824,5 +825,47 @@ describe "RailsTransporter", ->
             # file be located subdirectory
             expect(atom.workspaceView.find(".select-list .primary-line:contains(subdir.js.coffee)")).toExist()
             expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(requireDir, 'subdir/subdir.js.coffee'))})")).toExist()
+      
+            expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'
+            # hide finder
+            atom.workspaceView.trigger 'rails-transporter:open-asset'
 
+      describe "when active editor opens manifest file and current line contains 'require_directory'", ->
+        beforeEach ->
+          editor.setCursorBufferPosition new Point(24, 0)
+      
+        it "shows the AssetFinder or hides it if it's already showing", ->
+          expect(atom.workspaceView.find('.select-list')).not.toExist()
+      
+          # This is an activation event, triggering it will cause the package to be
+          # activated.
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          # Waits until package is activated
+          waitsForPromise ->
+            activationPromise
+      
+          runs ->
+            expect(atom.workspaceView.find('.select-list')).toExist()
+            atom.workspaceView.trigger 'rails-transporter:open-asset'
+            expect(atom.workspaceView.find('.select-list')).not.toExist()
+      
+        it "shows file paths in required directory and selects the first", ->
+          atom.workspaceView.trigger 'rails-transporter:open-asset'
+      
+          # Waits until package is activated
+          waitsForPromise ->
+            activationPromise
+      
+          runs ->
+            requireDir = path.join(atom.project.getPath(), "app/assets/javascripts/shared")
+            filesInDirectory = (file for file in fs.readdirSync(requireDir) when fs.lstatSync(path.join(requireDir, file)).isFile())
+            
+            expect(atom.workspaceView.find('.select-list li').length).toBe filesInDirectory.length
+            for file in filesInDirectory
+              # file be located directly below
+              expect(atom.workspaceView.find(".select-list .primary-line:contains(#{file})")).toExist()
+              expect(atom.workspaceView.find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(requireDir, file))})")).toExist()
+
+            # expect(atom.workspaceView.find('.select-list li').length).toBe
             expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'

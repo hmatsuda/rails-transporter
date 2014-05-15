@@ -22,3 +22,4 @@
 //= require jquery.popular_library
 //= require blogs.js
 //= require blogs.js.coffee
+//= require_directory shared
