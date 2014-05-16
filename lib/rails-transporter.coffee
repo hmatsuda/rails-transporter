@@ -67,6 +67,11 @@ module.exports =
                                 .replace('.rb', '_spec.rb')
                                 
     else if currentFile.indexOf("app/views/") isnt -1
+      if type is 'model'
+        dir = path.dirname(currentFile)
+        resource = path.basename(dir)
+        targetFile = dir.replace("app/views/", "app/models/")
+                        .replace(resource, "#{pluralize.singular(resource)}.rb")
       if type is 'partial'
         line = editor.getCursor().getCurrentBufferLine()
         if line.indexOf("render") isnt -1
