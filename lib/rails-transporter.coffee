@@ -21,6 +21,9 @@ module.exports =
       @open('spec')
     atom.workspaceView.command 'rails-transporter:open-asset', =>
       @open('asset')
+    atom.workspaceView.command 'rails-transporter:open-controller', =>
+      @open('controller')
+
 
 
 
@@ -65,6 +68,11 @@ module.exports =
       if type is 'spec'
         targetFile = currentFile.replace('app/models', 'spec/models')
                                 .replace('.rb', '_spec.rb')
+      if type is 'controller'
+        resource = path.basename(currentFile, '.rb')
+        targetFile = currentFile.replace('models', 'controllers')
+                                .replace(resource, "#{pluralize(resource)}_controller")
+
                                 
     else if currentFile.indexOf("app/views/") isnt -1
       if type is 'model'

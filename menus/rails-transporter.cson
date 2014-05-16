@@ -11,6 +11,7 @@
         { 'label': 'Open Partial Template', 'command': 'rails-transporter:open-partial-template' }
         { 'label': 'Open Spec', 'command': 'rails-transporter:open-spec' }
         { 'label': 'Open Asset', 'command': 'rails-transporter:open-asset' }
+        { 'label': 'Open Controller', 'command': 'rails-transporter:open-controller' }
       ]
     ]
   }
