@@ -101,6 +101,11 @@ module.exports =
             targetFile = @assetFullPath(result[1], 'css')
         else if line.indexOf("require_tree ") isnt -1 or line.indexOf("require_directory ") isnt -1
           @createAssetFinderView().toggle()
+          
+    else if currentFile.indexOf("_spec.rb") isnt -1
+      if type is 'model'
+        targetFile = currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
+
 
     return unless targetFile?
     files = if typeof(targetFile) is 'string' then [targetFile] else targetFile

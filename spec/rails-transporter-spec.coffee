@@ -92,24 +92,44 @@ describe "RailsTransporter", ->
           expect(atom.workspaceView.find(".select-list li:first")).toHaveClass 'two-lines selected'
   
   describe "open-model behavior", ->
-    beforeEach ->
-      atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
+    describe "when active editor opens controller", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
+    
+      it "opens related model", ->
+        atom.workspaceView.trigger 'rails-transporter:open-model'
+    
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+    
+        runs ->
+          modelPath = path.join(atom.project.getPath(), "app/models/blog.rb")
+          editor = atom.workspace.getActiveEditor()
+          editor.setCursorBufferPosition new Point(0, 0)
+          expect(editor.getPath()).toBe modelPath
+          expect(editor.getCursor().getCurrentBufferLine()).toMatch /^class Blog < ActiveRecord::Base$/
   
-    it "opens related model if active editor opens controller", ->
-      atom.workspaceView.trigger 'rails-transporter:open-model'
-  
-      # Waits until package is activated and active panes count is 2
-      waitsFor ->
-        activationPromise
-        atom.workspaceView.getActivePane().getItems().length == 2
-  
-      runs ->
-        modelPath = path.join(atom.project.getPath(), "app/models/blog.rb")
-        editor = atom.workspace.getActiveEditor()
-        editor.setCursorBufferPosition new Point(0, 0)
-        expect(editor.getPath()).toBe modelPath
-        expect(editor.getCursor().getCurrentBufferLine()).toMatch /^class Blog < ActiveRecord::Base$/
-  
+    describe "when active editor opens model spec", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'spec/models/blog_spec.rb'))
+    
+      it "opens related model", ->
+        atom.workspaceView.trigger 'rails-transporter:open-model'
+    
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+    
+        runs ->
+          modelPath = path.join(atom.project.getPath(), "app/models/blog.rb")
+          editor = atom.workspace.getActiveEditor()
+          editor.setCursorBufferPosition new Point(0, 0)
+          expect(editor.getPath()).toBe modelPath
+          expect(editor.getCursor().getCurrentBufferLine()).toMatch /^class Blog < ActiveRecord::Base$/
+
   describe "open-helper behavior", ->
     beforeEach ->
       atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
