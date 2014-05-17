@@ -4,14 +4,14 @@
   "version": "0.0.0",
   "description": "Powerful support development for Ruby on Rails",
   "activationEvents": [
-    "rails-transporter:toggle-view-finder",
-    "rails-transporter:toggle-migration-finder",
+    "rails-transporter:open-controller",
+    "rails-transporter:open-view-finder",
     "rails-transporter:open-model",
     "rails-transporter:open-helper",
-    "rails-transporter:open-partial-template",
     "rails-transporter:open-spec",
+    "rails-transporter:open-partial-template",
     "rails-transporter:open-asset",
-    "rails-transporter:open-controller"
+    "rails-transporter:toggle-migration-finder"
   ],
   "repository": "https://github.com/hmatsuda/rails-transporter",
   "license": "MIT",
