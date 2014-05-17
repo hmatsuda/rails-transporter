@@ -937,3 +937,22 @@ describe "RailsTransporter", ->
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe modelPath
           expect(editor.getCursor().getCurrentBufferLine()).toMatch /^class BlogsController < ApplicationController$/
+            
+    describe "when active editor opens view", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/views/blogs/show.html.haml'))
+    
+      it "opens related controller", ->
+        atom.workspaceView.trigger 'rails-transporter:open-controller'
+    
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+    
+        runs ->
+          modelPath = path.join(atom.project.getPath(), "app/controllers/blogs_controller.rb")
+          editor = atom.workspace.getActiveEditor()
+          editor.setCursorBufferPosition new Point(0, 0)
+          expect(editor.getPath()).toBe modelPath
+          expect(editor.getCursor().getCurrentBufferLine()).toMatch /^class BlogsController < ApplicationController$/

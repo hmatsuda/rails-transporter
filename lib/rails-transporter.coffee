@@ -75,6 +75,10 @@ module.exports =
 
                                 
     else if currentFile.indexOf("app/views/") isnt -1
+      if type is 'controller'
+        targetFile = path.dirname(currentFile)
+                         .replace("app/views/", "app/controllers/") + "_controller.rb"
+
       if type is 'model'
         dir = path.dirname(currentFile)
         resource = path.basename(dir)
