@@ -10,7 +10,8 @@
     "rails-transporter:open-helper",
     "rails-transporter:open-partial-template",
     "rails-transporter:open-spec",
-    "rails-transporter:open-asset"
+    "rails-transporter:open-asset",
+    "rails-transporter:open-controller"
   ],
   "repository": "https://github.com/hmatsuda/rails-transporter",
   "license": "MIT",
