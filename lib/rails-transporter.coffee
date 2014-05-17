@@ -116,9 +116,7 @@ module.exports =
           @createAssetFinderView().toggle()
           
     else if currentFile.indexOf("_spec.rb") isnt -1
-      if type is 'model'
-        targetFile = currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
-      if type is 'controller'
+      if type is 'model' or type is 'controller'
         targetFile = currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
 
 
