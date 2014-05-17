@@ -5,91 +5,111 @@ AssetFinderView = require './asset-finder-view'
 
 module.exports =
 class FileOpener
+  openController: ->
+    @reloadCurrentEditor()
+    if @isModel(@currentFile)
+      resource = path.basename(@currentFile, '.rb')
+      targetFile = @currentFile.replace('models', 'controllers')
+                               .replace(resource, "#{pluralize(resource)}_controller")
+    else if @isView(@currentFile)
+      targetFile = path.dirname(@currentFile)
+                       .replace("app/views/", "app/controllers/") + "_controller.rb"
+    else if @isSpec(@currentFile)
+      targetFile = @currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
 
-  initialize: ->
-    console.log "hoge"
+    @open(targetFile)
     
+  openModel: ->
+    @reloadCurrentEditor()
+    if @isController(@currentFile)
+      resourceName = pluralize.singular(@currentFile.match(/([\w]+)_controller\.rb$/)[1])
+      targetFile = @currentFile.replace('controllers', 'models')
+                               .replace(/([\w]+)_controller\.rb$/, "#{resourceName}.rb")
+
+    else if @isView(@currentFile)
+      dir = path.dirname(@currentFile)
+      resource = path.basename(dir)
+      targetFile = dir.replace("app/views/", "app/models/")
+                      .replace(resource, "#{pluralize.singular(resource)}.rb")
+                      
+    else if @isSpec(@currentFile)
+      targetFile = @currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
+
+    @open(targetFile)
+  
+  openHelper: ->
+    @reloadCurrentEditor()
+    if @isController(@currentFile)
+      targetFile = @currentFile.replace('controllers', 'helpers')
+                               .replace('controller.rb', 'helper.rb')
+
+    @open(targetFile)
+    
+  openSpec: ->
+    @reloadCurrentEditor()
+    if @isController(@currentFile)
+      targetFile = @currentFile.replace('app/controllers', 'spec/controllers')
+                               .replace('controller.rb', 'controller_spec.rb')
+    else if @isHelper(@currentFile)
+      targetFile = @currentFile.replace('app/helpers', 'spec/helpers')
+                               .replace('.rb', '_spec.rb')
+    else if @isModel(@currentFile)
+      targetFile = @currentFile.replace('app/models', 'spec/models')
+                               .replace('.rb', '_spec.rb')
+
+    @open(targetFile)
+      
+  openPartial: ->
+    @reloadCurrentEditor()
+    if @isView(@currentFile)
+      if @currentBufferLine.indexOf("render") isnt -1
+        
+        if @currentBufferLine.indexOf("partial") is -1
+          result = @currentBufferLine.match(/render\s+["']([a-zA-Z0-9_\-\./]+)["']/)
+          targetFile = @partialFullPath(@currentFile, result[1])
+        else
+          result = @currentBufferLine.match(/render\s+\:?partial(\s*=>|:*)\s*["']([a-zA-Z0-9_\-\./]+)["']/)
+          targetFile = @partialFullPath(@currentFile, result[2])
+
+    @open(targetFile)
+    
+  openAsset: ->
+    @reloadCurrentEditor()
+    if @isView(@currentFile)
+      if @currentBufferLine.indexOf("javascript_include_tag") isnt -1
+        result = @currentBufferLine.match(/javascript_include_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
+        targetFile = @assetFullPath(result[1], 'js')
+      else if @currentBufferLine.indexOf("stylesheet_link_tag") isnt -1
+        result = @currentBufferLine.match(/stylesheet_link_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
+        targetFile = @assetFullPath(result[1], 'css')
+        
+    else if @isAsset(@currentFile)
+      if @currentBufferLine.indexOf("require ") isnt -1
+        result = @currentBufferLine.match(/require\s*([a-zA-Z0-9_\-\./]+)\s*$/)
+        if @currentFile.indexOf("app/assets/javascripts") isnt -1
+          targetFile = @assetFullPath(result[1], 'js')
+        else if @currentFile.indexOf("app/assets/stylesheets") isnt -1
+          targetFile = @assetFullPath(result[1], 'css')
+      else if @currentBufferLine.indexOf("require_tree ") isnt -1
+        @createAssetFinderView().toggle()
+      else if @currentBufferLine.indexOf("require_directory ") isnt -1
+        @createAssetFinderView().toggle()
+
+    @open(targetFile)
+
+  ## Private method
   createAssetFinderView: ->
     unless @assetFinderView?
       @assetFinderView = new AssetFinderView()
       
     @assetFinderView
 
-  open: (type) ->
+  reloadCurrentEditor: ->
     editor = atom.workspace.getActiveEditor()
-    currentFile = editor.getPath()
-    if currentFile.search(/app\/controllers\/.+_controller.rb$/) isnt -1
-      resourceName = pluralize.singular(currentFile.match(/([\w]+)_controller\.rb$/)[1])
-      if type is 'model'
-        targetFile = currentFile.replace('controllers', 'models')
-                          .replace(/([\w]+)_controller\.rb$/, "#{resourceName}.rb")
-      else if type is 'helper'
-        targetFile = currentFile.replace('controllers', 'helpers')
-                          .replace('controller.rb', 'helper.rb')
-      else if type is 'spec'
-        targetFile = currentFile.replace('app/controllers', 'spec/controllers')
-                                .replace('controller.rb', 'controller_spec.rb')
-                                
-    else if currentFile.indexOf("app/models/") isnt -1
-      if type is 'spec'
-        targetFile = currentFile.replace('app/models', 'spec/models')
-                                .replace('.rb', '_spec.rb')
-      if type is 'controller'
-        resource = path.basename(currentFile, '.rb')
-        targetFile = currentFile.replace('models', 'controllers')
-                                .replace(resource, "#{pluralize(resource)}_controller")
+    @currentFile = editor.getPath()
+    @currentBufferLine = editor.getCursor().getCurrentBufferLine()
 
-                                
-    else if currentFile.indexOf("app/views/") isnt -1
-      if type is 'controller'
-        targetFile = path.dirname(currentFile)
-                         .replace("app/views/", "app/controllers/") + "_controller.rb"
-
-      if type is 'model'
-        dir = path.dirname(currentFile)
-        resource = path.basename(dir)
-        targetFile = dir.replace("app/views/", "app/models/")
-                        .replace(resource, "#{pluralize.singular(resource)}.rb")
-      if type is 'partial'
-        line = editor.getCursor().getCurrentBufferLine()
-        if line.indexOf("render") isnt -1
-          if line.indexOf("partial") is -1
-            result = line.match(/render\s+["']([a-zA-Z0-9_\-\./]+)["']/)
-            targetFile = @partialFullPath(currentFile, result[1])
-          else
-            result = line.match(/render\s+\:?partial(\s*=>|:*)\s*["']([a-zA-Z0-9_\-\./]+)["']/)
-            targetFile = @partialFullPath(currentFile, result[2])
-      else if type is 'asset'
-        line = editor.getCursor().getCurrentBufferLine()
-        if line.indexOf("javascript_include_tag") isnt -1
-          result = line.match(/javascript_include_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
-          targetFile = @assetFullPath(result[1], 'js')
-        else if line.indexOf("stylesheet_link_tag") isnt -1
-          result = line.match(/stylesheet_link_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
-          targetFile = @assetFullPath(result[1], 'css')
-
-    else if currentFile.search(/app\/helpers\/.+_helper.rb$/) isnt -1
-      if type is 'spec'
-        targetFile = currentFile.replace('app/helpers', 'spec/helpers')
-                                .replace('.rb', '_spec.rb')
-                                
-    else if currentFile.indexOf("app/assets/") isnt -1
-      if type is 'asset'
-        line = editor.getCursor().getCurrentBufferLine()
-        if line.indexOf("require ") isnt -1
-          result = line.match(/require\s*([a-zA-Z0-9_\-\./]+)\s*$/)
-          if currentFile.indexOf("app/assets/javascripts") isnt -1
-            targetFile = @assetFullPath(result[1], 'js')
-          else if currentFile.indexOf("app/assets/stylesheets") isnt -1
-            targetFile = @assetFullPath(result[1], 'css')
-        else if line.indexOf("require_tree ") isnt -1 or line.indexOf("require_directory ") isnt -1
-          @createAssetFinderView().toggle()
-          
-    else if currentFile.indexOf("_spec.rb") isnt -1
-      if type is 'model' or type is 'controller'
-        targetFile = currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
-
-
+  open: (targetFile) ->
     return unless targetFile?
     files = if typeof(targetFile) is 'string' then [targetFile] else targetFile
     for file in files
@@ -118,3 +138,22 @@ class FileOpener
         for fileName in ["#{fileName}.scss", "#{fileName}.coffee", fileName]
           asset = "#{atom.project.getPath()}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}"
           return asset if fs.existsSync asset
+
+  isController: (filePath) ->
+    filePath.search(/app\/controllers\/.+_controller.rb$/) isnt -1
+    
+  isView: (filePath) ->
+    filePath.indexOf("app/views/") isnt -1
+
+  isSpec: (filePath) ->
+    filePath.indexOf("_spec.rb") isnt -1
+    
+  isHelper: (filePath) ->
+    filePath.search(/app\/helpers\/.+_helper.rb$/) isnt -1
+
+  isModel: (filePath) ->
+    filePath.indexOf("app/models/") isnt -1
+    
+  isAsset: (filePath) ->
+    filePath.indexOf("app/assets/") isnt -1
+    

@@ -9,18 +9,17 @@ module.exports =
     atom.workspaceView.command 'rails-transporter:toggle-migration-finder', =>
       @createMigrationFinderView().toggle()
     atom.workspaceView.command 'rails-transporter:open-model', =>
-      @createFileOpener().open('model')
+      @createFileOpener().openModel()
     atom.workspaceView.command 'rails-transporter:open-helper', =>
-      @createFileOpener().open('helper')
+      @createFileOpener().openHelper()
     atom.workspaceView.command 'rails-transporter:open-partial-template', =>
-      @createFileOpener().open('partial')
+      @createFileOpener().openPartial()
     atom.workspaceView.command 'rails-transporter:open-spec', =>
-      @createFileOpener().open('spec')
+      @createFileOpener().openSpec()
     atom.workspaceView.command 'rails-transporter:open-asset', =>
-      @createFileOpener().open('asset')
+      @createFileOpener().openAsset()
     atom.workspaceView.command 'rails-transporter:open-controller', =>
-      @createFileOpener().open('controller')
-
+      @createFileOpener().openController()
 
   deactivate: ->
     if @viewFinderView?
