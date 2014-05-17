@@ -25,8 +25,6 @@ module.exports =
       @open('controller')
 
 
-
-
   deactivate: ->
     if @viewFinderView?
       @viewFinderView.destroy()
