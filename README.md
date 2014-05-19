@@ -1,12 +1,8 @@
-# rails-transporter package [![Build Status](https://travis-ci.org/hmatsuda/rails-transporter.svg?branch=master)](https://travis-ci.org/hmatsuda/rails-transporter)
+# Rails Transporter package [![Build Status](https://travis-ci.org/hmatsuda/rails-transporter.svg?branch=master)](https://travis-ci.org/hmatsuda/rails-transporter)
 
-Ruby on Rails powerful support tool on Atom editor.
+This package provides commands to open controller, view, model, helper template, asset and migration on Ruby on Rails on Atom editor.
 
-## Installing
-Run `apm install rails-transporter` from the command line.
-
-## Usage
-Open another files using following keybindings.
+Quickly open files or finder using following keymaps.
 
 * `ctrl-alt-r c` - Open controller from model, view or controller-spec
 * `ctrl-alt-r v` - Open view finder from controller or model
@@ -16,3 +12,7 @@ Open another files using following keybindings.
 * `ctrl-alt-r p` - Open partial template from render method in view
 * `ctrl-alt-r a` - Open asset from javascript_include_tag or stylesheet_link_tag method in view
 * `ctrl-alt-r m i` - Open migration finder
+
+## Requirement
+* Ruby 1.9.3+
+* Rails 2.0.0+
