@@ -13,7 +13,7 @@ Quickly open files or finder using following keymaps.
 * `ctrl-alt-r a` - Open asset from javascript_include_tag or stylesheet_link_tag method in view
 * `ctrl-alt-r m i` - Open migration finder
 
-![](http://cl.ly/image/460J1Z191F2a/out.gif)
+![](http://cl.ly/image/3B2K4532312y/out.gif)
 
 ## Requirement
 * Ruby 1.9.3+
