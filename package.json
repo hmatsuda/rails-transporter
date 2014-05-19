@@ -11,7 +11,7 @@
     "rails-transporter:open-spec",
     "rails-transporter:open-partial-template",
     "rails-transporter:open-asset",
-    "rails-transporter:toggle-migration-finder"
+    "rails-transporter:open-migration-finder"
   ],
   "repository": "https://github.com/hmatsuda/rails-transporter",
   "license": "MIT",
@@ -21,6 +21,7 @@
   "dependencies": {
     "pluralize": "0.0.9",
     "temp": "~0.6.0",
-    "wrench": "^1.5"
+    "wrench": "^1.5",
+    "underscore": "1.x"
   }
 }

@@ -20,14 +20,14 @@ describe "RailsTransporter", ->
     atom.workspaceView = new WorkspaceView
     activationPromise = atom.packages.activatePackage('rails-transporter')
   
-  describe "toggle-migration-finder behavior", ->
-    describe "when the rails-transporter:toggle-migration-finder event is triggered", ->
+  describe "open-migration-finder behavior", ->
+    describe "when the rails-transporter:open-migration-finder event is triggered", ->
       it "shows the MigrationFinder or hides it if it's already showing", ->
         expect(atom.workspaceView.find('.select-list')).not.toExist()
   
         # This is an activation event, triggering it will cause the package to be
         # activated.
-        atom.workspaceView.trigger 'rails-transporter:toggle-migration-finder'
+        atom.workspaceView.trigger 'rails-transporter:open-migration-finder'
   
         # Waits until package is activated
         waitsForPromise ->
@@ -35,11 +35,11 @@ describe "RailsTransporter", ->
   
         runs ->
           expect(atom.workspaceView.find('.select-list')).toExist()
-          atom.workspaceView.trigger 'rails-transporter:toggle-migration-finder'
+          atom.workspaceView.trigger 'rails-transporter:open-migration-finder'
           expect(atom.workspaceView.find('.select-list')).not.toExist()
   
       it "shows all migration paths and selects the first", ->
-        atom.workspaceView.trigger 'rails-transporter:toggle-migration-finder'
+        atom.workspaceView.trigger 'rails-transporter:open-migration-finder'
   
         # Waits until package is activated
         waitsForPromise ->

@@ -6,7 +6,7 @@ module.exports =
   activate: (state) ->
     atom.workspaceView.command 'rails-transporter:open-view-finder', =>
       @createViewFinderView().toggle()
-    atom.workspaceView.command 'rails-transporter:toggle-migration-finder', =>
+    atom.workspaceView.command 'rails-transporter:open-migration-finder', =>
       @createMigrationFinderView().toggle()
     atom.workspaceView.command 'rails-transporter:open-model', =>
       @createFileOpener().openModel()
