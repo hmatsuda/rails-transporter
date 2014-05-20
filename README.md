@@ -1,18 +1,20 @@
-# rails-transporter package [![Build Status](https://travis-ci.org/hmatsuda/rails-transporter.svg?branch=master)](https://travis-ci.org/hmatsuda/rails-transporter)
+# Rails Transporter package [![Build Status](https://travis-ci.org/hmatsuda/rails-transporter.svg?branch=master)](https://travis-ci.org/hmatsuda/rails-transporter)
 
-Ruby on Rails powerful support tool on Atom editor.
+This package provides commands to open controller, view, model, helper template, asset and migration on Ruby on Rails on Atom editor.
 
-## Installing
-Run `apm install rails-transporter` from the command line.
+Quickly open files or finder using following keymaps.
 
-## Usage
-Open another files using following keybindings.
+* `ctrl-alt-r c` - Open controller from model, view or controller-spec
+* `ctrl-alt-r v` - Open view finder from controller or model
+* `ctrl-alt-r m` - Open model from controller, view or model-spec
+* `ctrl-alt-r h` - Open helper from controller
+* `ctrl-alt-r s` - Open spec from controller, helper or model
+* `ctrl-alt-r p` - Open partial template from render method in view
+* `ctrl-alt-r a` - Open asset from javascript_include_tag or stylesheet_link_tag method in view
+* `ctrl-alt-r m i` - Open migration finder
 
-* `ctrl-alt-r v` - Open SelectListView for view list related active file
-* `ctrl-alt-r m i` - Open SelectListView for migration list
-* `ctrl-alt-r m` - Open Model related active file
-* `ctrl-alt-r c` - Open Controller related active file
-* `ctrl-alt-r h` - Open Helper related active file
-* `ctrl-alt-r p` - Open partial template when cursor is on render method of view
-* `ctrl-alt-r s` - Open Spec related active file
-* `ctrl-alt-r a` - Open Asset file from line to call javascript_include_tag or stylesheet_link_tag on the view file
+![](http://cl.ly/image/3B2K4532312y/out.gif)
+
+## Requirement
+* Ruby 1.9.3+
+* Rails 2.0.0+

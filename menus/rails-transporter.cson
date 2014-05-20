@@ -4,14 +4,14 @@
     'submenu': [
       'label': 'Rails Transporter'
       'submenu': [
-        { 'label': 'Toggle View Finder', 'command': 'rails-transporter:toggle-view-finder' }
-        { 'label': 'Toggle Migration Finder', 'command': 'rails-transporter:toggle-migration-finder' }
+        { 'label': 'Open Controller', 'command': 'rails-transporter:open-controller' }
+        { 'label': 'Open View Finder', 'command': 'rails-transporter:open-view-finder' }
         { 'label': 'Open Model', 'command': 'rails-transporter:open-model' }
         { 'label': 'Open Helper', 'command': 'rails-transporter:open-helper' }
-        { 'label': 'Open Partial Template', 'command': 'rails-transporter:open-partial-template' }
         { 'label': 'Open Spec', 'command': 'rails-transporter:open-spec' }
+        { 'label': 'Open Partial Template', 'command': 'rails-transporter:open-partial-template' }
         { 'label': 'Open Asset', 'command': 'rails-transporter:open-asset' }
-        { 'label': 'Open Controller', 'command': 'rails-transporter:open-controller' }
+        { 'label': 'Open Migration Finder', 'command': 'rails-transporter:open-migration-finder' }
       ]
     ]
   }

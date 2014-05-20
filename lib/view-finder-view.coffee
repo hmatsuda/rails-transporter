@@ -1,17 +1,22 @@
 fs = require 'fs'
 path = require 'path'
 pluralize = require 'pluralize'
+_ = require 'underscore'
+
 BaseFinderView = require './base-finder-view'
+RailsUtil = require './rails-util'
 
 module.exports =
 class ViewFinderView extends BaseFinderView
+  _.extend this::, RailsUtil::
+  
   populate: ->
     @displayFiles.length = 0
     currentFile = atom.workspace.getActiveEditor().getPath()
-    if currentFile.indexOf("app/controllers/") isnt -1
+    if @isController(currentFile)
       viewDir = currentFile.replace('controllers', 'views')
                            .replace(/_controller\.rb$/, '')
-    else if currentFile.indexOf("app/models/") isnt -1
+    else if @isModel(currentFile)
       basename = path.basename(currentFile, '.rb')
       viewDir = currentFile.replace('models', 'views')
                            .replace(basename, pluralize(basename))
