@@ -71,10 +71,10 @@ class FileOpener
         
         if @currentBufferLine.indexOf("partial") is -1
           result = @currentBufferLine.match(/render\s+["']([a-zA-Z0-9_\-\./]+)["']/)
-          targetFile = @partialFullPath(@currentFile, result[1])
+          targetFile = @partialFullPath(@currentFile, result[1]) if result?[1]?
         else
           result = @currentBufferLine.match(/render\s+\:?partial(\s*=>|:*)\s*["']([a-zA-Z0-9_\-\./]+)["']/)
-          targetFile = @partialFullPath(@currentFile, result[2])
+          targetFile = @partialFullPath(@currentFile, result[2]) if result?[2]?
 
     @open(targetFile)
     
@@ -83,18 +83,18 @@ class FileOpener
     if @isView(@currentFile)
       if @currentBufferLine.indexOf("javascript_include_tag") isnt -1
         result = @currentBufferLine.match(/javascript_include_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
-        targetFile = @assetFullPath(result[1], 'js')
+        targetFile = @assetFullPath(result[1], 'js') if result?[1]?
       else if @currentBufferLine.indexOf("stylesheet_link_tag") isnt -1
         result = @currentBufferLine.match(/stylesheet_link_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
-        targetFile = @assetFullPath(result[1], 'css')
+        targetFile = @assetFullPath(result[1], 'css') if result?[1]?
         
     else if @isAsset(@currentFile)
       if @currentBufferLine.indexOf("require ") isnt -1
         result = @currentBufferLine.match(/require\s*([a-zA-Z0-9_\-\./]+)\s*$/)
         if @currentFile.indexOf("app/assets/javascripts") isnt -1
-          targetFile = @assetFullPath(result[1], 'js')
+          targetFile = @assetFullPath(result[1], 'js') if result?[1]?
         else if @currentFile.indexOf("app/assets/stylesheets") isnt -1
-          targetFile = @assetFullPath(result[1], 'css')
+          targetFile = @assetFullPath(result[1], 'css') if result?[1]?
       else if @currentBufferLine.indexOf("require_tree ") isnt -1
         @createAssetFinderView().toggle()
       else if @currentBufferLine.indexOf("require_directory ") isnt -1
