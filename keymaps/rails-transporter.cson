@@ -15,4 +15,4 @@
   'ctrl-alt-r s': 'rails-transporter:open-spec'
   'ctrl-alt-r p': 'rails-transporter:open-partial-template'
   'ctrl-alt-r a': 'rails-transporter:open-asset'
-  'ctrl-alt-r m i': 'rails-transporter:open-migration-finder'
+  'ctrl-alt-r d m': 'rails-transporter:open-migration-finder'
