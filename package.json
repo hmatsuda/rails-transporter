@@ -2,7 +2,7 @@
   "name": "rails-transporter",
   "main": "./lib/rails-transporter",
   "version": "0.0.0",
-  "description": "Powerful support development for Ruby on Rails",
+  "description": "Easily opening related files Ruby on Rails",
   "activationEvents": [
     "rails-transporter:open-controller",
     "rails-transporter:open-view-finder",
