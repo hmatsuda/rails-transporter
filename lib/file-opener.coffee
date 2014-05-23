@@ -47,6 +47,16 @@ class FileOpener
     if @isController(@currentFile)
       targetFile = @currentFile.replace('controllers', 'helpers')
                                .replace('controller.rb', 'helper.rb')
+    else if @isSpec(@currentFile)
+      targetFile = @currentFile.replace('spec/helpers', 'app/helpers')
+                               .replace('_spec.rb', '.rb')
+    else if @isModel(@currentFile)
+      resource = path.basename(@currentFile, '.rb')
+      targetFile = @currentFile.replace('models', 'helpers')
+                               .replace(resource, "#{pluralize(resource)}_helper")
+    else if @isView(@currentFile)
+      targetFile = path.dirname(@currentFile)
+                       .replace("app/views/", "app/helpers/") + "_helper.rb"
 
     @open(targetFile)
     
