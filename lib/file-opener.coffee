@@ -54,6 +54,9 @@ class FileOpener
       resource = path.basename(@currentFile, '.rb')
       targetFile = @currentFile.replace('models', 'helpers')
                                .replace(resource, "#{pluralize(resource)}_helper")
+    else if @isView(@currentFile)
+      targetFile = path.dirname(@currentFile)
+                       .replace("app/views/", "app/helpers/") + "_helper.rb"
 
     @open(targetFile)
     
