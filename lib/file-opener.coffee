@@ -47,6 +47,9 @@ class FileOpener
     if @isController(@currentFile)
       targetFile = @currentFile.replace('controllers', 'helpers')
                                .replace('controller.rb', 'helper.rb')
+    else if @isSpec(@currentFile)
+      targetFile = @currentFile.replace('spec/helpers', 'app/helpers')
+                               .replace('_spec.rb', '.rb')
 
     @open(targetFile)
     
