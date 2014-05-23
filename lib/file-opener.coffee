@@ -50,6 +50,10 @@ class FileOpener
     else if @isSpec(@currentFile)
       targetFile = @currentFile.replace('spec/helpers', 'app/helpers')
                                .replace('_spec.rb', '.rb')
+    else if @isModel(@currentFile)
+      resource = path.basename(@currentFile, '.rb')
+      targetFile = @currentFile.replace('models', 'helpers')
+                               .replace(resource, "#{pluralize(resource)}_helper")
 
     @open(targetFile)
     
