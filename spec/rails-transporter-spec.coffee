@@ -209,6 +209,25 @@ describe "RailsTransporter", ->
           expect(editor.getPath()).toBe helperPath
           expect(editor.getCursor().getCurrentBufferLine()).toMatch /^module BlogsHelper$/
   
+    describe "when active editor opens helper spec", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'spec/helpers/blogs_helper_spec.rb'))
+    
+      it "opens related helper", ->
+        atom.workspaceView.trigger 'rails-transporter:open-helper'
+    
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+    
+        runs ->
+          helperPath = path.join(atom.project.getPath(), "app/helpers/blogs_helper.rb")
+          editor = atom.workspace.getActiveEditor()
+          editor.setCursorBufferPosition new Point(0, 0)
+          expect(editor.getPath()).toBe helperPath
+          expect(editor.getCursor().getCurrentBufferLine()).toMatch /^module BlogsHelper$/
+
   describe "open-patial-template behavior", ->
     beforeEach ->
       atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/views/blogs/edit.html.erb'))
