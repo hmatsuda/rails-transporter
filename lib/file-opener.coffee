@@ -83,7 +83,7 @@ class FileOpener
           result = @currentBufferLine.match(/render\s+["']([a-zA-Z0-9_\-\./]+)["']/)
           targetFile = @partialFullPath(@currentFile, result[1]) if result?[1]?
         else
-          result = @currentBufferLine.match(/render\s+\:?partial(\s*=>|:*)\s*["']([a-zA-Z0-9_\-\./]+)["']/)
+          result = @currentBufferLine.match(/render\s*\(?\s*\:?partial(\s*=>|:*)\s*["']([a-zA-Z0-9_\-\./]+)["']/)
           targetFile = @partialFullPath(@currentFile, result[2]) if result?[2]?
 
     @open(targetFile)
