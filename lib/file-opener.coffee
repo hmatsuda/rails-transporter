@@ -112,6 +112,15 @@ class FileOpener
 
     @open(targetFile)
 
+  openLayout: ->
+    @reloadCurrentEditor()
+    if @isController(@currentFile)
+      if @currentBufferLine.indexOf("layout") isnt -1
+        result = @currentBufferLine.match(/layout\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
+        targetFile = "#{atom.project.getPath()}/app/views/layouts/#{result[1]}.html.haml" if result?[1]?
+
+    @open(targetFile)
+
   ## Private method
   createAssetFinderView: ->
     unless @assetFinderView?

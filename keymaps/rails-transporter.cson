@@ -10,6 +10,7 @@
 '.workspace':
   'ctrl-alt-r c': 'rails-transporter:open-controller'
   'ctrl-alt-r v': 'rails-transporter:open-view-finder'
+  'ctrl-alt-r l': 'rails-transporter:open-layout'
   'ctrl-alt-r m': 'rails-transporter:open-model'
   'ctrl-alt-r h': 'rails-transporter:open-helper'
   'ctrl-alt-r s': 'rails-transporter:open-spec'

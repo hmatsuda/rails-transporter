@@ -6,6 +6,7 @@
   "activationEvents": [
     "rails-transporter:open-controller",
     "rails-transporter:open-view-finder",
+    "rails-transporter:open-layout",
     "rails-transporter:open-model",
     "rails-transporter:open-helper",
     "rails-transporter:open-spec",
