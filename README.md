@@ -6,6 +6,7 @@ Quickly open files or finder using following keymaps.
 
 * `ctrl-alt-r c` - Open controller from model, view or controller-spec
 * `ctrl-alt-r v` - Open view finder from controller or model
+* `ctrl-alt-r l` - Open layout from view
 * `ctrl-alt-r m` - Open model from controller, view or model-spec
 * `ctrl-alt-r h` - Open helper from controller, view or helper-spec
 * `ctrl-alt-r s` - Open spec from controller, helper or model
