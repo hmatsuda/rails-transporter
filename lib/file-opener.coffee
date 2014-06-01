@@ -119,6 +119,11 @@ class FileOpener
       if @currentBufferLine.indexOf("layout") isnt -1
         result = @currentBufferLine.match(/layout\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
         targetFile = glob.sync("#{atom.project.getPath()}/app/views/layouts/#{result[1]}.*") if result?[1]?
+      else
+        targetFile = @currentFile.replace('app/controllers', 'app/views/layouts')
+                                 .replace('_controller.rb', '')
+        targetFile = glob.sync("#{targetFile}.*")
+
 
     @open(targetFile)
 
