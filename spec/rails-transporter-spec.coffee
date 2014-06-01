@@ -409,12 +409,12 @@ describe "RailsTransporter", ->
           expect(editor.getCursor().getCurrentBufferLine()).toMatch /^Form02 Partial$/
 
   describe "open-layout", ->
-    beforeEach ->
-      atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
-      editorView = atom.workspaceView.getActiveView()
-      editor = editorView.getEditor()
-
     describe "when cursor's current buffer row contains layout method", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
+
       it "opens specified layout", ->
         editor.setCursorBufferPosition new Point(2, 0)
         atom.workspaceView.trigger 'rails-transporter:open-layout'
@@ -430,6 +430,27 @@ describe "RailsTransporter", ->
           editor.setCursorBufferPosition new Point(3, 0)
           expect(editor.getPath()).toBe partialPath
           expect(editor.getCursor().getCurrentBufferLine()).toMatch /Special Layout/
+          
+    describe "when same base name as the controller exists", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/top_controller.rb'))
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
+
+      it "opens layout that same base name as the controller", ->
+        atom.workspaceView.trigger 'rails-transporter:open-layout'
+  
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+  
+        runs ->
+          partialPath = path.join(atom.project.getPath(), "app/views/layouts/top.html.erb")
+          editor = atom.workspace.getActiveEditor()
+          editor.setCursorBufferPosition new Point(3, 0)
+          expect(editor.getPath()).toBe partialPath
+          expect(editor.getCursor().getCurrentBufferLine()).toMatch /Top Layout/
 
   describe "open-spec behavior", ->
     describe "when active editor opens controller", ->
