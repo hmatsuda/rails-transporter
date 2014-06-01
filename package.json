@@ -23,6 +23,7 @@
     "pluralize": "0.0.9",
     "temp": "~0.6.0",
     "wrench": "^1.5",
-    "underscore": "1.x"
+    "underscore": "1.x",
+    "glob": "4.x"
   }
 }

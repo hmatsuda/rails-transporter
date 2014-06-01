@@ -1,6 +1,7 @@
 fs = require 'fs'
 path = require 'path'
 pluralize = require 'pluralize'
+glob = require 'glob'
 _ = require 'underscore'
 
 AssetFinderView = require './asset-finder-view'
@@ -117,7 +118,7 @@ class FileOpener
     if @isController(@currentFile)
       if @currentBufferLine.indexOf("layout") isnt -1
         result = @currentBufferLine.match(/layout\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
-        targetFile = "#{atom.project.getPath()}/app/views/layouts/#{result[1]}.html.haml" if result?[1]?
+        targetFile = glob.sync("#{atom.project.getPath()}/app/views/layouts/#{result[1]}.*") if result?[1]?
 
     @open(targetFile)
 
