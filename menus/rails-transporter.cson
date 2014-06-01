@@ -6,6 +6,7 @@
       'submenu': [
         { 'label': 'Open Controller', 'command': 'rails-transporter:open-controller' }
         { 'label': 'Open View Finder', 'command': 'rails-transporter:open-view-finder' }
+        { 'label': 'Open Layout', 'command': 'rails-transporter:open-layout' }
         { 'label': 'Open Model', 'command': 'rails-transporter:open-model' }
         { 'label': 'Open Helper', 'command': 'rails-transporter:open-helper' }
         { 'label': 'Open Spec', 'command': 'rails-transporter:open-spec' }

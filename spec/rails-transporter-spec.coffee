@@ -19,7 +19,7 @@ describe "RailsTransporter", ->
     atom.project.setPath(tempPath)
     atom.workspaceView = new WorkspaceView
     activationPromise = atom.packages.activatePackage('rails-transporter')
-  
+    
   describe "open-migration-finder behavior", ->
     describe "when the rails-transporter:open-migration-finder event is triggered", ->
       it "shows the MigrationFinder or hides it if it's already showing", ->
@@ -407,6 +407,71 @@ describe "RailsTransporter", ->
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe partialPath
           expect(editor.getCursor().getCurrentBufferLine()).toMatch /^Form02 Partial$/
+
+  describe "open-layout", ->
+    describe "when cursor's current buffer row contains layout method", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/blogs_controller.rb'))
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
+
+      it "opens specified layout", ->
+        editor.setCursorBufferPosition new Point(2, 0)
+        atom.workspaceView.trigger 'rails-transporter:open-layout'
+  
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+  
+        runs ->
+          partialPath = path.join(atom.project.getPath(), "app/views/layouts/special.html.erb")
+          editor = atom.workspace.getActiveEditor()
+          editor.setCursorBufferPosition new Point(3, 0)
+          expect(editor.getPath()).toBe partialPath
+          expect(editor.getCursor().getCurrentBufferLine()).toMatch /Special Layout/
+          
+    describe "when same base name as the controller exists", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/top_controller.rb'))
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
+
+      it "opens layout that same base name as the controller", ->
+        atom.workspaceView.trigger 'rails-transporter:open-layout'
+  
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+  
+        runs ->
+          partialPath = path.join(atom.project.getPath(), "app/views/layouts/top.html.erb")
+          editor = atom.workspace.getActiveEditor()
+          editor.setCursorBufferPosition new Point(3, 0)
+          expect(editor.getPath()).toBe partialPath
+          expect(editor.getCursor().getCurrentBufferLine()).toMatch /Top Layout/
+          
+    describe "when there is no such controller-specific layout", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/controllers/main_controller.rb'))
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
+
+      it "opens default layout named 'application'", ->
+        atom.workspaceView.trigger 'rails-transporter:open-layout'
+  
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePane().getItems().length == 2
+  
+        runs ->
+          partialPath = path.join(atom.project.getPath(), "app/views/layouts/application.html.erb")
+          editor = atom.workspace.getActiveEditor()
+          editor.setCursorBufferPosition new Point(3, 0)
+          expect(editor.getPath()).toBe partialPath
+          expect(editor.getCursor().getCurrentBufferLine()).toMatch /Application Layout/
 
 
   describe "open-spec behavior", ->

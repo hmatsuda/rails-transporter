@@ -1,6 +1,7 @@
 fs = require 'fs'
 path = require 'path'
 pluralize = require 'pluralize'
+glob = require 'glob'
 _ = require 'underscore'
 
 AssetFinderView = require './asset-finder-view'
@@ -109,6 +110,22 @@ class FileOpener
         @createAssetFinderView().toggle()
       else if @currentBufferLine.indexOf("require_directory ") isnt -1
         @createAssetFinderView().toggle()
+
+    @open(targetFile)
+
+  openLayout: ->
+    @reloadCurrentEditor()
+    layoutDir = "#{atom.project.getPath()}/app/views/layouts"
+    if @isController(@currentFile)
+      if @currentBufferLine.indexOf("layout") isnt -1
+        result = @currentBufferLine.match(/layout\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
+        targetFile = glob.sync("#{layoutDir}/#{result[1]}.*") if result?[1]?
+      else
+        targetPattern = @currentFile.replace('app/controllers', 'app/views/layouts')
+                                    .replace('_controller.rb', '.*')
+        targetFile = glob.sync(targetPattern)
+        if targetFile.length is 0
+          targetFile = glob.sync("#{layoutDir}/application.*")
 
     @open(targetFile)
 
