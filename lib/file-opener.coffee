@@ -123,7 +123,8 @@ class FileOpener
         targetFile = @currentFile.replace('app/controllers', 'app/views/layouts')
                                  .replace('_controller.rb', '')
         targetFile = glob.sync("#{targetFile}.*")
-
+        if targetFile.length is 0
+          targetFile = glob.sync("#{atom.project.getPath()}/app/views/layouts/application.*")
 
     @open(targetFile)
 
