@@ -730,6 +730,22 @@ describe "RailsTransporter", ->
               expect(editor.getPath()).toBe assetPath
               expect(editor.getCursor().getCurrentBufferLine()).toMatch /^\/\/ it's in public directory$/
             
+        describe "when source's suffix is .erb", ->
+          it "opens .erb javascript", ->
+            editor.setCursorBufferPosition new Point(17, 0)
+            atom.workspaceView.trigger 'rails-transporter:open-asset'
+
+            waitsFor ->
+              activationPromise
+              atom.workspaceView.getActivePane().getItems().length == 2
+
+            runs ->
+              assetPath = path.join(atom.project.getPath(), "app/assets/javascripts/dynamic_script.js.coffee.erb")
+              editor = atom.workspace.getActiveEditor()
+              editor.setCursorBufferPosition new Point(0, 0)
+              expect(editor.getPath()).toBe assetPath
+              expect(editor.getCursor().getCurrentBufferLine()).toMatch /^# \.erb file$/
+
     describe "when active editor opens javascript manifest", ->
       beforeEach ->
         atom.workspaceView.openSync(path.join(atom.project.getPath(), 'app/assets/javascripts/application01.js'))
