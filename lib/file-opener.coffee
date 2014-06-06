@@ -167,6 +167,7 @@ class FileOpener
     else
       assetsDir = if ext is 'js' then "javascripts" else "stylesheets"
       for location in ['app', 'lib', 'vendor']
-        for fileName in ["#{fileName}.scss", "#{fileName}.coffee", fileName]
-          asset = "#{atom.project.getPath()}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}"
-          return asset if fs.existsSync asset
+        pattern = "#{atom.project.getPath()}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}*"
+        targetFile = glob.sync(pattern)
+        console.log targetFile
+        return targetFile if targetFile.length > 0
