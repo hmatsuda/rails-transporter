@@ -1,4 +1,5 @@
-# Rails Transporter package [![Build Status](https://travis-ci.org/hmatsuda/rails-transporter.svg?branch=master)](https://travis-ci.org/hmatsuda/rails-transporter)
+# Rails Transporter package [![Build Status](https://travis-ci.org/hmatsuda/rails-transporter.svg?branch=master)](https://travis-ci.org/hmatsuda/rails-transporter) [![Build status](https://ci.appveyor.com/api/projects/status/jnr0p97ero2wh1j2)](https://ci.appveyor.com/project/hmatsuda/rails-transporter)
+
 
 This package provides commands to open controller, view, model, helper template, asset and migration on Ruby on Rails on Atom editor.
 
