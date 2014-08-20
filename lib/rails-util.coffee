@@ -18,3 +18,7 @@ class RailsUtil
   isAsset: (filePath) ->
     filePath.indexOf("app/assets/") isnt -1
     
+  isMailer: (filePath) ->
+    filePath.indexOf("app/mailers/") isnt -1
+
+    

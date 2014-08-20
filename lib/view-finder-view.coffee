@@ -21,6 +21,9 @@ class ViewFinderView extends BaseFinderView
       viewDir = currentFile.replace('models', 'views')
                            .replace(basename, pluralize(basename))
                            .replace(".rb", "")
+    else if @isMailer(currentFile)
+      viewDir = currentFile.replace('mailers', 'views')
+                           .replace(/\.rb$/, '')
     else
       return
 
