@@ -5,7 +5,7 @@ This package provides commands to open controller, view, model, helper template,
 Quickly open files or finder using following keymaps.
 
 * `ctrl-alt-r c` - Open controller from model, view or controller-spec
-* `ctrl-alt-r v` - Open view finder from controller or model
+* `ctrl-alt-r v` - Open view finder from controller, model or mailer
 * `ctrl-alt-r l` - Open layout from view
 * `ctrl-alt-r m` - Open model from controller, view or model-spec
 * `ctrl-alt-r h` - Open helper from controller, view or helper-spec
@@ -17,5 +17,6 @@ Quickly open files or finder using following keymaps.
 ![](http://cl.ly/image/0q2B370v3S3Y/out.gif)
 
 ## Requirement
+* OSX
 * Ruby 1.9.3+
 * Rails 2.0.0+

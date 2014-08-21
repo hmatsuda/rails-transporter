@@ -1,4 +1,5 @@
-HEAD
+## 0.5.0 - Updates open-view-finder
+* Support `open-view-finder` to open mailer view files
 * Fix `open-asset` couldn't .erb file
 
 ## 0.4.0 - Adds open-layout command
