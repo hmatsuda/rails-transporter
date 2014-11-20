@@ -1,3 +1,6 @@
+## 0.6.0 - New command `open-view`
+* `open-view` to open view file directly
+
 ## 0.5.0 - Updates open-view-finder
 * Support `open-view-finder` to open mailer view files
 * Fix `open-asset` couldn't .erb file
