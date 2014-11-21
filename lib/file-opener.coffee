@@ -15,12 +15,12 @@ class FileOpener
     @reloadCurrentEditor()
 
     if @isController(@currentFile)
-      for i in [@cusorPos.row..0]
-        currentLine = @editor.lineTextForBufferRow(i)
+      for rowNumber in [@cusorPos.row..0]
+        currentLine = @editor.lineTextForBufferRow(rowNumber)
         result = currentLine.match /^\s*def\s+(\w+)/
         if result?[1]?
           targetFiles = glob.sync(@currentFile.replace('controllers', 'views')
-                                             .replace(/_controller\.rb$/, "/#{result[1]}.*"))
+                                              .replace(/_controller\.rb$/, "/#{result[1]}.*"))
           if targetFiles.length isnt 0
             for file in targetFiles
               if fs.existsSync file
@@ -29,6 +29,7 @@ class FileOpener
             atom.beep()
                 
           return
+      atom.beep()
 
   openController: ->
     @reloadCurrentEditor()

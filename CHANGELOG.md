@@ -1,5 +1,6 @@
-## 0.6.0 - New command `open-view`
-* `open-view` to open view file directly
+## 0.6.0 - Change Keymaps and add open-view command
+* Change keymaps
+* `open-view` to open view file where cursor is inside action method on controller
 
 ## 0.5.0 - Updates open-view-finder
 * Support `open-view-finder` to open mailer view files
