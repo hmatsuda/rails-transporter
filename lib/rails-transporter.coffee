@@ -22,6 +22,8 @@ module.exports =
       @createFileOpener().openController()
     atom.workspaceView.command 'rails-transporter:open-layout', =>
       @createFileOpener().openLayout()
+    atom.workspaceView.command 'rails-transporter:open-view', =>
+      @createFileOpener().openView()
 
   deactivate: ->
     if @viewFinderView?

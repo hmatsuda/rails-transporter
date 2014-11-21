@@ -8,12 +8,13 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
 '.workspace':
-  'ctrl-alt-r c': 'rails-transporter:open-controller'
-  'ctrl-alt-r v': 'rails-transporter:open-view-finder'
-  'ctrl-alt-r l': 'rails-transporter:open-layout'
-  'ctrl-alt-r m': 'rails-transporter:open-model'
-  'ctrl-alt-r h': 'rails-transporter:open-helper'
-  'ctrl-alt-r s': 'rails-transporter:open-spec'
-  'ctrl-alt-r p': 'rails-transporter:open-partial-template'
-  'ctrl-alt-r a': 'rails-transporter:open-asset'
-  'ctrl-alt-r d m': 'rails-transporter:open-migration-finder'
+  'ctrl-r c': 'rails-transporter:open-controller'
+  'ctrl-r v f': 'rails-transporter:open-view-finder'
+  'ctrl-r v': 'rails-transporter:open-view'
+  'ctrl-r l': 'rails-transporter:open-layout'
+  'ctrl-r m': 'rails-transporter:open-model'
+  'ctrl-r h': 'rails-transporter:open-helper'
+  'ctrl-r s': 'rails-transporter:open-spec'
+  'ctrl-r p': 'rails-transporter:open-partial-template'
+  'ctrl-r a': 'rails-transporter:open-asset'
+  'ctrl-r d m': 'rails-transporter:open-migration-finder'

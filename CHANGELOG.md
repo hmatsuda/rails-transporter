@@ -1,3 +1,7 @@
+## 0.6.0 - Change Keymaps and add open-view command
+* Change keymaps
+* `open-view` to open view file where cursor is inside action method on controller
+
 ## 0.5.0 - Updates open-view-finder
 * Support `open-view-finder` to open mailer view files
 * Fix `open-asset` couldn't .erb file

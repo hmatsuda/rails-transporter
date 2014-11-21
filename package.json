@@ -12,7 +12,8 @@
     "rails-transporter:open-spec",
     "rails-transporter:open-partial-template",
     "rails-transporter:open-asset",
-    "rails-transporter:open-migration-finder"
+    "rails-transporter:open-migration-finder",
+    "rails-transporter:open-view"
   ],
   "repository": "https://github.com/hmatsuda/rails-transporter",
   "license": "MIT",

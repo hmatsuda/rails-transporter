@@ -11,6 +11,26 @@ module.exports =
 class FileOpener
   _.extend this::, RailsUtil::
 
+  openView: ->
+    @reloadCurrentEditor()
+
+    if @isController(@currentFile)
+      for rowNumber in [@cusorPos.row..0]
+        currentLine = @editor.lineTextForBufferRow(rowNumber)
+        result = currentLine.match /^\s*def\s+(\w+)/
+        if result?[1]?
+          targetFiles = glob.sync(@currentFile.replace('controllers', 'views')
+                                              .replace(/_controller\.rb$/, "/#{result[1]}.*"))
+          if targetFiles.length isnt 0
+            for file in targetFiles
+              if fs.existsSync file
+                @open(file)
+          else
+            atom.beep()
+                
+          return
+      atom.beep()
+
   openController: ->
     @reloadCurrentEditor()
     if @isModel(@currentFile)
@@ -137,9 +157,10 @@ class FileOpener
     @assetFinderView
 
   reloadCurrentEditor: ->
-    editor = atom.workspace.getActiveEditor()
-    @currentFile = editor.getPath()
-    @currentBufferLine = editor.getCursor().getCurrentBufferLine()
+    @editor = atom.workspace.getActiveEditor()
+    @currentFile = @editor.getPath()
+    @cusorPos = @editor.getCursor().getBufferPosition()
+    @currentBufferLine = @editor.getCursor().getCurrentBufferLine()
 
   open: (targetFile) ->
     return unless targetFile?
