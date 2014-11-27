@@ -14,22 +14,29 @@ class FileOpener
   openView: ->
     @reloadCurrentEditor()
 
-    if @isController(@currentFile)
-      for rowNumber in [@cusorPos.row..0]
-        currentLine = @editor.lineTextForBufferRow(rowNumber)
-        result = currentLine.match /^\s*def\s+(\w+)/
-        if result?[1]?
+    for rowNumber in [@cusorPos.row..0]
+      currentLine = @editor.lineTextForBufferRow(rowNumber)
+      result = currentLine.match /^\s*def\s+(\w+)/
+      if result?[1]?
+        
+        if @isController(@currentFile)
           targetFiles = glob.sync(@currentFile.replace('controllers', 'views')
                                               .replace(/_controller\.rb$/, "/#{result[1]}.*"))
-          if targetFiles.length isnt 0
-            for file in targetFiles
-              if fs.existsSync file
-                @open(file)
-          else
-            atom.beep()
-                
-          return
-      atom.beep()
+        else if @isMailer(@currentFile)
+          targetFiles = glob.sync(@currentFile.replace('mailers', 'views')
+                                              .replace(/\.rb$/, "/#{result[1]}.*"))
+        else
+          targetFiles = []
+          
+        if targetFiles.length isnt 0
+          for file in targetFiles
+            if fs.existsSync file
+              @open(file)
+        else
+          atom.beep()
+              
+        return
+    atom.beep()
 
   openController: ->
     @reloadCurrentEditor()
