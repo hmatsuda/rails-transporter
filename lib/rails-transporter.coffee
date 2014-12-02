@@ -3,6 +3,9 @@ MigrationFinderView = require './migration-finder-view'
 FileOpener = require './file-opener'
 
 module.exports =
+  configDefaults:
+    newFileExtension: 'html.erb'
+
   activate: (state) ->
     atom.workspaceView.command 'rails-transporter:open-view-finder', =>
       @createViewFinderView().toggle()
@@ -30,21 +33,21 @@ module.exports =
       @viewFinderView.destroy()
     if @migrationFinderView?
       @migrationFinderView.destroy()
-      
+
   createFileOpener: ->
     unless @fileOpener?
       @fileOpener = new FileOpener()
-      
+
     @fileOpener
 
   createViewFinderView: ->
     unless @viewFinderView?
       @viewFinderView = new ViewFinderView()
-      
+
     @viewFinderView
-    
+
   createMigrationFinderView: ->
     unless @migrationFinderView?
       @migrationFinderView = new MigrationFinderView()
-      
+
     @migrationFinderView

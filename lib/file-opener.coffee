@@ -27,17 +27,19 @@ class FileOpener
                 @open(file)
           else
             # no matching file was found.
+            configExtension = atom.config.get('rails-transporter.newFileExtension')
             pathOfNewFile = @currentFile.replace('controllers', 'views')
-                                        .replace(/_controller\.rb$/, "/#{result[1]}.html.erb")
+                                        .replace(/_controller\.rb$/, "/#{result[1]}.#{configExtension}")
             atom.confirm
               message: "No #{result[1]} view found"
-              detailedMessage: "Shall we create #{result[1]}.html.erb for you?"
+              detailedMessage: "Shall we create #{pathOfNewFile}.#{configExtension} for you?"
               buttons:
                 Yes: ->
                   atom.workspace.open(pathOfNewFile)
                   return
                 No: ->
                   atom.beep()
+                  return
           return
       # there were no methods above the line where the command was triggered.
       atom.beep()
