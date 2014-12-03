@@ -32,7 +32,7 @@ class FileOpener
                                         .replace(/_controller\.rb$/, "/#{result[1]}.#{configExtension}")
             atom.confirm
               message: "No #{result[1]} view found"
-              detailedMessage: "Shall we create #{pathOfNewFile}.#{configExtension} for you?"
+              detailedMessage: "Shall we create #{pathOfNewFile} for you?"
               buttons:
                 Yes: ->
                   atom.workspace.open(pathOfNewFile)
