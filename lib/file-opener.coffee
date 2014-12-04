@@ -14,35 +14,47 @@ class FileOpener
   openView: ->
     @reloadCurrentEditor()
 
-    if @isController(@currentFile)
-      for rowNumber in [@cusorPos.row..0]
-        currentLine = @editor.lineTextForBufferRow(rowNumber)
-        result = currentLine.match /^\s*def\s+(\w+)/
-        if result?[1]?
+    for rowNumber in [@cusorPos.row..0]
+      currentLine = @editor.lineTextForBufferRow(rowNumber)
+      result = currentLine.match /^\s*def\s+(\w+)/
+      if result?[1]?
+        
+        if @isController(@currentFile)
           targetFiles = glob.sync(@currentFile.replace('controllers', 'views')
                                               .replace(/_controller\.rb$/, "/#{result[1]}.*"))
-          if targetFiles.length isnt 0
-            for file in targetFiles
-              if fs.existsSync file
-                @open(file)
-          else
-            # no matching file was found.
-            configExtension = atom.config.get('rails-transporter.newFileExtension')
+        else if @isMailer(@currentFile)
+          targetFiles = glob.sync(@currentFile.replace('mailers', 'views')
+                                              .replace(/\.rb$/, "/#{result[1]}.*"))
+        else
+          targetFiles = []
+          
+        if targetFiles.length isnt 0
+          for file in targetFiles
+            if fs.existsSync file
+              @open(file)
+        else
+          # no matching file was found.
+          configExtension = atom.config.get('rails-transporter.newFileExtension')
+          if @isController(@currentFile)
             pathOfNewFile = @currentFile.replace('controllers', 'views')
                                         .replace(/_controller\.rb$/, "/#{result[1]}.#{configExtension}")
-            atom.confirm
-              message: "No #{result[1]} view found"
-              detailedMessage: "Shall we create #{pathOfNewFile} for you?"
-              buttons:
-                Yes: ->
-                  atom.workspace.open(pathOfNewFile)
-                  return
-                No: ->
-                  atom.beep()
-                  return
-          return
-      # there were no methods above the line where the command was triggered.
-      atom.beep()
+          else if @isMailer(@currentFile)
+            pathOfNewFile = @currentFile.replace('mailers', 'views')
+                                        .replace(/\.rb$/, "/#{result[1]}.#{configExtension}")
+          
+          atom.confirm
+            message: "No #{result[1]} view found"
+            detailedMessage: "Shall we create #{pathOfNewFile} for you?"
+            buttons:
+              Yes: ->
+                atom.workspace.open(pathOfNewFile)
+                return
+              No: ->
+                atom.beep()
+                return
+        return
+    # there were no methods above the line where the command was triggered.
+    atom.beep()
 
   openController: ->
     @reloadCurrentEditor()
