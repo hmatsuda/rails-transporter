@@ -33,9 +33,27 @@ class FileOpener
             if fs.existsSync file
               @open(file)
         else
-          atom.beep()
-              
+          # no matching file was found.
+          configExtension = atom.config.get('rails-transporter.newFileExtension')
+          if @isController(@currentFile)
+            pathOfNewFile = @currentFile.replace('controllers', 'views')
+                                        .replace(/_controller\.rb$/, "/#{result[1]}.#{configExtension}")
+          else if @isMailer(@currentFile)
+            pathOfNewFile = @currentFile.replace('mailers', 'views')
+                                        .replace(/\.rb$/, "/#{result[1]}.#{configExtension}")
+          
+          atom.confirm
+            message: "No #{result[1]} view found"
+            detailedMessage: "Shall we create #{pathOfNewFile} for you?"
+            buttons:
+              Yes: ->
+                atom.workspace.open(pathOfNewFile)
+                return
+              No: ->
+                atom.beep()
+                return
         return
+    # there were no methods above the line where the command was triggered.
     atom.beep()
 
   openController: ->
@@ -51,7 +69,7 @@ class FileOpener
       targetFile = @currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
 
     @open(targetFile)
-    
+
   openModel: ->
     @reloadCurrentEditor()
     if @isController(@currentFile)
@@ -64,12 +82,12 @@ class FileOpener
       resource = path.basename(dir)
       targetFile = dir.replace("app/views/", "app/models/")
                       .replace(resource, "#{pluralize.singular(resource)}.rb")
-                      
+
     else if @isSpec(@currentFile)
       targetFile = @currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
 
     @open(targetFile)
-  
+
   openHelper: ->
     @reloadCurrentEditor()
     if @isController(@currentFile)
@@ -87,7 +105,7 @@ class FileOpener
                        .replace("app/views/", "app/helpers/") + "_helper.rb"
 
     @open(targetFile)
-    
+
   openSpec: ->
     @reloadCurrentEditor()
     if @isController(@currentFile)
@@ -101,12 +119,12 @@ class FileOpener
                                .replace('.rb', '_spec.rb')
 
     @open(targetFile)
-      
+
   openPartial: ->
     @reloadCurrentEditor()
     if @isView(@currentFile)
       if @currentBufferLine.indexOf("render") isnt -1
-        
+
         if @currentBufferLine.indexOf("partial") is -1
           result = @currentBufferLine.match(/render\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
           targetFile = @partialFullPath(@currentFile, result[1]) if result?[1]?
@@ -115,7 +133,7 @@ class FileOpener
           targetFile = @partialFullPath(@currentFile, result[2]) if result?[2]?
 
     @open(targetFile)
-    
+
   openAsset: ->
     @reloadCurrentEditor()
     if @isView(@currentFile)
@@ -125,7 +143,7 @@ class FileOpener
       else if @currentBufferLine.indexOf("stylesheet_link_tag") isnt -1
         result = @currentBufferLine.match(/stylesheet_link_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
         targetFile = @assetFullPath(result[1], 'css') if result?[1]?
-        
+
     else if @isAsset(@currentFile)
       if @currentBufferLine.indexOf("require ") isnt -1
         result = @currentBufferLine.match(/require\s*([a-zA-Z0-9_\-\./]+)\s*$/)
@@ -160,7 +178,7 @@ class FileOpener
   createAssetFinderView: ->
     unless @assetFinderView?
       @assetFinderView = new AssetFinderView()
-      
+
     @assetFinderView
 
   reloadCurrentEditor: ->
@@ -182,14 +200,14 @@ class FileOpener
       "#{path.dirname(currentFile)}/_#{partialName}#{ext}#{tmplEngine}"
     else
       "#{atom.project.getPath()}/app/views/#{path.dirname(partialName)}/_#{path.basename(partialName)}#{ext}#{tmplEngine}"
-  
+
   assetFullPath: (assetName, ext) ->
     switch path.extname(assetName)
       when ".coffee", ".js", ".scss", ".css"
         fileName = path.basename(assetName)
       else
         fileName = "#{path.basename(assetName)}.#{ext}"
-    
+
     if assetName.match(/^\//)
       "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"
     else
