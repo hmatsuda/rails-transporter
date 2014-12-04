@@ -1,7 +1,7 @@
 {
   "name": "rails-transporter",
   "main": "./lib/rails-transporter",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Easily open related files on Rails",
   "activationEvents": [
     "rails-transporter:open-controller",
