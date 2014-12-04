@@ -6,7 +6,7 @@ Quickly open files or finder using following keymaps.
 
 * `ctrl-r c` - Open controller from model, view or controller-spec
 * `ctrl-r v f` - Open view finder from controller, model or mailer
-* `ctrl-r v` - Open view where the cursor is inside action method on controller
+* `ctrl-r v` - Open view where the cursor is inside action method on controller. If no view found, show dialog to create new file
 * `ctrl-r l` - Open layout from view
 * `ctrl-r m` - Open model from controller, view or model-spec
 * `ctrl-r h` - Open helper from controller, view or helper-spec

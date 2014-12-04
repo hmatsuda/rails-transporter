@@ -1,3 +1,7 @@
+## 0.7.0 - Change Keymaps and add open-view command
+* `open-view` supports to open mailer view
+* `open-view` supports to show daialog to create view if no view found
+
 ## 0.6.0 - Change Keymaps and add open-view command
 * Change keymaps
 * `open-view` to open view file where cursor is inside action method on controller
