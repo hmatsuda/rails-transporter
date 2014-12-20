@@ -30,7 +30,7 @@ class BaseFinderView extends SelectListView
         @div atom.project.relativize(item), class: 'secondary-line path no-icon'
   
   confirmed: (item) ->
-    atom.workspaceView.open item
+    atom.workspace.open item
     
   toggle: ->
     if @hasParent()
@@ -48,8 +48,8 @@ class BaseFinderView extends SelectListView
     filePath = @getSelectedItem() ? {}
     return unless filePath
 
-    if pane = atom.workspaceView.getActivePane()
+    if pane = atom.workspace.getActivePaneView()
       atom.project.open(filePath).done (editor) =>
         fn(pane, editor)
     else
-      atom.workspaceView.open filePath
+      atom.workspace.open filePath

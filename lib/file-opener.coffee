@@ -160,7 +160,7 @@ class FileOpener
 
   openLayout: ->
     @reloadCurrentEditor()
-    layoutDir = "#{atom.project.getPath()}/app/views/layouts"
+    layoutDir = "#{atom.project.getPaths()[0]}/app/views/layouts"
     if @isController(@currentFile)
       if @currentBufferLine.indexOf("layout") isnt -1
         result = @currentBufferLine.match(/layout\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
@@ -182,16 +182,16 @@ class FileOpener
     @assetFinderView
 
   reloadCurrentEditor: ->
-    @editor = atom.workspace.getActiveEditor()
+    @editor = atom.workspace.getActiveTextEditor()
     @currentFile = @editor.getPath()
-    @cusorPos = @editor.getCursor().getBufferPosition()
-    @currentBufferLine = @editor.getCursor().getCurrentBufferLine()
+    @cusorPos = @editor.getLastCursor().getBufferPosition()
+    @currentBufferLine = @editor.getLastCursor().getCurrentBufferLine()
 
   open: (targetFile) ->
     return unless targetFile?
     files = if typeof(targetFile) is 'string' then [targetFile] else targetFile
     for file in files
-      atom.workspaceView.open(file) if fs.existsSync(file)
+      atom.workspace.open(file) if fs.existsSync(file)
 
   partialFullPath: (currentFile, partialName) ->
     tmplEngine = path.extname(currentFile)
@@ -199,7 +199,7 @@ class FileOpener
     if partialName.indexOf("/") is -1
       "#{path.dirname(currentFile)}/_#{partialName}#{ext}#{tmplEngine}"
     else
-      "#{atom.project.getPath()}/app/views/#{path.dirname(partialName)}/_#{path.basename(partialName)}#{ext}#{tmplEngine}"
+      "#{atom.project.getPaths()[0]}/app/views/#{path.dirname(partialName)}/_#{path.basename(partialName)}#{ext}#{tmplEngine}"
 
   assetFullPath: (assetName, ext) ->
     switch path.extname(assetName)
@@ -209,11 +209,11 @@ class FileOpener
         fileName = "#{path.basename(assetName)}.#{ext}"
 
     if assetName.match(/^\//)
-      "#{atom.project.getPath()}/public/#{path.dirname(assetName)}/#{fileName}"
+      "#{atom.project.getPaths()[0]}/public/#{path.dirname(assetName)}/#{fileName}"
     else
       assetsDir = if ext is 'js' then "javascripts" else "stylesheets"
       for location in ['app', 'lib', 'vendor']
-        pattern = "#{atom.project.getPath()}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}*"
+        pattern = "#{atom.project.getPaths()[0]}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}*"
         targetFile = glob.sync(pattern)
         console.log targetFile
         return targetFile if targetFile.length > 0
