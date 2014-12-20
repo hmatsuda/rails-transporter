@@ -12,7 +12,7 @@ class ViewFinderView extends BaseFinderView
 
   populate: ->
     @displayFiles.length = 0
-    currentFile = atom.workspace.getActiveEditor().getPath()
+    currentFile = atom.workspace.getActiveTextEditor().getPath()
     if @isController(currentFile)
       viewDir = currentFile.replace('controllers', 'views')
                            .replace(/_controller\.rb$/, '')

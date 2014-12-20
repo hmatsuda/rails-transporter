@@ -10,26 +10,27 @@ module.exports =
       default:     'html.erb'
 
   activate: (state) ->
-    atom.workspaceView.command 'rails-transporter:open-view-finder', =>
-      @createViewFinderView().toggle()
-    atom.workspaceView.command 'rails-transporter:open-migration-finder', =>
-      @createMigrationFinderView().toggle()
-    atom.workspaceView.command 'rails-transporter:open-model', =>
-      @createFileOpener().openModel()
-    atom.workspaceView.command 'rails-transporter:open-helper', =>
-      @createFileOpener().openHelper()
-    atom.workspaceView.command 'rails-transporter:open-partial-template', =>
-      @createFileOpener().openPartial()
-    atom.workspaceView.command 'rails-transporter:open-spec', =>
-      @createFileOpener().openSpec()
-    atom.workspaceView.command 'rails-transporter:open-asset', =>
-      @createFileOpener().openAsset()
-    atom.workspaceView.command 'rails-transporter:open-controller', =>
-      @createFileOpener().openController()
-    atom.workspaceView.command 'rails-transporter:open-layout', =>
-      @createFileOpener().openLayout()
-    atom.workspaceView.command 'rails-transporter:open-view', =>
-      @createFileOpener().openView()
+    atom.commands.add 'atom-workspace',
+      'rails-transporter:open-view-finder': =>
+        @createViewFinderView().toggle()
+      'rails-transporter:open-migration-finder': =>
+        @createMigrationFinderView().toggle()
+      'rails-transporter:open-model': =>
+        @createFileOpener().openModel()
+      'rails-transporter:open-helper': =>
+        @createFileOpener().openHelper()
+      'rails-transporter:open-partial-template': =>
+        @createFileOpener().openPartial()
+      'rails-transporter:open-spec': =>
+        @createFileOpener().openSpec()
+      'rails-transporter:open-asset': =>
+        @createFileOpener().openAsset()
+      'rails-transporter:open-controller': =>
+        @createFileOpener().openController()
+      'rails-transporter:open-layout': =>
+        @createFileOpener().openLayout()
+      'rails-transporter:open-view': =>
+        @createFileOpener().openView()
 
   deactivate: ->
     if @viewFinderView?
