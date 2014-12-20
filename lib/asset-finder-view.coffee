@@ -8,9 +8,9 @@ class AssetFinderView extends BaseFinderView
   populate: ->
     @displayFiles.length = 0
     
-    editor = atom.workspace.getActiveEditor()
+    editor = atom.workspace.getActiveTextEditor()
     dir = path.dirname(editor.getPath())
-    line = editor.getCursor().getCurrentBufferLine()
+    line = editor.getLastCursor().getCurrentBufferLine()
     if line.indexOf("require_tree") isnt -1
       result = line.match(/require_tree\s*([a-zA-Z0-9_\-\./]+)\s*$/)
       @loadFolder(path.join(dir, result[1]), true)

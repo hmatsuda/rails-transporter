@@ -1,25 +1,29 @@
 {
   "name": "rails-transporter",
   "main": "./lib/rails-transporter",
-  "version": "0.4.0",
+  "version": "0.7.0",
   "description": "Easily open related files on Rails",
-  "activationEvents": [
-    "rails-transporter:open-controller",
-    "rails-transporter:open-view-finder",
-    "rails-transporter:open-layout",
-    "rails-transporter:open-model",
-    "rails-transporter:open-helper",
-    "rails-transporter:open-spec",
-    "rails-transporter:open-partial-template",
-    "rails-transporter:open-asset",
-    "rails-transporter:open-migration-finder"
-  ],
+  "activationCommands": {
+    "atom-workspace": [
+      "rails-transporter:open-controller",
+      "rails-transporter:open-view-finder",
+      "rails-transporter:open-layout",
+      "rails-transporter:open-model",
+      "rails-transporter:open-helper",
+      "rails-transporter:open-spec",
+      "rails-transporter:open-partial-template",
+      "rails-transporter:open-asset",
+      "rails-transporter:open-migration-finder",
+      "rails-transporter:open-view"
+    ]
+  },
   "repository": "https://github.com/hmatsuda/rails-transporter",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
   },
   "dependencies": {
+    "atom-space-pen-views": "^0.20.0",
     "pluralize": "0.0.9",
     "temp": "~0.6.0",
     "wrench": "^1.5",

@@ -7,7 +7,7 @@ module.exports =
 class ViewFinderView extends BaseFinderView
   populate: ->
     @displayFiles.length = 0
-    migrationDir = path.join(atom.project.getPath(), "db/migrate")
+    migrationDir = path.join(atom.project.getPaths()[0], "db/migrate")
                            
     return unless fs.existsSync migrationDir
     for migrationFile in fs.readdirSync(migrationDir)
