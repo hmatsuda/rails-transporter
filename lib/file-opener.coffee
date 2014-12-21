@@ -202,16 +202,19 @@ class FileOpener
       atom.workspace.open(file) if fs.existsSync(file)
   
   openDialog: (targetFile) ->
-    atom.confirm
-      message: "No #{targetFile} found"
-      detailedMessage: "Shall we create #{targetFile} for you?"
-      buttons:
-        Yes: ->
-          atom.workspace.open(targetFile)
-          return
-        No: ->
-          atom.beep()
-          return
+    if targetFile?
+      atom.confirm
+        message: "No #{targetFile} found"
+        detailedMessage: "Shall we create #{targetFile} for you?"
+        buttons:
+          Yes: ->
+            atom.workspace.open(targetFile)
+            return
+          No: ->
+            atom.beep()
+            return
+    else
+      atom.beep()
     
 
   partialFullPath: (currentFile, partialName) ->
