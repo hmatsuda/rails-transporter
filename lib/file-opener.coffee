@@ -42,17 +42,9 @@ class FileOpener
             pathOfNewFile = @currentFile.replace('mailers', 'views')
                                         .replace(/\.rb$/, "/#{result[1]}.#{configExtension}")
           
-          atom.confirm
-            message: "No #{result[1]} view found"
-            detailedMessage: "Shall we create #{pathOfNewFile} for you?"
-            buttons:
-              Yes: ->
-                atom.workspace.open(pathOfNewFile)
-                return
-              No: ->
-                atom.beep()
-                return
+          @openDialog(pathOfNewFile)
         return
+        
     # there were no methods above the line where the command was triggered.
     atom.beep()
 
@@ -68,7 +60,11 @@ class FileOpener
     else if @isSpec(@currentFile)
       targetFile = @currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
 
-    @open(targetFile)
+    if fs.existsSync targetFile
+      @open(targetFile)
+    else
+      @openDialog(targetFile)
+      
 
   openModel: ->
     @reloadCurrentEditor()
@@ -86,7 +82,10 @@ class FileOpener
     else if @isSpec(@currentFile)
       targetFile = @currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
 
-    @open(targetFile)
+    if fs.existsSync targetFile
+      @open(targetFile)
+    else
+      @openDialog(targetFile)
 
   openHelper: ->
     @reloadCurrentEditor()
@@ -104,7 +103,10 @@ class FileOpener
       targetFile = path.dirname(@currentFile)
                        .replace("app/views/", "app/helpers/") + "_helper.rb"
 
-    @open(targetFile)
+    if fs.existsSync targetFile
+      @open(targetFile)
+    else
+      @openDialog(targetFile)
 
   openSpec: ->
     @reloadCurrentEditor()
@@ -117,8 +119,11 @@ class FileOpener
     else if @isModel(@currentFile)
       targetFile = @currentFile.replace('app/models', 'spec/models')
                                .replace('.rb', '_spec.rb')
-
-    @open(targetFile)
+                               
+    if fs.existsSync targetFile
+      @open(targetFile)
+    else
+      @openDialog(targetFile)
 
   openPartial: ->
     @reloadCurrentEditor()
@@ -132,7 +137,10 @@ class FileOpener
           result = @currentBufferLine.match(/render\s*\(?\s*\:?partial(\s*=>|:*)\s*["']([a-zA-Z0-9_\-\./]+)["']/)
           targetFile = @partialFullPath(@currentFile, result[2]) if result?[2]?
 
-    @open(targetFile)
+    if fs.existsSync targetFile
+      @open(targetFile)
+    else
+      @openDialog(targetFile)
 
   openAsset: ->
     @reloadCurrentEditor()
@@ -152,9 +160,9 @@ class FileOpener
         else if @currentFile.indexOf("app/assets/stylesheets") isnt -1
           targetFile = @assetFullPath(result[1], 'css') if result?[1]?
       else if @currentBufferLine.indexOf("require_tree ") isnt -1
-        @createAssetFinderView().toggle()
+        return @createAssetFinderView().toggle()
       else if @currentBufferLine.indexOf("require_directory ") isnt -1
-        @createAssetFinderView().toggle()
+        return @createAssetFinderView().toggle()
 
     @open(targetFile)
 
@@ -192,6 +200,19 @@ class FileOpener
     files = if typeof(targetFile) is 'string' then [targetFile] else targetFile
     for file in files
       atom.workspace.open(file) if fs.existsSync(file)
+  
+  openDialog: (targetFile) ->
+    atom.confirm
+      message: "No #{targetFile} found"
+      detailedMessage: "Shall we create #{targetFile} for you?"
+      buttons:
+        Yes: ->
+          atom.workspace.open(targetFile)
+          return
+        No: ->
+          atom.beep()
+          return
+    
 
   partialFullPath: (currentFile, partialName) ->
     tmplEngine = path.extname(currentFile)
@@ -215,5 +236,4 @@ class FileOpener
       for location in ['app', 'lib', 'vendor']
         pattern = "#{atom.project.getPaths()[0]}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}*"
         targetFile = glob.sync(pattern)
-        console.log targetFile
         return targetFile if targetFile.length > 0
