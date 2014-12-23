@@ -56,9 +56,9 @@ class FileOpener
                                .replace(resource, "#{pluralize(resource)}_controller")
     else if @isView(@currentFile)
       targetFile = path.dirname(@currentFile)
-                       .replace("app/views/", "app/controllers/") + "_controller.rb"
+                       .replace("#{path.sep}views#{path.sep}", "#{path.sep}controllers#{path.sep}") + "_controller.rb"
     else if @isSpec(@currentFile)
-      targetFile = @currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
+      targetFile = @currentFile.replace("#{path.sep}spec#{path.sep}", "#{path.sep}app#{path.sep}").replace('_spec.rb', '.rb')
 
     if fs.existsSync targetFile
       @open(targetFile)
