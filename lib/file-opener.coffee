@@ -20,11 +20,11 @@ class FileOpener
       if result?[1]?
         
         if @isController(@currentFile)
-          targetFiles = glob.sync(@currentFile.replace('controllers', 'views')
-                                              .replace(/_controller\.rb$/, "/#{result[1]}.*"))
+          targetFiles = glob.sync(@currentFile.replace("#{path.sep}controllers#{path.sep}", "#{path.sep}views#{path.sep}")
+                                              .replace(/_controller\.rb$/, "#{path.sep}#{result[1]}.*"))
         else if @isMailer(@currentFile)
-          targetFiles = glob.sync(@currentFile.replace('mailers', 'views')
-                                              .replace(/\.rb$/, "/#{result[1]}.*"))
+          targetFiles = glob.sync(@currentFile.replace("#{path.sep}mailers#{path.sep}", "#{path.sep}views#{path.sep}")
+                                              .replace(/\.rb$/, "#{path.sep}#{result[1]}.*"))
         else
           targetFiles = []
           
