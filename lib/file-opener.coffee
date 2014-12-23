@@ -36,11 +36,11 @@ class FileOpener
           # no matching file was found.
           configExtension = atom.config.get('rails-transporter.newFileExtension')
           if @isController(@currentFile)
-            pathOfNewFile = @currentFile.replace('controllers', 'views')
-                                        .replace(/_controller\.rb$/, "/#{result[1]}.#{configExtension}")
+            pathOfNewFile = @currentFile.replace("#{path.sep}controllers#{path.sep}", "#{path.sep}views#{path.sep}")
+                                        .replace(/_controller\.rb$/, "#{path.sep}#{result[1]}.#{configExtension}")
           else if @isMailer(@currentFile)
-            pathOfNewFile = @currentFile.replace('mailers', 'views')
-                                        .replace(/\.rb$/, "/#{result[1]}.#{configExtension}")
+            pathOfNewFile = @currentFile.replace("#{path.sep}mailers#{path.sep}", "#{path.sep}views#{path.sep}")
+                                        .replace(/\.rb$/, "#{path.sep}#{result[1]}.#{configExtension}")
           
           @openDialog(pathOfNewFile)
         return
