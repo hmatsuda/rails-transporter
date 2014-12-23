@@ -70,17 +70,17 @@ class FileOpener
     @reloadCurrentEditor()
     if @isController(@currentFile)
       resourceName = pluralize.singular(@currentFile.match(/([\w]+)_controller\.rb$/)[1])
-      targetFile = @currentFile.replace('controllers', 'models')
+      targetFile = @currentFile.replace("#{path.sep}controllers#{path.sep}", "#{path.sep}models#{path.sep}")
                                .replace(/([\w]+)_controller\.rb$/, "#{resourceName}.rb")
 
     else if @isView(@currentFile)
       dir = path.dirname(@currentFile)
       resource = path.basename(dir)
-      targetFile = dir.replace("app/views/", "app/models/")
+      targetFile = dir.replace("app#{path.sep}views", "app#{path.sep}models")
                       .replace(resource, "#{pluralize.singular(resource)}.rb")
 
     else if @isSpec(@currentFile)
-      targetFile = @currentFile.replace('spec/', 'app/').replace('_spec.rb', '.rb')
+      targetFile = @currentFile.replace("#{path.sep}spec#{path.sep}", "#{path.sep}app#{path.sep}").replace('_spec.rb', '.rb')
 
     if fs.existsSync targetFile
       @open(targetFile)
