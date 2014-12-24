@@ -221,9 +221,9 @@ class FileOpener
     tmplEngine = path.extname(currentFile)
     ext = path.extname(path.basename(currentFile, tmplEngine))
     if partialName.indexOf("/") is -1
-      "#{path.dirname(currentFile)}/_#{partialName}#{ext}#{tmplEngine}"
+      path.join(path.dirname(currentFile), "_#{partialName}#{ext}#{tmplEngine}")
     else
-      "#{atom.project.getPaths()[0]}/app/views/#{path.dirname(partialName)}/_#{path.basename(partialName)}#{ext}#{tmplEngine}"
+      path.join(atom.project.getPaths()[0], 'app', 'views', path.dirname(partialName), "_#{path.basename(partialName)}#{ext}#{tmplEngine}")
 
   assetFullPath: (assetName, ext) ->
     switch path.extname(assetName)
