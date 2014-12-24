@@ -233,10 +233,10 @@ class FileOpener
         fileName = "#{path.basename(assetName)}.#{ext}"
 
     if assetName.match(/^\//)
-      "#{atom.project.getPaths()[0]}/public/#{path.dirname(assetName)}/#{fileName}"
+      path.join(atom.project.getPaths()[0], 'public', path.dirname(assetName), fileName)
     else
       assetsDir = if ext is 'js' then "javascripts" else "stylesheets"
       for location in ['app', 'lib', 'vendor']
-        pattern = "#{atom.project.getPaths()[0]}/#{location}/assets/#{assetsDir}/#{path.dirname(assetName)}/#{fileName}*"
+        pattern = path.join(atom.project.getPaths()[0], location, 'assets', assetsDir, path.dirname(assetName), "#{fileName}*")
         targetFile = glob.sync(pattern)
         return targetFile if targetFile.length > 0
