@@ -111,13 +111,13 @@ class FileOpener
   openSpec: ->
     @reloadCurrentEditor()
     if @isController(@currentFile)
-      targetFile = @currentFile.replace('app/controllers', 'spec/controllers')
+      targetFile = @currentFile.replace("app#{path.sep}controllers", "spec#{path.sep}controllers")
                                .replace('controller.rb', 'controller_spec.rb')
     else if @isHelper(@currentFile)
-      targetFile = @currentFile.replace('app/helpers', 'spec/helpers')
+      targetFile = @currentFile.replace("app#{path.sep}helpers", "spec#{path.sep}helpers")
                                .replace('.rb', '_spec.rb')
     else if @isModel(@currentFile)
-      targetFile = @currentFile.replace('app/models', 'spec/models')
+      targetFile = @currentFile.replace("app#{path.sep}models", "spec#{path.sep}models")
                                .replace('.rb', '_spec.rb')
                                
     if fs.existsSync targetFile
