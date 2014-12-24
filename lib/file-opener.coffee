@@ -155,9 +155,9 @@ class FileOpener
     else if @isAsset(@currentFile)
       if @currentBufferLine.indexOf("require ") isnt -1
         result = @currentBufferLine.match(/require\s*([a-zA-Z0-9_\-\./]+)\s*$/)
-        if @currentFile.indexOf("app/assets/javascripts") isnt -1
+        if @currentFile.indexOf("app#{path.sep}assets#{path.sep}javascripts") isnt -1
           targetFile = @assetFullPath(result[1], 'js') if result?[1]?
-        else if @currentFile.indexOf("app/assets/stylesheets") isnt -1
+        else if @currentFile.indexOf("app#{path.sep}assets#{path.sep}stylesheets") isnt -1
           targetFile = @assetFullPath(result[1], 'css') if result?[1]?
       else if @currentBufferLine.indexOf("require_tree ") isnt -1
         return @createAssetFinderView().toggle()
