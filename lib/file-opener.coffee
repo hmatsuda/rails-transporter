@@ -171,7 +171,7 @@ class FileOpener
     layoutDir = path.join(path.sep, atom.project.getPaths()[0], 'app', 'views', 'layouts')
     if @isController(@currentFile)
       if @currentBufferLine.indexOf("layout") isnt -1
-        result = @currentBufferLine.match(/layout\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
+        result = @currentBufferLine.match(/layout\s*\(?\s*["'](.+)["']/)
         targetFile = glob.sync(path.join(layoutDir, "#{result[1]}.*")) if result?[1]?
       else
         targetPattern = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'views', 'layouts'))
