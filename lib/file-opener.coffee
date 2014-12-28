@@ -138,18 +138,18 @@ class FileOpener
     if @isView(@currentFile)
       if @currentBufferLine.indexOf("javascript_include_tag") isnt -1
         result = @currentBufferLine.match(/javascript_include_tag\s*\(?\s*["'](.+?)["']/)
-        targetFile = @assetFullPath(result[1], 'js') if result?[1]?
+        targetFile = @assetFullPath(result[1], 'javascripts') if result?[1]?
       else if @currentBufferLine.indexOf("stylesheet_link_tag") isnt -1
         result = @currentBufferLine.match(/stylesheet_link_tag\s*\(?\s*["'](.+?)["']/)
-        targetFile = @assetFullPath(result[1], 'css') if result?[1]?
+        targetFile = @assetFullPath(result[1], 'stylesheets') if result?[1]?
 
     else if @isAsset(@currentFile)
       if @currentBufferLine.indexOf("require ") isnt -1
         result = @currentBufferLine.match(/require\s*(.+?)\s*$/)
-        if @currentFile.indexOf("app#{path.sep}assets#{path.sep}javascripts") isnt -1
-          targetFile = @assetFullPath(result[1], 'js') if result?[1]?
-        else if @currentFile.indexOf("app#{path.sep}assets#{path.sep}stylesheets") isnt -1
-          targetFile = @assetFullPath(result[1], 'css') if result?[1]?
+        if @currentFile.indexOf(path.join('app', 'assets', 'javascripts')) isnt -1
+          targetFile = @assetFullPath(result[1], 'javascripts') if result?[1]?
+        else if @currentFile.indexOf(path.join('app', 'assets', 'stylesheets')) isnt -1
+          targetFile = @assetFullPath(result[1], 'stylesheets') if result?[1]?
       else if @currentBufferLine.indexOf("require_tree ") isnt -1
         return @createAssetFinderView().toggle()
       else if @currentBufferLine.indexOf("require_directory ") isnt -1
@@ -216,18 +216,27 @@ class FileOpener
     else
       path.join(atom.project.getPaths()[0], 'app', 'views', path.dirname(partialName), "_#{path.basename(partialName)}.#{configExtension}")
 
-  assetFullPath: (assetName, ext) ->
+  assetFullPath: (assetName, type) ->
+    fileName = path.basename(assetName)
+    
     switch path.extname(assetName)
       when ".coffee", ".js", ".scss", ".css"
-        fileName = path.basename(assetName)
+        ext = ''
       else
-        fileName = "#{path.basename(assetName)}.#{ext}"
-
+        ext = if type is 'javascripts' then '.js' else if 'stylesheets' then '.css'
+        
     if assetName.match(/^\//)
-      path.join(atom.project.getPaths()[0], 'public', path.dirname(assetName), fileName)
+      path.join(atom.project.getPaths()[0], 'public', path.dirname(assetName), "#{fileName}#{ext}")
     else
-      assetsDir = if ext is 'js' then "javascripts" else "stylesheets"
       for location in ['app', 'lib', 'vendor']
-        pattern = path.join(atom.project.getPaths()[0], location, 'assets', assetsDir, path.dirname(assetName), "#{fileName}*")
-        targetFile = glob.sync(pattern)
-        return targetFile if targetFile.length > 0
+        baseName = path.join(atom.project.getPaths()[0], location, 'assets', type, path.dirname(assetName), fileName)
+        if type is 'javascripts'
+          for fullExt in ["#{ext}.erb", "#{ext}.coffee", "#{ext}.coffee.erb", ext]
+            fullPath = baseName + fullExt
+            return fullPath if fs.existsSync fullPath
+          
+        else if type is 'stylesheets'
+          for fullExt in ["#{ext}.erb", "#{ext}.scss", "#{ext}.scss.erb", ext]
+            fullPath = baseName + fullExt
+            return fullPath if fs.existsSync fullPath
+          
