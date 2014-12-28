@@ -42,13 +42,14 @@ class FileOpener
     @reloadCurrentEditor()
     if @isModel(@currentFile)
       resource = path.basename(@currentFile, '.rb')
-      targetFile = @currentFile.replace('models', 'controllers')
+      targetFile = @currentFile.replace(path.join('app', 'models'), path.join('app', 'controllers'))
                                .replace(resource, "#{pluralize(resource)}_controller")
     else if @isView(@currentFile)
       targetFile = path.dirname(@currentFile)
-                       .replace("#{path.sep}views#{path.sep}", "#{path.sep}controllers#{path.sep}") + "_controller.rb"
+                   .replace(path.join('app', 'views'), path.join('app', 'controllers')) + '_controller.rb'
     else if @isSpec(@currentFile)
-      targetFile = @currentFile.replace("#{path.sep}spec#{path.sep}", "#{path.sep}app#{path.sep}").replace('_spec.rb', '.rb')
+      targetFile = @currentFile.replace(path.join('spec', 'controllers'), path.join('app', 'controllers'))
+                               .replace(/_spec\.rb$/, '.rb')
 
     if fs.existsSync targetFile
       @open(targetFile)
