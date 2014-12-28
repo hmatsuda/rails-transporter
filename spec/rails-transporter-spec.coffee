@@ -53,7 +53,7 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens controller", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/controllers/blogs_controller.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
     
       describe "when the rails-transporter:open-view-finder event is triggered", ->
         it "shows the ViewFinder or hides it if it's already showing", ->
@@ -80,7 +80,7 @@ describe "RailsTransporter", ->
             activationPromise
     
           runs ->
-            viewDir = path.join(atom.project.getPaths()[0], "app/views/blogs/")
+            viewDir = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs')
             expect($(workspaceElement).find('.select-list li').length).toBe fs.readdirSync(viewDir).length
             for view in fs.readdirSync(viewDir)
               expect($(workspaceElement).find(".select-list .primary-line:contains(#{view})")).toExist()
@@ -92,7 +92,7 @@ describe "RailsTransporter", ->
             
     describe "when active editor opens mailer", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/mailers/notification_mailer.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'mailers', 'notification_mailer.rb'))
     
       describe "when the rails-transporter:open-view-finder event is triggered", ->
         it "shows the ViewFinder or hides it if it's already showing", ->
@@ -119,7 +119,7 @@ describe "RailsTransporter", ->
             activationPromise
     
           runs ->
-            viewDir = path.join(atom.project.getPaths()[0], "app/views/notification_mailer")
+            viewDir = path.join(atom.project.getPaths()[0], 'app', 'views', 'notification_mailer')
             expect(workspaceElement.querySelectorAll('.select-list li').length).toBe fs.readdirSync(viewDir).length
             for view in fs.readdirSync(viewDir)
               expect($(workspaceElement).find(".select-list .primary-line:contains(#{view})")).toExist()
@@ -131,7 +131,7 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens model", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/models/blog.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
     
       describe "when the rails-transporter:open-view-finder event is triggered", ->
         it "shows the ViewFinder or hides it if it's already showing", ->
@@ -158,7 +158,7 @@ describe "RailsTransporter", ->
             activationPromise
     
           runs ->
-            viewDir = path.join(atom.project.getPaths()[0], "app/views/blogs/")
+            viewDir = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs')
             expect($(workspaceElement).find('.select-list li').length).toBe fs.readdirSync(viewDir).length
             for view in fs.readdirSync(viewDir)
               expect($(workspaceElement).find(".select-list .primary-line:contains(#{view})")).toExist()
@@ -169,7 +169,7 @@ describe "RailsTransporter", ->
   describe "open-model behavior", ->
     describe "when active editor opens controller", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/controllers/blogs_controller.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
     
       it "opens related model", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-model'
@@ -180,7 +180,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
     
         runs ->
-          modelPath = path.join(atom.project.getPaths()[0], "app/models/blog.rb")
+          modelPath = path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe modelPath
@@ -188,7 +188,7 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens model spec", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec/models/blog_spec.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec', 'models', 'blog_spec.rb'))
     
       it "opens related model", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-model'
@@ -199,7 +199,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
     
         runs ->
-          modelPath = path.join(atom.project.getPaths()[0], "app/models/blog.rb")
+          modelPath = path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe modelPath
@@ -207,7 +207,7 @@ describe "RailsTransporter", ->
             
     describe "when active editor opens view", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/views/blogs/show.html.erb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'show.html.erb'))
   
       it "opens related model", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-model'
@@ -218,7 +218,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          modelPath = path.join(atom.project.getPaths()[0], "app/models/blog.rb")
+          modelPath = path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe modelPath
@@ -227,7 +227,7 @@ describe "RailsTransporter", ->
   describe "open-helper behavior", ->
     describe "when active editor opens controller", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/controllers/blogs_controller.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
     
       it "opens related helper", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-helper'
@@ -238,7 +238,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
     
         runs ->
-          helperPath = path.join(atom.project.getPaths()[0], "app/helpers/blogs_helper.rb")
+          helperPath = path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe helperPath
@@ -246,7 +246,7 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens helper spec", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec/helpers/blogs_helper_spec.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec', 'helpers', 'blogs_helper_spec.rb'))
     
       it "opens related helper", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-helper'
@@ -257,7 +257,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
     
         runs ->
-          helperPath = path.join(atom.project.getPaths()[0], "app/helpers/blogs_helper.rb")
+          helperPath = path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe helperPath
@@ -265,7 +265,7 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens model", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/models/blog.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
     
       it "opens related helper", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-helper'
@@ -276,7 +276,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
     
         runs ->
-          helperPath = path.join(atom.project.getPaths()[0], "app/helpers/blogs_helper.rb")
+          helperPath = path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe helperPath
@@ -284,7 +284,7 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens view", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/views/blogs/show.html.erb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'show.html.erb'))
   
       it "opens related helper", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-helper'
@@ -295,7 +295,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          helperPath = path.join(atom.project.getPaths()[0], "app/helpers/blogs_helper.rb")
+          helperPath = path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe helperPath
@@ -303,7 +303,7 @@ describe "RailsTransporter", ->
   
   describe "open-patial-template behavior", ->
     beforeEach ->
-      atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/views/blogs/edit.html.erb'))
+      atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'edit.html.erb'))
       editorView = atom.workspaceView.getActiveView()
       editor = editorView.getEditor()
   
@@ -318,7 +318,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          partialPath = path.join(atom.project.getPaths()[0], "app/views/blogs/_form.html.erb")
+          partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form.html.erb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe partialPath
@@ -335,7 +335,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          partialPath = path.join(atom.project.getPaths()[0], "app/views/blogs/_form.html.erb")
+          partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form.html.erb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe partialPath
@@ -352,7 +352,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          partialPath = path.join(atom.project.getPaths()[0], "app/views/blogs/_form.html.erb")
+          partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form.html.erb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe partialPath
@@ -369,7 +369,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          partialPath = path.join(atom.project.getPaths()[0], "app/views/shared/_form.html.erb")
+          partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'shared', '_form.html.erb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe partialPath
@@ -386,7 +386,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          partialPath = path.join(atom.project.getPaths()[0], "app/views/blogs/_form02.html.erb")
+          partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form02.html.erb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe partialPath
@@ -403,7 +403,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          partialPath = path.join(atom.project.getPaths()[0], "app/views/blogs/_form02.html.erb")
+          partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form02.html.erb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe partialPath
@@ -420,7 +420,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          partialPath = path.join(atom.project.getPaths()[0], "app/views/blogs/_form02.html.erb")
+          partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form02.html.erb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe partialPath
@@ -437,7 +437,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          partialPath = path.join(atom.project.getPaths()[0], "app/views/blogs/_form02.html.erb")
+          partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form02.html.erb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe partialPath
@@ -446,7 +446,7 @@ describe "RailsTransporter", ->
   describe "open-layout", ->
     describe "when cursor's current buffer row contains layout method", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/controllers/blogs_controller.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
         editorView = atom.workspaceView.getActiveView()
         editor = editorView.getEditor()
   
@@ -460,7 +460,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          partialPath = path.join(atom.project.getPaths()[0], "app/views/layouts/special.html.erb")
+          partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts', 'special.html.erb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(3, 0)
           expect(editor.getPath()).toBe partialPath
@@ -468,7 +468,7 @@ describe "RailsTransporter", ->
           
     describe "when same base name as the controller exists", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/controllers/top_controller.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'top_controller.rb'))
         editorView = atom.workspaceView.getActiveView()
         editor = editorView.getEditor()
   
@@ -481,7 +481,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          partialPath = path.join(atom.project.getPaths()[0], "app/views/layouts/top.html.erb")
+          partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts', 'top.html.erb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(3, 0)
           expect(editor.getPath()).toBe partialPath
@@ -489,7 +489,7 @@ describe "RailsTransporter", ->
           
     describe "when there is no such controller-specific layout", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/controllers/main_controller.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'main_controller.rb'))
         editorView = atom.workspaceView.getActiveView()
         editor = editorView.getEditor()
   
@@ -502,7 +502,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
   
         runs ->
-          partialPath = path.join(atom.project.getPaths()[0], "app/views/layouts/application.html.erb")
+          partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts', 'application.html.erb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(3, 0)
           expect(editor.getPath()).toBe partialPath
@@ -512,7 +512,7 @@ describe "RailsTransporter", ->
   describe "open-spec behavior", ->
     describe "when active editor opens controller", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/controllers/blogs_controller.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
   
       it "opens controller spec", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-spec'
@@ -522,7 +522,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
           
         runs ->
-          specPath = path.join(atom.project.getPaths()[0], "spec/controllers/blogs_controller_spec.rb")
+          specPath = path.join(atom.project.getPaths()[0], 'spec', 'controllers', 'blogs_controller_spec.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(20, 0)
           expect(editor.getPath()).toBe specPath
@@ -530,7 +530,7 @@ describe "RailsTransporter", ->
       
     describe "when active editor opens model", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/models/blog.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
   
       it "opens model spec", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-spec'
@@ -540,7 +540,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
           
         runs ->
-          specPath = path.join(atom.project.getPaths()[0], "spec/models/blog_spec.rb")
+          specPath = path.join(atom.project.getPaths()[0], 'spec', 'models', 'blog_spec.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(2, 0)
           expect(editor.getPath()).toBe specPath
@@ -548,7 +548,7 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens helper", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/helpers/blogs_helper.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb'))
   
       it "opens helper spec", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-spec'
@@ -558,7 +558,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
           
         runs ->
-          specPath = path.join(atom.project.getPaths()[0], "spec/helpers/blogs_helper_spec.rb")
+          specPath = path.join(atom.project.getPaths()[0], 'spec', 'helpers', 'blogs_helper_spec.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(12, 0)
           expect(editor.getPath()).toBe specPath
@@ -567,7 +567,7 @@ describe "RailsTransporter", ->
   describe "open-asset behavior",  ->
     describe "when active editor opens view", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/views/layouts/application.html.erb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts', 'application.html.erb'))
         editorView = atom.workspaceView.getActiveView()
         editor = editorView.getEditor()
   
@@ -582,7 +582,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/stylesheets/application.css")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'application.css')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(10, 0)
               expect(editor.getPath()).toBe assetPath
@@ -598,7 +598,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/stylesheets/application.css")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'application.css')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(11, 0)
               expect(editor.getPath()).toBe assetPath
@@ -614,7 +614,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/stylesheets/application02/common.css")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'application02', 'common.css')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(1, 0)
               expect(editor.getPath()).toBe assetPath
@@ -630,7 +630,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "vendor/assets/stylesheets/jquery.popular_style.css.scss")
+              assetPath = path.join(atom.project.getPaths()[0], 'vendor', 'assets', 'stylesheets', 'jquery.popular_style.css.scss')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -646,7 +646,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "lib/assets/stylesheets/my_style.css.scss")
+              assetPath = path.join(atom.project.getPaths()[0], 'lib', 'assets', 'stylesheets', 'my_style.css.scss')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -662,7 +662,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "public/no_asset_pipeline.css")
+              assetPath = path.join(atom.project.getPaths()[0], 'public', 'no_asset_pipeline.css')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -679,7 +679,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/javascripts/application01.js")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'application01.js')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(12, 0)
               expect(editor.getPath()).toBe assetPath
@@ -695,7 +695,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/javascripts/application01.js")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'application01.js')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(12, 0)
               expect(editor.getPath()).toBe assetPath
@@ -711,7 +711,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/javascripts/application02/common.js")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'application02', 'common.js')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -727,7 +727,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "vendor/assets/javascripts/jquery.popular_library.js")
+              assetPath = path.join(atom.project.getPaths()[0], 'vendor', 'assets', 'javascripts', 'jquery.popular_library.js')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -743,7 +743,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "lib/assets/javascripts/my_library.js")
+              assetPath = path.join(atom.project.getPaths()[0], 'lib', 'assets', 'javascripts', 'my_library.js')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -759,7 +759,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "public/no_asset_pipeline.js")
+              assetPath = path.join(atom.project.getPaths()[0], 'public', 'no_asset_pipeline.js')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -775,7 +775,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/javascripts/dynamic_script.js.coffee.erb")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'dynamic_script.js.coffee.erb')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -783,7 +783,7 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens javascript manifest", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/assets/javascripts/application01.js'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'application01.js'))
         editorView = atom.workspaceView.getActiveView()
         editor = editorView.getEditor()
         
@@ -815,14 +815,14 @@ describe "RailsTransporter", ->
             activationPromise
       
           runs ->
-            requireDir = path.join(atom.project.getPaths()[0], "app/assets/javascripts/shared")
+            requireDir = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'shared')
             expect(workspaceElement.querySelectorAll('.select-list li').length).toBe fs.readdirSync(requireDir).length
             # file be located directly below
             expect($(workspaceElement).find(".select-list .primary-line:contains(common.js.coffee)")).toExist()
             expect($(workspaceElement).find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(requireDir, 'common.js.coffee'))})")).toExist()
             # file be located subdirectory
             expect($(workspaceElement).find(".select-list .primary-line:contains(subdir.js.coffee)")).toExist()
-            expect($(workspaceElement).find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(requireDir, 'subdir/subdir.js.coffee'))})")).toExist()
+            expect($(workspaceElement).find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(requireDir, 'subdir', 'subdir.js.coffee'))})")).toExist()
       
             expect($(workspaceElement).find(".select-list li:first")).toHaveClass 'two-lines selected'
             # hide finder
@@ -856,7 +856,7 @@ describe "RailsTransporter", ->
             activationPromise
       
           runs ->
-            requireDir = path.join(atom.project.getPaths()[0], "app/assets/javascripts/shared")
+            requireDir = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'shared')
             filesInDirectory = (file for file in fs.readdirSync(requireDir) when fs.lstatSync(path.join(requireDir, file)).isFile())
             
             expect(workspaceElement.querySelectorAll('.select-list li').length).toBe filesInDirectory.length
@@ -879,7 +879,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/javascripts/blogs.js.coffee")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'blogs.js.coffee')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -895,7 +895,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/javascripts/blogs.js.coffee")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'blogs.js.coffee')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -911,7 +911,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/javascripts/blogs.js.coffee")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'blogs.js.coffee')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -927,7 +927,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/javascripts/pure-js-blogs.js")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'pure-js-blogs.js')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -943,7 +943,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/javascripts/shared/common.js.coffee")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'shared', 'common.js.coffee')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -959,7 +959,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/javascripts/shared/pure-js-common.js")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'shared', 'pure-js-common.js')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -975,7 +975,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "lib/assets/javascripts/my_library.js")
+              assetPath = path.join(atom.project.getPaths()[0], 'lib', 'assets', 'javascripts', 'my_library.js')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -991,7 +991,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
   
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "vendor/assets/javascripts/jquery.popular_library.js")
+              assetPath = path.join(atom.project.getPaths()[0], 'vendor', 'assets', 'javascripts', 'jquery.popular_library.js')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -999,7 +999,7 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens stylesheet manifest", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/assets/stylesheets/application.css'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'application.css'))
         editorView = atom.workspaceView.getActiveView()
         editor = editorView.getEditor()
       
@@ -1014,7 +1014,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/stylesheets/blogs.css.scss")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'blogs.css.scss')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -1030,7 +1030,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/stylesheets/blogs.css.scss")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'blogs.css.scss')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -1046,7 +1046,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/stylesheets/pure-css-blogs.css")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'pure-css-blogs.css')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -1062,7 +1062,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/stylesheets/blogs.css.scss")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'blogs.css.scss')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -1078,7 +1078,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/stylesheets/shared/pure-css-common.css")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'shared', 'pure-css-common.css')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -1094,7 +1094,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "app/assets/stylesheets/shared/common.css.scss")
+              assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'shared', 'common.css.scss')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -1110,7 +1110,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "lib/assets/stylesheets/my_style.css.scss")
+              assetPath = path.join(atom.project.getPaths()[0], 'lib', 'assets', 'stylesheets', 'my_style.css.scss')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -1126,7 +1126,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "lib/assets/stylesheets/pure_css_my_style.css")
+              assetPath = path.join(atom.project.getPaths()[0], 'lib', 'assets', 'stylesheets', 'pure_css_my_style.css')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -1142,7 +1142,7 @@ describe "RailsTransporter", ->
               atom.workspaceView.getActivePaneView().getItems().length == 2
         
             runs ->
-              assetPath = path.join(atom.project.getPaths()[0], "vendor/assets/stylesheets/jquery.popular_style.css.scss")
+              assetPath = path.join(atom.project.getPaths()[0], 'vendor', 'assets', 'stylesheets', 'jquery.popular_style.css.scss')
               editor = atom.workspace.getActiveTextEditor()
               editor.setCursorBufferPosition new Point(0, 0)
               expect(editor.getPath()).toBe assetPath
@@ -1162,7 +1162,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
     
         runs ->
-          modelPath = path.join(atom.project.getPaths()[0], "app/controllers/blogs_controller.rb")
+          modelPath = path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe modelPath
@@ -1170,7 +1170,7 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens controller spec", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec/controllers/blogs_controller_spec.rb'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec', 'controllers', 'blogs_controller_spec.rb'))
     
       it "opens related controller", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-controller'
@@ -1181,7 +1181,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
     
         runs ->
-          modelPath = path.join(atom.project.getPaths()[0], "app/controllers/blogs_controller.rb")
+          modelPath = path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe modelPath
@@ -1189,7 +1189,7 @@ describe "RailsTransporter", ->
             
     describe "when active editor opens view", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/views/blogs/show.html.haml'))
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'show.html.haml'))
     
       it "opens related controller", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-controller'
@@ -1200,7 +1200,7 @@ describe "RailsTransporter", ->
           atom.workspaceView.getActivePaneView().getItems().length == 2
     
         runs ->
-          modelPath = path.join(atom.project.getPaths()[0], "app/controllers/blogs_controller.rb")
+          modelPath = path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb')
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(0, 0)
           expect(editor.getPath()).toBe modelPath
