@@ -137,15 +137,15 @@ class FileOpener
     @reloadCurrentEditor()
     if @isView(@currentFile)
       if @currentBufferLine.indexOf("javascript_include_tag") isnt -1
-        result = @currentBufferLine.match(/javascript_include_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
+        result = @currentBufferLine.match(/javascript_include_tag\s*\(?\s*["'](.+?)["']/)
         targetFile = @assetFullPath(result[1], 'js') if result?[1]?
       else if @currentBufferLine.indexOf("stylesheet_link_tag") isnt -1
-        result = @currentBufferLine.match(/stylesheet_link_tag\s*\(?\s*["']([a-zA-Z0-9_\-\./]+)["']/)
+        result = @currentBufferLine.match(/stylesheet_link_tag\s*\(?\s*["'](.+?)["']/)
         targetFile = @assetFullPath(result[1], 'css') if result?[1]?
 
     else if @isAsset(@currentFile)
       if @currentBufferLine.indexOf("require ") isnt -1
-        result = @currentBufferLine.match(/require\s*([a-zA-Z0-9_\-\./]+)\s*$/)
+        result = @currentBufferLine.match(/require\s*(.+?)\s*$/)
         if @currentFile.indexOf("app#{path.sep}assets#{path.sep}javascripts") isnt -1
           targetFile = @assetFullPath(result[1], 'js') if result?[1]?
         else if @currentFile.indexOf("app#{path.sep}assets#{path.sep}stylesheets") isnt -1
