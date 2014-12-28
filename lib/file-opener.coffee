@@ -122,10 +122,10 @@ class FileOpener
     if @isView(@currentFile)
       if @currentBufferLine.indexOf("render") isnt -1
         if @currentBufferLine.indexOf("partial") is -1
-          result = @currentBufferLine.match(/render\s*\(?\s*["'](.+)["']/)
+          result = @currentBufferLine.match(/render\s*\(?\s*["'](.+?)["']/)
           targetFile = @partialFullPath(@currentFile, result[1]) if result?[1]?
         else
-          result = @currentBufferLine.match(/render\s*\(?\s*\:?partial(\s*=>|:*)\s*["'](.+)["']/)
+          result = @currentBufferLine.match(/render\s*\(?\s*\:?partial(\s*=>|:*)\s*["'](.+?)["']/)
           targetFile = @partialFullPath(@currentFile, result[2]) if result?[2]?
 
     if fs.existsSync targetFile
