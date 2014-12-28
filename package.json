@@ -2,7 +2,7 @@
   "name": "rails-transporter",
   "main": "./lib/rails-transporter",
   "version": "0.8.0",
-  "description": "Easily open related files on Rails",
+  "description": "Open related Rails files depending on current context",
   "activationCommands": {
     "atom-workspace": [
       "rails-transporter:open-controller",

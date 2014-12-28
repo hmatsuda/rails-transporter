@@ -1,3 +1,6 @@
+## 1.0.0 - Support Windows and Linux
+* Available on Windows and Linux
+
 ## 0.8.0 - Show dialog to create file when related file is not exist
 * Open dialog to create new file for controller,model,helper,spec and partial template.
 * Fix clashing bug when active editor opens no file
