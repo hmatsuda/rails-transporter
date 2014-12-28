@@ -158,14 +158,14 @@ class FileOpener
     @open(targetFile)
 
   openLayout: ->
+    configExtension = atom.config.get('rails-transporter.newFileExtension')
     @reloadCurrentEditor()
     layoutDir = path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts')
     if @isController(@currentFile)
       if @currentBufferLine.indexOf("layout") isnt -1
-        result = @currentBufferLine.match(/layout\s*\(?\s*["'](.+)["']/)
-        targetFile = glob.sync(path.join(layoutDir, "#{result[1]}.*")) if result?[1]?
+        result = @currentBufferLine.match(/layout\s*\(?\s*["'](.+?)["']/)
+        targetFile = path.join(layoutDir, "#{result[1]}.#{configExtension}") if result?[1]?
       else
-        configExtension = atom.config.get('rails-transporter.newFileExtension')
         targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'views', 'layouts'))
                                  .replace('_controller.rb', ".#{configExtension}")
         unless fs.existsSync(targetFile)
