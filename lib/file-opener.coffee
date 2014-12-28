@@ -82,18 +82,18 @@ class FileOpener
   openHelper: ->
     @reloadCurrentEditor()
     if @isController(@currentFile)
-      targetFile = @currentFile.replace("#{path.sep}controllers#{path.sep}", "#{path.sep}helpers#{path.sep}")
-                               .replace('controller.rb', 'helper.rb')
+      targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'helpers'))
+                               .replace(/controller\.rb/, 'helper.rb')
     else if @isSpec(@currentFile)
-      targetFile = @currentFile.replace("spec#{path.sep}helpers", "app#{path.sep}helpers")
-                               .replace('_spec.rb', '.rb')
+      targetFile = @currentFile.replace(path.join('spec', 'helpers'), path.join('app', 'helpers'))
+                               .replace(/_spec\.rb/, '.rb')
     else if @isModel(@currentFile)
       resource = path.basename(@currentFile, '.rb')
-      targetFile = @currentFile.replace("#{path.sep}models#{path.sep}", "#{path.sep}helpers#{path.sep}")
+      targetFile = @currentFile.replace(path.join('app', 'models'), path.join('app', 'helpers'))
                                .replace(resource, "#{pluralize(resource)}_helper")
     else if @isView(@currentFile)
       targetFile = path.dirname(@currentFile)
-                       .replace("app#{path.sep}views", "app#{path.sep}helpers") + "_helper.rb"
+                       .replace(path.join('app', 'views'), path.join('app', 'helpers')) + "_helper.rb"
 
     if fs.existsSync targetFile
       @open(targetFile)
