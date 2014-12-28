@@ -12,6 +12,7 @@ class FileOpener
   _.extend this::, RailsUtil::
 
   openView: ->
+    configExtension = atom.config.get('rails-transporter.newFileExtension')
     @reloadCurrentEditor()
 
     for rowNumber in [@cusorPos.row..0]
@@ -20,29 +21,18 @@ class FileOpener
       if result?[1]?
         
         if @isController(@currentFile)
-          targetFiles = glob.sync(@currentFile.replace("#{path.sep}controllers#{path.sep}", "#{path.sep}views#{path.sep}")
-                                              .replace(/_controller\.rb$/, "#{path.sep}#{result[1]}.*"))
+          targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'views'))
+                                   .replace(/_controller\.rb$/, "#{path.sep}#{result[1]}.#{configExtension}")
         else if @isMailer(@currentFile)
-          targetFiles = glob.sync(@currentFile.replace("#{path.sep}mailers#{path.sep}", "#{path.sep}views#{path.sep}")
-                                              .replace(/\.rb$/, "#{path.sep}#{result[1]}.*"))
+          targetFile = @currentFile.replace(path.join('app', 'mailers'), path.join('app', 'views'))
+                                   .replace(/\.rb$/, "#{path.sep}#{result[1]}.#{configExtension}")
         else
-          targetFiles = []
+          targetFile = null
           
-        if targetFiles.length isnt 0
-          for file in targetFiles
-            if fs.existsSync file
-              @open(file)
+        if fs.existsSync targetFile
+          @open(targetFile)
         else
-          # no matching file was found.
-          configExtension = atom.config.get('rails-transporter.newFileExtension')
-          if @isController(@currentFile)
-            pathOfNewFile = @currentFile.replace("#{path.sep}controllers#{path.sep}", "#{path.sep}views#{path.sep}")
-                                        .replace(/_controller\.rb$/, "#{path.sep}#{result[1]}.#{configExtension}")
-          else if @isMailer(@currentFile)
-            pathOfNewFile = @currentFile.replace("#{path.sep}mailers#{path.sep}", "#{path.sep}views#{path.sep}")
-                                        .replace(/\.rb$/, "#{path.sep}#{result[1]}.#{configExtension}")
-          
-          @openDialog(pathOfNewFile)
+          @openDialog(targetFile)
         return
         
     # there were no methods above the line where the command was triggered.
