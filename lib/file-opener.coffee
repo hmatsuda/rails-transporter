@@ -1,7 +1,6 @@
 fs = require 'fs'
 path = require 'path'
 pluralize = require 'pluralize'
-glob = require 'glob'
 _ = require 'underscore'
 
 AssetFinderView = require './asset-finder-view'
