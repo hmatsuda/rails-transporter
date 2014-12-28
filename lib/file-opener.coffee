@@ -209,12 +209,12 @@ class FileOpener
     
 
   partialFullPath: (currentFile, partialName) ->
-    tmplEngine = path.extname(currentFile)
-    ext = path.extname(path.basename(currentFile, tmplEngine))
+    configExtension = atom.config.get('rails-transporter.newFileExtension')
+    
     if partialName.indexOf("/") is -1
-      path.join(path.dirname(currentFile), "_#{partialName}#{ext}#{tmplEngine}")
+      path.join(path.dirname(currentFile), "_#{partialName}.#{configExtension}")
     else
-      path.join(atom.project.getPaths()[0], 'app', 'views', path.dirname(partialName), "_#{path.basename(partialName)}#{ext}#{tmplEngine}")
+      path.join(atom.project.getPaths()[0], 'app', 'views', path.dirname(partialName), "_#{path.basename(partialName)}.#{configExtension}")
 
   assetFullPath: (assetName, ext) ->
     switch path.extname(assetName)
