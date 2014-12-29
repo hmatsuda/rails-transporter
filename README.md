@@ -54,7 +54,7 @@ else if cursor is inside `show` method, `open-view` opens `app/views/users/show.
 If no related view found, show dialog to create new file.
 
 If you want to change template engine like haml, override default setting in setting view.
-![View File Extension](http://cl.ly/image/3B3d2U2X0w2A/Settings_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_-_Atom.png)
+![View File Extension](http://cl.ly/image/2m31390Z0Z34/Settings_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_-_Atom.png)
 
 ### open-view-finder (`ctrl-r v`)
 It opens related view files of controller.
@@ -163,3 +163,10 @@ It opens all of migration list.
 ## Requirement
 * Ruby 1.9.3+
 * Rails 2.0.0+
+
+## Contributing
+1. Fork it
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create new Pull Request
