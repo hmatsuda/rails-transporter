@@ -1,7 +1,6 @@
 path = require 'path'
 fs = require 'fs'
-{SelectListView} = require 'atom'
-{$$} = require 'atom-space-pen-views'
+{$$, SelectListView} = require 'atom-space-pen-views'
 
 
 module.exports =
@@ -24,7 +23,7 @@ class BaseFinderView extends SelectListView
     
   destroy: ->
     @cancel()
-    @remove()
+    @panel?.destroy()
     
   viewForItem: (item) ->
     $$ ->
@@ -36,15 +35,16 @@ class BaseFinderView extends SelectListView
     atom.workspace.open item
     
   toggle: ->
-    if @hasParent()
+    if @panel?.isVisible()
       @cancel()
     else
       @populate()
-      @attach() if @displayFiles?.length > 0
+      @show() if @displayFiles?.length > 0
       
-  attach: ->
+  show: ->
     @storeFocusedElement()
-    atom.workspace.addModalPanel(item: this)
+    @panel ?= atom.workspace.addModalPanel(item: this)
+    @panel.show()
     @focusFilterEditor()
 
   splitOpenPath: (fn) ->
@@ -56,3 +56,9 @@ class BaseFinderView extends SelectListView
         fn(pane, editor)
     else
       atom.workspace.open filePath
+
+  hide: ->
+    @panel?.hide()
+
+  cancelled: ->
+    @hide()
