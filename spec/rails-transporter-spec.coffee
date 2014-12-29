@@ -1362,7 +1362,7 @@ describe "RailsTransporter", ->
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(3, 0)
           expect(editor.getPath()).toBe factoryPath
-          expect(editor.getCursor().getCurrentBufferLine()).toMatch /^  factory :blog, :class => 'Blog' do$/
+          expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^  factory :blog, :class => 'Blog' do$/
   
     describe "when active editor opens model-spec", ->
       beforeEach ->
@@ -1382,5 +1382,5 @@ describe "RailsTransporter", ->
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(3, 0)
           expect(editor.getPath()).toBe factoryPath
-          expect(editor.getCursor().getCurrentBufferLine()).toMatch /^  factory :blog, :class => 'Blog' do$/
+          expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^  factory :blog, :class => 'Blog' do$/
   
