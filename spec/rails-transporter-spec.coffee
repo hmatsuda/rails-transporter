@@ -179,7 +179,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
 
         runs ->
           concernPath = path.join(atom.project.getPaths()[0], 'app', 'models', 'concerns', 'searchable.rb')
@@ -198,7 +198,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
     
         runs ->
           modelPath = path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb')
@@ -217,7 +217,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
     
         runs ->
           modelPath = path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb')
@@ -236,7 +236,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
     
         runs ->
           modelPath = path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb')
@@ -256,7 +256,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           modelPath = path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb')
@@ -276,7 +276,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
     
         runs ->
           helperPath = path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb')
@@ -295,7 +295,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
     
         runs ->
           helperPath = path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb')
@@ -314,7 +314,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
     
         runs ->
           helperPath = path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb')
@@ -333,7 +333,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           helperPath = path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb')
@@ -356,7 +356,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form.html.erb')
@@ -373,7 +373,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form.html.erb')
@@ -390,7 +390,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form.html.erb')
@@ -407,7 +407,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'shared', '_form.html.erb')
@@ -424,7 +424,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form02.html.erb')
@@ -441,7 +441,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form02.html.erb')
@@ -458,7 +458,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form02.html.erb')
@@ -475,7 +475,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', '_form02.html.erb')
@@ -498,7 +498,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts', 'special.html.erb')
@@ -519,7 +519,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts', 'top.html.erb')
@@ -540,7 +540,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
   
         runs ->
           partialPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts', 'application.html.erb')
@@ -560,7 +560,7 @@ describe "RailsTransporter", ->
   
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
           
         runs ->
           specPath = path.join(atom.project.getPaths()[0], 'spec', 'controllers', 'blogs_controller_spec.rb')
@@ -578,7 +578,7 @@ describe "RailsTransporter", ->
   
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
           
         runs ->
           specPath = path.join(atom.project.getPaths()[0], 'spec', 'models', 'blog_spec.rb')
@@ -596,7 +596,7 @@ describe "RailsTransporter", ->
   
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
           
         runs ->
           specPath = path.join(atom.project.getPaths()[0], 'spec', 'models', 'blog_spec.rb')
@@ -615,7 +615,7 @@ describe "RailsTransporter", ->
   
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
           
         runs ->
           specPath = path.join(atom.project.getPaths()[0], 'spec', 'helpers', 'blogs_helper_spec.rb')
@@ -639,7 +639,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'application.css')
@@ -655,7 +655,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'application.css')
@@ -671,7 +671,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'application02', 'common.css')
@@ -687,7 +687,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'vendor', 'assets', 'stylesheets', 'jquery.popular_style.css.scss')
@@ -703,7 +703,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'lib', 'assets', 'stylesheets', 'my_style.css.scss')
@@ -719,7 +719,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'public', 'no_asset_pipeline.css')
@@ -736,7 +736,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'application01.js')
@@ -752,7 +752,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'application01.js')
@@ -768,7 +768,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'application02', 'common.js')
@@ -784,7 +784,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'vendor', 'assets', 'javascripts', 'jquery.popular_library.js')
@@ -800,7 +800,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'lib', 'assets', 'javascripts', 'my_library.js')
@@ -816,7 +816,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'public', 'no_asset_pipeline.js')
@@ -832,7 +832,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'dynamic_script.js.coffee.erb')
@@ -936,7 +936,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'blogs.js.coffee')
@@ -952,7 +952,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'blogs.js.coffee')
@@ -968,7 +968,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'blogs.js.coffee')
@@ -984,7 +984,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'pure-js-blogs.js')
@@ -1000,7 +1000,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'shared', 'common.js.coffee')
@@ -1016,7 +1016,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'shared', 'pure-js-common.js')
@@ -1032,7 +1032,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'lib', 'assets', 'javascripts', 'my_library.js')
@@ -1048,7 +1048,7 @@ describe "RailsTransporter", ->
   
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
   
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'vendor', 'assets', 'javascripts', 'jquery.popular_library.js')
@@ -1071,7 +1071,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'blogs.css.scss')
@@ -1087,7 +1087,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'blogs.css.scss')
@@ -1103,7 +1103,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'pure-css-blogs.css')
@@ -1119,7 +1119,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'blogs.css.scss')
@@ -1135,7 +1135,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'shared', 'pure-css-common.css')
@@ -1151,7 +1151,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'shared', 'common.css.scss')
@@ -1167,7 +1167,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'lib', 'assets', 'stylesheets', 'my_style.css.scss')
@@ -1183,7 +1183,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'lib', 'assets', 'stylesheets', 'pure_css_my_style.css')
@@ -1199,7 +1199,7 @@ describe "RailsTransporter", ->
         
             waitsFor ->
               activationPromise
-              atom.workspaceView.getActivePaneView().getItems().length == 2
+              atom.workspace.getActivePane().getItems().length == 2
         
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'vendor', 'assets', 'stylesheets', 'jquery.popular_style.css.scss')
@@ -1221,7 +1221,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
 
         runs ->
           concernPath = path.join(atom.project.getPaths()[0], 'app', 'controllers', 'concerns', 'blog', 'taggable.rb')
@@ -1240,7 +1240,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
     
         runs ->
           modelPath = path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb')
@@ -1259,7 +1259,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
     
         runs ->
           modelPath = path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb')
@@ -1278,7 +1278,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
     
         runs ->
           modelPath = path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb')
@@ -1298,7 +1298,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
     
         runs ->
           factoryPath = path.join(atom.project.getPaths()[0], 'spec', 'factories', 'blogs.rb')
@@ -1317,7 +1317,7 @@ describe "RailsTransporter", ->
         # Waits until package is activated and active panes count is 2
         waitsFor ->
           activationPromise
-          atom.workspaceView.getActivePaneView().getItems().length == 2
+          atom.workspace.getActivePane().getItems().length == 2
     
         runs ->
           factoryPath = path.join(atom.project.getPaths()[0], 'spec', 'factories', 'blogs.rb')
