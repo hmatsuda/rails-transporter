@@ -195,7 +195,10 @@ class FileOpener
                                .replace(resource, pluralize(resource))
                                .replace(/_spec\.rb/, '.rb')
 
-    @open(targetFile)
+    if fs.existsSync targetFile
+      @open(targetFile)
+    else
+      @openDialog(targetFile)
 
   ## Private method
   createAssetFinderView: ->
