@@ -2,12 +2,14 @@
 
 This package provides commands to open file depending on file which is being opened by active editor.
 
-![](http://cl.ly/image/3C0X3H0S2r29/rails-transporter.gif)
+![screenshot](http://cl.ly/image/43053A1J2b17/rails-transporter.gif)
 
 ## Commands
 
 ### open-controller (`ctrl-r c`)
-When active editor is opening: 
+It opens related controller file from `model`, `view` or `controller-spec`.
+
+e.g. When active editor is opening: 
 
 `app/models/user.rb`, `app/views/users/*.html.erb` or `spec/controllers/users_controller_spec.rb`,
 
@@ -16,7 +18,9 @@ When active editor is opening:
 If no controller found, show dialog to create new file.
 
 ### open-model (`ctrl-r m`)
-When active editor is opening: 
+It opens related model file from `controller`, `view` or `model-spec`.
+
+e.g. When active editor is opening: 
 
 `app/controllers/users_controller.rb`, `app/views/users/*.html.erb` or `spec/models/user_spec.rb`,
 
@@ -25,7 +29,9 @@ When active editor is opening:
 If no model found, show dialog to create new file.
 
 ### open-view (`ctrl-r v`)
-When active editor is opening `app/controllers/users_controller.rb` and cursor is inside action method, `open-view` opens the related view file.
+It opens related view for action method of controller.
+
+e.g. When active editor is opening `app/controllers/users_controller.rb` and cursor is inside action method, `open-view` opens the related view file.
 
 e.g.
 
@@ -47,16 +53,20 @@ else if cursor is inside `show` method, `open-view` opens `app/views/users/show.
 
 If no related view found, show dialog to create new file.
 
+If you want to change template engine like haml, override default setting in setting view.
+![View File Extension](http://cl.ly/image/3B3d2U2X0w2A/Settings_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_-_Atom.png)
+
 ### open-view-finder (`ctrl-r v`)
 It opens related view files of controller.
 
-When active editor is opening `app/controllers/blogs_controller.rb`, it opens related view finder.
+e.g. When active editor is opening `app/controllers/blogs_controller.rb`, `open-view-finder` opens related view list.
 ![](http://cl.ly/image/1t0A0D220S3C/blogs_controller_rb_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)
 
 ### open-layout (`ctrl-r l`)
-When active editor is opening controller, `open-layout` opens the related view layout file.
+It opens related layout from `layout` method in controller.
 
-This command provides 2 behavior to open file. When active editor is opening a below controller,
+e.g. When active editor is opening controller, `open-layout` opens the related view layout file.
+This command provides 2 behavior to open layout file. When active editor is opening a below controller,
 ```ruby
 class UsersController < ApplicationController
   
@@ -71,11 +81,11 @@ Second, when cursor isn't on the `layout` method, it opens `app/views/layouts/us
 The first behavior has a priority to apply.
 
 ### open-helper (`ctrl-r h`)
-It opens related helper.
+It opens related helper from `controller`, `model`, `view` or `helper-spec`.
 
-When active editor is opening: 
+e.g. When active editor is opening: 
 
-`app/helpers/users_helper.rb`, `app/controllers/users_controller.rb`, `app/views/users/*.html.erb` or `spec/helpers/users_helper_spec.rb`,
+`app/controllers/users_controller.rb`, `app/models/user.rb`, `app/views/users/*.html.erb` or `spec/helpers/users_helper_spec.rb`,
 
 `open-helper` opens `app/helpers/users_helper.rb`.
 
@@ -83,9 +93,9 @@ If no helper found, show dialog to create new file.
 
 
 ### open-spec (`ctrl-r s`)
-It opens related spec.
+It opens related spec from `controller`, `model` or `helper`.
 
-When active editor is opening: 
+e.g. When active editor is opening: 
 
 `app/controllers/users_controller.rb`, it opens `spec/controllers/users_controller_spec.rb`.
 
@@ -96,9 +106,9 @@ When active editor is opening:
 If no spec found, show dialog to create new file.
 
 ### open-partial-template (`ctrl-r p`)
-It opens partial template.
+It opens partial template from `render` method.
 
-When active editor is opening a below view file and cursor is on the `render` method,
+e.g. When active editor is opening a below view file and cursor is on the `render` method,
 ```ruby
 <section id="contents">
 
@@ -113,7 +123,8 @@ If no related view found, show dialog to create new file.
 ### open-asset (`ctrl-r a`)
 It opens related asset file from view or asset file.
 
-1. When active editor is opening a below view,
+e.g. 
+* When active editor is opening a below view,
 ```html
 <html>
 <html>
@@ -130,22 +141,22 @@ It opens related asset file from view or asset file.
 when cursor is on `javascript_include_tag` method, it opens `app/assets/javascripts/user.js`,
 when cursor is on `stylesheet_link_tag` method, it opens `app/assets/stylesheets/user.css`.
 
-2. When it is opening a asset file as following and cursor is on the `require` method,
+* When it is opening a asset file as following and cursor is on the `require` method,
 ```coffee
 //= require my_library
 ```
 it opens javascript file if it exists.
 
-3. When it is opening a asset file as following and cursor is on the `require_tree` or `require_directory` method,
+* When it is opening a asset file as following and cursor is on the `require_tree` or `require_directory` method,
 ```coffee
 //= require_tree shared
 //= require_directory shared
 ```
-it opens related asset finder
+it opens related asset file list
 ![](http://cl.ly/image/1G2D240f1A0i/application01_js_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)
 
 ### open-mingration-finder (`ctrl-d-m`)
-It opens all of migration files.
+It opens all of migration list.
 ![](http://cl.ly/image/3y0F2D1H1w2F/application01_js_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)
 
 
