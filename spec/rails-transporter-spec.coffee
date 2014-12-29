@@ -53,7 +53,8 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens controller", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
     
       describe "when the rails-transporter:open-view-finder event is triggered", ->
         it "shows the ViewFinder or hides it if it's already showing", ->
@@ -92,7 +93,8 @@ describe "RailsTransporter", ->
             
     describe "when active editor opens mailer", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'mailers', 'notification_mailer.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'mailers', 'notification_mailer.rb'))
     
       describe "when the rails-transporter:open-view-finder event is triggered", ->
         it "shows the ViewFinder or hides it if it's already showing", ->
@@ -131,7 +133,8 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens model", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
     
       describe "when the rails-transporter:open-view-finder event is triggered", ->
         it "shows the ViewFinder or hides it if it's already showing", ->
@@ -169,8 +172,9 @@ describe "RailsTransporter", ->
   describe "open-model behavior", ->
     describe "when active editor opens model and cursor is on include method", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
-        editor = atom.workspace.getActiveTextEditor()
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
+          editor = atom.workspace.getActiveTextEditor()
       
       it "opens model concern", ->
         editor.setCursorBufferPosition new Point(1, 0)
@@ -190,7 +194,8 @@ describe "RailsTransporter", ->
       
     describe "when active editor opens controller", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
     
       it "opens related model", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-model'
@@ -209,7 +214,8 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens model spec", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec', 'models', 'blog_spec.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'spec', 'models', 'blog_spec.rb'))
     
       it "opens related model", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-model'
@@ -228,7 +234,8 @@ describe "RailsTransporter", ->
             
     describe "when active editor opens factory", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec', 'factories', 'blogs.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'spec', 'factories', 'blogs.rb'))
     
       it "opens related model", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-model'
@@ -248,7 +255,8 @@ describe "RailsTransporter", ->
             
     describe "when active editor opens view", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'show.html.erb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'show.html.erb'))
   
       it "opens related model", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-model'
@@ -268,7 +276,8 @@ describe "RailsTransporter", ->
   describe "open-helper behavior", ->
     describe "when active editor opens controller", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
     
       it "opens related helper", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-helper'
@@ -287,7 +296,8 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens helper spec", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec', 'helpers', 'blogs_helper_spec.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'spec', 'helpers', 'blogs_helper_spec.rb'))
     
       it "opens related helper", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-helper'
@@ -306,7 +316,8 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens model", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
     
       it "opens related helper", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-helper'
@@ -325,7 +336,8 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens view", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'show.html.erb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'show.html.erb'))
   
       it "opens related helper", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-helper'
@@ -344,7 +356,8 @@ describe "RailsTransporter", ->
   
   describe "open-patial-template behavior", ->
     beforeEach ->
-      atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'edit.html.erb'))
+      waitsForPromise ->
+        atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'edit.html.erb'))
       editorView = atom.workspaceView.getActiveView()
       editor = editorView.getEditor()
   
@@ -487,9 +500,10 @@ describe "RailsTransporter", ->
   describe "open-layout", ->
     describe "when cursor's current buffer row contains layout method", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
-        editorView = atom.workspaceView.getActiveView()
-        editor = editorView.getEditor()
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
+          editorView = atom.workspaceView.getActiveView()
+          editor = editorView.getEditor()
   
       it "opens specified layout", ->
         editor.setCursorBufferPosition new Point(2, 0)
@@ -509,9 +523,10 @@ describe "RailsTransporter", ->
           
     describe "when same base name as the controller exists", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'top_controller.rb'))
-        editorView = atom.workspaceView.getActiveView()
-        editor = editorView.getEditor()
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'top_controller.rb'))
+          editorView = atom.workspaceView.getActiveView()
+          editor = editorView.getEditor()
   
       it "opens layout that same base name as the controller", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-layout'
@@ -530,9 +545,10 @@ describe "RailsTransporter", ->
           
     describe "when there is no such controller-specific layout", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'main_controller.rb'))
-        editorView = atom.workspaceView.getActiveView()
-        editor = editorView.getEditor()
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'main_controller.rb'))
+          editorView = atom.workspaceView.getActiveView()
+          editor = editorView.getEditor()
   
       it "opens default layout named 'application'", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-layout'
@@ -553,7 +569,8 @@ describe "RailsTransporter", ->
   describe "open-spec behavior", ->
     describe "when active editor opens controller", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
   
       it "opens controller spec", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-spec'
@@ -571,7 +588,8 @@ describe "RailsTransporter", ->
       
     describe "when active editor opens model", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
   
       it "opens model spec", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-spec'
@@ -589,7 +607,8 @@ describe "RailsTransporter", ->
           
     describe "when active editor opens factory", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec', 'factories', 'blogs.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'spec', 'factories', 'blogs.rb'))
   
       it "opens model spec", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-spec'
@@ -608,7 +627,8 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens helper", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb'))
   
       it "opens helper spec", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-spec'
@@ -627,9 +647,10 @@ describe "RailsTransporter", ->
   describe "open-asset behavior",  ->
     describe "when active editor opens view", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts', 'application.html.erb'))
-        editorView = atom.workspaceView.getActiveView()
-        editor = editorView.getEditor()
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts', 'application.html.erb'))
+          editorView = atom.workspaceView.getActiveView()
+          editor = editorView.getEditor()
   
       describe "when cursor's current buffer row contains stylesheet_link_tag", ->
         describe "enclosed in parentheses", ->
@@ -843,9 +864,10 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens javascript manifest", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'application01.js'))
-        editorView = atom.workspaceView.getActiveView()
-        editor = editorView.getEditor()
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'application01.js'))
+          editorView = atom.workspaceView.getActiveView()
+          editor = editorView.getEditor()
         
       describe "cursor's current buffer row contains require_tree", ->
         beforeEach ->
@@ -1059,9 +1081,10 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens stylesheet manifest", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'application.css'))
-        editorView = atom.workspaceView.getActiveView()
-        editor = editorView.getEditor()
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'application.css'))
+          editorView = atom.workspaceView.getActiveView()
+          editor = editorView.getEditor()
       
       describe "when cursor's current buffer row contains 'require'", ->
         describe "when it requires scss with .css suffix", ->
@@ -1211,8 +1234,9 @@ describe "RailsTransporter", ->
   describe "open-controller behavior", ->
     describe "when active editor opens controller and cursor is on include method", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
-        editor = atom.workspace.getActiveTextEditor()
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
+          editor = atom.workspace.getActiveTextEditor()
       
       it "opens model concern", ->
         editor.setCursorBufferPosition new Point(3, 0)
@@ -1232,7 +1256,8 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens model", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/models/blog.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app/models/blog.rb'))
     
       it "opens related controller", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-controller'
@@ -1251,7 +1276,8 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens controller spec", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec', 'controllers', 'blogs_controller_spec.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'spec', 'controllers', 'blogs_controller_spec.rb'))
     
       it "opens related controller", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-controller'
@@ -1270,7 +1296,8 @@ describe "RailsTransporter", ->
             
     describe "when active editor opens view", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'show.html.haml'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'show.html.haml'))
     
       it "opens related controller", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-controller'
@@ -1290,7 +1317,8 @@ describe "RailsTransporter", ->
   describe "open-factory behavior", ->
     describe "when active editor opens model", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
     
       it "opens related factory", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-factory'
@@ -1309,7 +1337,8 @@ describe "RailsTransporter", ->
   
     describe "when active editor opens model-spec", ->
       beforeEach ->
-        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'spec', 'models', 'blog_spec.rb'))
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'spec', 'models', 'blog_spec.rb'))
     
       it "opens related factory", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-factory'
