@@ -5,7 +5,7 @@ wrench = require 'wrench'
 {$, $$} = require 'atom-space-pen-views'
 
 
-{WorkspaceView, Point} = require 'atom'
+{Point} = require 'atom'
 RailsTransporter = require '../lib/rails-transporter'
 
 describe "RailsTransporter", ->
@@ -18,7 +18,7 @@ describe "RailsTransporter", ->
     fixturesPath = atom.project.getPaths()[0]
     wrench.copyDirSyncRecursive(fixturesPath, tempPath, forceDelete: true)
     atom.project.setPaths([tempPath])
-    atom.workspaceView = new WorkspaceView
+    # atom.workspaceView = new WorkspaceView
     workspaceElement = atom.views.getView(atom.workspace)
     activationPromise = atom.packages.activatePackage('rails-transporter')
     

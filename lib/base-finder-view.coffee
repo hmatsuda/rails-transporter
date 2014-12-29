@@ -1,6 +1,8 @@
 path = require 'path'
 fs = require 'fs'
-{$$, SelectListView} = require 'atom'
+{SelectListView} = require 'atom'
+{$$} = require 'atom-space-pen-views'
+
 
 module.exports =
 class BaseFinderView extends SelectListView
@@ -41,7 +43,7 @@ class BaseFinderView extends SelectListView
       
   attach: ->
     @storeFocusedElement()
-    atom.workspaceView.append(this)
+    atom.workspace.addModalPanel(item: this)
     @focusFilterEditor()
 
   splitOpenPath: (fn) ->
