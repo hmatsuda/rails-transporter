@@ -18,3 +18,4 @@
   'ctrl-r p': 'rails-transporter:open-partial-template'
   'ctrl-r a': 'rails-transporter:open-asset'
   'ctrl-r d m': 'rails-transporter:open-migration-finder'
+  'ctrl-r f': 'rails-transporter:open-factory'

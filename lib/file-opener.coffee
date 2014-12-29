@@ -171,6 +171,20 @@ class FileOpener
           targetFile = path.join(path.dirname(targetFile), "application.#{configExtension}")
 
     @open(targetFile)
+    
+  openFactory: ->
+    @reloadCurrentEditor()
+    if @isModel(@currentFile)
+      resource = path.basename(@currentFile, '.rb')
+      targetFile = @currentFile.replace(path.join('app', 'models'), path.join('spec', 'factories'))
+                               .replace(resource, pluralize(resource))
+    else if @isSpec(@currentFile)
+      resource = path.basename(@currentFile.replace(/_spec\.rb/, '.rb'), '.rb')
+      targetFile = @currentFile.replace(path.join('spec', 'models'), path.join('spec', 'factories'))
+                               .replace(resource, pluralize(resource))
+                               .replace(/_spec\.rb/, '.rb')
+
+    @open(targetFile)
 
   ## Private method
   createAssetFinderView: ->

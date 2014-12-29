@@ -31,6 +31,8 @@ module.exports =
         @createFileOpener().openLayout()
       'rails-transporter:open-view': =>
         @createFileOpener().openView()
+      'rails-transporter:open-factory': =>
+        @createFileOpener().openFactory()
 
   deactivate: ->
     if @viewFinderView?
