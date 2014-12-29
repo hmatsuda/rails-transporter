@@ -12,14 +12,15 @@ class BaseFinderView extends SelectListView
     super
     @addClass('overlay from-top')
         
-    @subscribe this, 'pane:split-left', =>
-      @splitOpenPath (pane, session) -> pane.splitLeft(session)
-    @subscribe this, 'pane:split-right', =>
-      @splitOpenPath (pane, session) -> pane.splitRight(session)
-    @subscribe this, 'pane:split-down', =>
-      @splitOpenPath (pane, session) -> pane.splitDown(session)
-    @subscribe this, 'pane:split-up', =>
-      @splitOpenPath (pane, session) -> pane.splitUp(session)
+    atom.commands.add @element,
+      'pane:split-left': =>
+        @splitOpenPath (pane, item) -> pane.splitLeft(items: [item])
+      'pane:split-right': =>
+        @splitOpenPath (pane, item) -> pane.splitRight(items: [item])
+      'pane:split-down': =>
+        @splitOpenPath (pane, item) -> pane.splitDown(items: [item])
+      'pane:split-up': =>
+        @splitOpenPath (pane, item) -> pane.splitUp(items: [item])
     
   destroy: ->
     @cancel()
