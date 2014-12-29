@@ -51,7 +51,7 @@ class FileOpener
       targetFile = @currentFile.replace(path.join('spec', 'controllers'), path.join('app', 'controllers'))
                                .replace(/_spec\.rb$/, '.rb')
     else if @isController(@currentFile) and @currentBufferLine.indexOf("include") isnt -1
-      concernsDir = path.join(atom.project.getPath(), 'app', 'controllers', 'concerns')
+      concernsDir = path.join(atom.project.getPaths()[0], 'app', 'controllers', 'concerns')
       targetFile = @concernPath(concernsDir, @currentBufferLine)
 
     if fs.existsSync targetFile
@@ -84,7 +84,7 @@ class FileOpener
                                .replace(resource, pluralize.singular(resource))
                                
     else if @isModel(@currentFile) and @currentBufferLine.indexOf("include") isnt -1
-      concernsDir = path.join(atom.project.getPath(), 'app', 'models', 'concerns')
+      concernsDir = path.join(atom.project.getPaths()[0], 'app', 'models', 'concerns')
       targetFile = @concernPath(concernsDir, @currentBufferLine)
     
     if fs.existsSync targetFile
