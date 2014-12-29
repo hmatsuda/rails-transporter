@@ -1,5 +1,6 @@
 ## 1.0.0 - Support Windows and Linux
 * Available on Windows and Linux
+* Implement `open-factory` command
 
 ## 0.8.0 - Show dialog to create file when related file is not exist
 * Open dialog to create new file for controller,model,helper,spec and partial template.

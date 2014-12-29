@@ -72,7 +72,13 @@ class FileOpener
     else if @isSpec(@currentFile)
       targetFile = @currentFile.replace(path.join('spec', 'models'), path.join('app', 'models'))
                                .replace(/_spec\.rb$/, '.rb')
-
+                               
+    else if @isFactory(@currentFile)
+      dir = path.basename(@currentFile, '.rb')
+      resource = path.basename(dir)
+      targetFile = @currentFile.replace(path.join('spec', 'factories'), path.join('app', 'models'))
+                               .replace(resource, pluralize.singular(resource))
+    
     if fs.existsSync targetFile
       @open(targetFile)
     else
@@ -110,6 +116,11 @@ class FileOpener
     else if @isModel(@currentFile)
       targetFile = @currentFile.replace(path.join('app', 'models'), path.join('spec', 'models'))
                                .replace(/\.rb$/, '_spec.rb')
+    else if @isFactory(@currentFile)
+      resource = path.basename(@currentFile.replace(/_spec\.rb/, '.rb'), '.rb')
+      targetFile = @currentFile.replace(path.join('spec', 'factories'), path.join('spec', 'models'))
+                               .replace("#{resource}.rb", "#{pluralize.singular(resource)}_spec.rb")
+    
                                
     if fs.existsSync targetFile
       @open(targetFile)
@@ -171,6 +182,23 @@ class FileOpener
           targetFile = path.join(path.dirname(targetFile), "application.#{configExtension}")
 
     @open(targetFile)
+    
+  openFactory: ->
+    @reloadCurrentEditor()
+    if @isModel(@currentFile)
+      resource = path.basename(@currentFile, '.rb')
+      targetFile = @currentFile.replace(path.join('app', 'models'), path.join('spec', 'factories'))
+                               .replace(resource, pluralize(resource))
+    else if @isSpec(@currentFile)
+      resource = path.basename(@currentFile.replace(/_spec\.rb/, '.rb'), '.rb')
+      targetFile = @currentFile.replace(path.join('spec', 'models'), path.join('spec', 'factories'))
+                               .replace(resource, pluralize(resource))
+                               .replace(/_spec\.rb/, '.rb')
+
+    if fs.existsSync targetFile
+      @open(targetFile)
+    else
+      @openDialog(targetFile)
 
   ## Private method
   createAssetFinderView: ->

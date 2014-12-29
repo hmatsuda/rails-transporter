@@ -12,7 +12,6 @@ class RailsUtil
     atom.project.relativize(filePath).indexOf(path.join('app', 'views')) isnt -1
 
   isSpec: (filePath) ->
-    console.log filePath.search(/_spec\.rb$/)
     filePath? and 
     atom.project.relativize(filePath).indexOf(path.join('spec')) isnt -1 and
     filePath.search(/_spec\.rb$/) isnt -1
@@ -35,6 +34,12 @@ class RailsUtil
     filePath? and 
     atom.project.relativize(filePath).indexOf(path.join('app', 'mailers')) isnt -1 and
     filePath.search(/_mailer\.rb$/) isnt -1
+    
+  isFactory: (filePath) ->
+    filePath? and 
+    atom.project.relativize(filePath).indexOf(path.join('spec', 'factories')) isnt -1 and
+    filePath.search(/\.rb$/) isnt -1
+    
     
     
 

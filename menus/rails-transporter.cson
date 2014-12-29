@@ -13,6 +13,7 @@
         { 'label': 'Open Partial Template', 'command': 'rails-transporter:open-partial-template' }
         { 'label': 'Open Asset', 'command': 'rails-transporter:open-asset' }
         { 'label': 'Open Migration Finder', 'command': 'rails-transporter:open-migration-finder' }
+        { 'label': 'Open Factory', 'command': 'rails-transporter:open-factory' }
       ]
     ]
   }

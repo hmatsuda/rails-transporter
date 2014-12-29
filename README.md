@@ -18,11 +18,11 @@ e.g. When active editor is opening:
 If no controller found, show dialog to create new file.
 
 ### open-model (`ctrl-r m`)
-It opens related model file from `controller`, `view` or `model-spec`.
+It opens related model file from `controller`, `view`, `model-spec` or `factory`.
 
 e.g. When active editor is opening: 
 
-`app/controllers/users_controller.rb`, `app/views/users/*.html.erb` or `spec/models/user_spec.rb`,
+`app/controllers/users_controller.rb`, `app/views/users/*.html.erb`, `spec/models/user_spec.rb` or `spec/factories/users.rb`,
 
 `open-model` opens `app/models/user.rb`.
 
@@ -93,15 +93,17 @@ If no helper found, show dialog to create new file.
 
 
 ### open-spec (`ctrl-r s`)
-It opens related spec from `controller`, `model` or `helper`.
+It opens related spec from `controller`, `model`, `helper` or `factory`.
 
 e.g. When active editor is opening: 
 
 `app/controllers/users_controller.rb`, it opens `spec/controllers/users_controller_spec.rb`.
 
-`app/models/user.rb`, it opens `spec/models/user_spec.rb`.
+`app/models/user.rb` or `spec/factories/users.rb`, it opens `spec/models/user_spec.rb`.
 
 `app/helpers/users_helper.rb`, it opens `spec/helpers/users_helper_spec.rb`.
+
+
 
 If no spec found, show dialog to create new file.
 
@@ -155,9 +157,20 @@ it opens javascript file if it exists.
 it opens related asset file list
 ![](http://cl.ly/image/1G2D240f1A0i/application01_js_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)
 
-### open-mingration-finder (`ctrl-d-m`)
+### open-mingration-finder (`ctrl-r d m`)
 It opens all of migration list.
 ![](http://cl.ly/image/3y0F2D1H1w2F/application01_js_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)
+
+### open-factory (`ctrl-r f`)
+It opens related factory file from `model` or `model-spec`.
+
+e.g. When active editor is opening: 
+
+`app/models/user.rb`, or `spec/models/user_spec.rb`,
+
+`open-spec` opens `spec/factories/blogs.rb`.
+
+If no factory found, show dialog to create new file.
 
 
 ## Requirement
