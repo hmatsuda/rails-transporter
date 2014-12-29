@@ -174,9 +174,9 @@ describe "RailsTransporter", ->
       beforeEach ->
         waitsForPromise ->
           atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
-          editor = atom.workspace.getActiveTextEditor()
       
       it "opens model concern", ->
+        editor = atom.workspace.getActiveTextEditor()
         editor.setCursorBufferPosition new Point(1, 0)
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-model'
 
@@ -358,11 +358,10 @@ describe "RailsTransporter", ->
     beforeEach ->
       waitsForPromise ->
         atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'edit.html.erb'))
-      editorView = atom.workspaceView.getActiveView()
-      editor = editorView.getEditor()
   
     describe "when cursor's current buffer row contains render method", ->
       it "opens partial template", ->
+        editor = atom.workspace.getActiveTextEditor()
         editor.setCursorBufferPosition new Point(2, 0)
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-partial-template'
   
@@ -380,6 +379,7 @@ describe "RailsTransporter", ->
   
     describe "when cursor's current buffer row contains render method with ':partial =>'", ->
       it "opens partial template", ->
+        editor = atom.workspace.getActiveTextEditor()
         editor.setCursorBufferPosition new Point(3, 0)
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-partial-template'
   
@@ -397,6 +397,7 @@ describe "RailsTransporter", ->
   
     describe "when cursor's current buffer row contains render method with 'partial:'", ->
       it "opens partial template", ->
+        editor = atom.workspace.getActiveTextEditor()
         editor.setCursorBufferPosition new Point(4, 0)
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-partial-template'
   
@@ -414,6 +415,7 @@ describe "RailsTransporter", ->
   
     describe "when cursor's current buffer row contains render method taking shared partial", ->
       it "opens shared partial template", ->
+        editor = atom.workspace.getActiveTextEditor()
         editor.setCursorBufferPosition new Point(5, 0)
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-partial-template'
   
@@ -431,6 +433,7 @@ describe "RailsTransporter", ->
   
     describe "when current line is to call render method with integer", ->
       it "opens partial template", ->
+        editor = atom.workspace.getActiveTextEditor()
         editor.setCursorBufferPosition new Point(6, 0)
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-partial-template'
   
@@ -448,6 +451,7 @@ describe "RailsTransporter", ->
           
     describe "when current line is to call render method with integer and including ':partial =>'", ->
       it "opens partial template", ->
+        editor = atom.workspace.getActiveTextEditor()
         editor.setCursorBufferPosition new Point(7, 0)
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-partial-template'
   
@@ -465,6 +469,7 @@ describe "RailsTransporter", ->
   
     describe "when current line is to call render method with integer and including '(:partial =>'", ->
       it "opens partial template", ->
+        editor = atom.workspace.getActiveTextEditor()
         editor.setCursorBufferPosition new Point(8, 0)
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-partial-template'
   
@@ -482,6 +487,7 @@ describe "RailsTransporter", ->
           
     describe "when current line is to call render method with '(", ->
       it "opens partial template", ->
+        editor = atom.workspace.getActiveTextEditor()
         editor.setCursorBufferPosition new Point(9, 0)
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-partial-template'
   
@@ -502,10 +508,9 @@ describe "RailsTransporter", ->
       beforeEach ->
         waitsForPromise ->
           atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
-          editorView = atom.workspaceView.getActiveView()
-          editor = editorView.getEditor()
   
       it "opens specified layout", ->
+        editor = atom.workspace.getActiveTextEditor()
         editor.setCursorBufferPosition new Point(2, 0)
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-layout'
   
@@ -525,10 +530,9 @@ describe "RailsTransporter", ->
       beforeEach ->
         waitsForPromise ->
           atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'top_controller.rb'))
-          editorView = atom.workspaceView.getActiveView()
-          editor = editorView.getEditor()
   
       it "opens layout that same base name as the controller", ->
+        editor = atom.workspace.getActiveTextEditor()
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-layout'
   
         # Waits until package is activated and active panes count is 2
@@ -547,10 +551,9 @@ describe "RailsTransporter", ->
       beforeEach ->
         waitsForPromise ->
           atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'main_controller.rb'))
-          editorView = atom.workspaceView.getActiveView()
-          editor = editorView.getEditor()
   
       it "opens default layout named 'application'", ->
+        editor = atom.workspace.getActiveTextEditor()
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-layout'
   
         # Waits until package is activated and active panes count is 2
@@ -649,12 +652,11 @@ describe "RailsTransporter", ->
       beforeEach ->
         waitsForPromise ->
           atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts', 'application.html.erb'))
-          editorView = atom.workspaceView.getActiveView()
-          editor = editorView.getEditor()
   
       describe "when cursor's current buffer row contains stylesheet_link_tag", ->
         describe "enclosed in parentheses", ->
           it "opens stylesheet", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(10, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -671,6 +673,7 @@ describe "RailsTransporter", ->
   
         describe "unenclosed in parentheses", ->
           it "opens stylesheet", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(11, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -687,6 +690,7 @@ describe "RailsTransporter", ->
         
         describe "when source includes slash", ->
           it "opens stylesheet", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(12, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -703,6 +707,7 @@ describe "RailsTransporter", ->
         
         describe "when source is located in vendor directory", ->
           it "opens stylesheet in vendor directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(13, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -719,6 +724,7 @@ describe "RailsTransporter", ->
         
         describe "when source is located in lib directory", ->
           it "opens stylesheet in lib directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(16, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -735,6 +741,7 @@ describe "RailsTransporter", ->
   
         describe "when source is located in public directory", ->
           it "opens stylesheet in public directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(14, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -752,6 +759,7 @@ describe "RailsTransporter", ->
       describe "when cursor's current buffer row contains javascript_include_tag", ->
         describe "enclosed in parentheses", ->
           it "opens javascript", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(5, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -768,6 +776,7 @@ describe "RailsTransporter", ->
       
         describe "unenclosed in parentheses", ->
           it "opens javascript", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(6, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -784,6 +793,7 @@ describe "RailsTransporter", ->
   
         describe "when source includes slash", ->
           it "opens javascript in another directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(7, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -800,6 +810,7 @@ describe "RailsTransporter", ->
               
         describe "when source is located in vendor directory", ->
           it "opens javascript in vendor directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(8, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -816,6 +827,7 @@ describe "RailsTransporter", ->
   
         describe "when source is located in lib directory", ->
           it "opens javascript in lib directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(15, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -832,6 +844,7 @@ describe "RailsTransporter", ->
   
         describe "when source is located in public directory", ->
           it "opens javascript in public directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(9, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -848,6 +861,7 @@ describe "RailsTransporter", ->
             
         describe "when source's suffix is .erb", ->
           it "opens .erb javascript", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(17, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -866,11 +880,10 @@ describe "RailsTransporter", ->
       beforeEach ->
         waitsForPromise ->
           atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'application01.js'))
-          editorView = atom.workspaceView.getActiveView()
-          editor = editorView.getEditor()
         
       describe "cursor's current buffer row contains require_tree", ->
         beforeEach ->
+          editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(15, 0)
   
         it "shows the AssetFinder or hides it if it's already showing", ->
@@ -912,6 +925,7 @@ describe "RailsTransporter", ->
   
       describe "cursor's current buffer row contains require_directory", ->
         beforeEach ->
+          editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(24, 0)
       
         it "shows the AssetFinder or hides it if it's already showing", ->
@@ -953,6 +967,7 @@ describe "RailsTransporter", ->
       describe "cursor's current buffer row contains require", ->
         describe "when it requires coffeescript with .js suffix", ->
           it "opens coffeescript", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(22, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -969,6 +984,7 @@ describe "RailsTransporter", ->
   
         describe "when it requires coffeescript with .js.coffee suffix", ->
           it "opens coffeescript", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(23, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -985,6 +1001,7 @@ describe "RailsTransporter", ->
   
         describe "when it requires coffeescript without suffix", ->
           it "opens coffeescript", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(16, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -1001,6 +1018,7 @@ describe "RailsTransporter", ->
               
         describe "when it requires javascript without suffix", ->
           it "opens javascript", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(17, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -1017,6 +1035,7 @@ describe "RailsTransporter", ->
               
         describe "when it requires coffeescript in another directory", ->
           it "opens coffeescript in another directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(18, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -1033,6 +1052,7 @@ describe "RailsTransporter", ->
               
         describe "when it requires javascript in another directory", ->
           it "opens javascript in another directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(19, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -1049,6 +1069,7 @@ describe "RailsTransporter", ->
               
         describe "when it requires javascript in lib directory", ->
           it "opens javascript in lib directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(20, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -1065,6 +1086,7 @@ describe "RailsTransporter", ->
   
         describe "when it requires javascript in vendor directory", ->
           it "opens javascript in vendor directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(21, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
   
@@ -1083,12 +1105,11 @@ describe "RailsTransporter", ->
       beforeEach ->
         waitsForPromise ->
           atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'assets', 'stylesheets', 'application.css'))
-          editorView = atom.workspaceView.getActiveView()
-          editor = editorView.getEditor()
       
       describe "when cursor's current buffer row contains 'require'", ->
         describe "when it requires scss with .css suffix", ->
           it "opens scss", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(12, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -1105,6 +1126,7 @@ describe "RailsTransporter", ->
   
         describe "when it requires scss with .css.scss suffix", ->
           it "opens scss", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(13, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -1121,6 +1143,7 @@ describe "RailsTransporter", ->
         
         describe "when it requires css without suffix", ->
           it "opens css", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(14, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -1137,6 +1160,7 @@ describe "RailsTransporter", ->
         
         describe "when it requires scss without suffix", ->
           it "opens scss", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(15, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -1153,6 +1177,7 @@ describe "RailsTransporter", ->
         
         describe "when it requires scss in another directory", ->
           it "opens scss in another directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(16, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -1169,6 +1194,7 @@ describe "RailsTransporter", ->
         
         describe "when it requires css in another directory", ->
           it "opens css in another directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(17, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -1185,6 +1211,7 @@ describe "RailsTransporter", ->
         
         describe "when it requires scss in lib directory", ->
           it "opens scss in lib directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(18, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -1201,6 +1228,7 @@ describe "RailsTransporter", ->
         
         describe "when it requires css in lib directory", ->
           it "opens css in lib directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(19, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -1217,6 +1245,7 @@ describe "RailsTransporter", ->
   
         describe "when it requires scss in vendor directory", ->
           it "opens scss in vendor directory", ->
+            editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(20, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
         
@@ -1236,9 +1265,9 @@ describe "RailsTransporter", ->
       beforeEach ->
         waitsForPromise ->
           atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
-          editor = atom.workspace.getActiveTextEditor()
       
       it "opens model concern", ->
+        editor = atom.workspace.getActiveTextEditor()
         editor.setCursorBufferPosition new Point(3, 0)
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-controller'
 
@@ -1330,7 +1359,7 @@ describe "RailsTransporter", ->
     
         runs ->
           factoryPath = path.join(atom.project.getPaths()[0], 'spec', 'factories', 'blogs.rb')
-          editor = atom.workspace.getActiveEditor()
+          editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(3, 0)
           expect(editor.getPath()).toBe factoryPath
           expect(editor.getCursor().getCurrentBufferLine()).toMatch /^  factory :blog, :class => 'Blog' do$/
@@ -1350,7 +1379,7 @@ describe "RailsTransporter", ->
     
         runs ->
           factoryPath = path.join(atom.project.getPaths()[0], 'spec', 'factories', 'blogs.rb')
-          editor = atom.workspace.getActiveEditor()
+          editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(3, 0)
           expect(editor.getPath()).toBe factoryPath
           expect(editor.getCursor().getCurrentBufferLine()).toMatch /^  factory :blog, :class => 'Blog' do$/
