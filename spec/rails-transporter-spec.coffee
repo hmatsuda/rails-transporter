@@ -167,6 +167,27 @@ describe "RailsTransporter", ->
             expect($(workspaceElement).find(".select-list li:first")).toHaveClass 'two-lines selected'
   
   describe "open-model behavior", ->
+    describe "when active editor opens model and cursor is on include method", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
+        editor = atom.workspace.getActiveTextEditor()
+      
+      it "opens model concern", ->
+        editor.setCursorBufferPosition new Point(1, 0)
+        atom.commands.dispatch workspaceElement, 'rails-transporter:open-model'
+
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePaneView().getItems().length == 2
+
+        runs ->
+          concernPath = path.join(atom.project.getPaths()[0], 'app', 'models', 'concerns', 'searchable.rb')
+          editor = atom.workspace.getActiveTextEditor()
+          editor.setCursorBufferPosition new Point(0, 0)
+          expect(editor.getPath()).toBe concernPath
+          expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^module Searchable$/
+      
     describe "when active editor opens controller", ->
       beforeEach ->
         atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
@@ -1188,6 +1209,27 @@ describe "RailsTransporter", ->
               expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^\/\/ it's popular scss file$/
   
   describe "open-controller behavior", ->
+    describe "when active editor opens controller and cursor is on include method", ->
+      beforeEach ->
+        atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
+        editor = atom.workspace.getActiveTextEditor()
+      
+      it "opens model concern", ->
+        editor.setCursorBufferPosition new Point(3, 0)
+        atom.commands.dispatch workspaceElement, 'rails-transporter:open-controller'
+
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspaceView.getActivePaneView().getItems().length == 2
+
+        runs ->
+          concernPath = path.join(atom.project.getPaths()[0], 'app', 'controllers', 'concerns', 'blog', 'taggable.rb')
+          editor = atom.workspace.getActiveTextEditor()
+          editor.setCursorBufferPosition new Point(0, 0)
+          expect(editor.getPath()).toBe concernPath
+          expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^module Blog::Taggable$/
+  
     describe "when active editor opens model", ->
       beforeEach ->
         atom.workspaceView.openSync(path.join(atom.project.getPaths()[0], 'app/models/blog.rb'))
