@@ -11,7 +11,7 @@ class FileOpener
   _.extend this::, RailsUtil::
 
   openView: ->
-    configExtension = atom.config.get('rails-transporter.newFileExtension')
+    configExtension = atom.config.get('rails-transporter.viewFileExtension')
     @reloadCurrentEditor()
 
     for rowNumber in [@cusorPos.row..0]
@@ -157,7 +157,7 @@ class FileOpener
     @open(targetFile)
 
   openLayout: ->
-    configExtension = atom.config.get('rails-transporter.newFileExtension')
+    configExtension = atom.config.get('rails-transporter.viewFileExtension')
     @reloadCurrentEditor()
     layoutDir = path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts')
     if @isController(@currentFile)
@@ -208,7 +208,7 @@ class FileOpener
     
 
   partialFullPath: (currentFile, partialName) ->
-    configExtension = atom.config.get('rails-transporter.newFileExtension')
+    configExtension = atom.config.get('rails-transporter.viewFileExtension')
     
     if partialName.indexOf("/") is -1
       path.join(path.dirname(currentFile), "_#{partialName}.#{configExtension}")
