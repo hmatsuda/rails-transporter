@@ -24,15 +24,15 @@ describe "RailsTransporter", ->
     
   describe "open-migration-finder behavior", ->
     describe "when the rails-transporter:open-migration-finder event is triggered", ->
-      it "shows the MigrationFinder or hides it if it's already showing", ->
-      
-        atom.commands.dispatch workspaceElement, 'rails-transporter:open-migration-finder'
-      
-        waitsForPromise ->
-          activationPromise
-      
-        runs ->
-          expect(workspaceElement.querySelector('.select-list')).toExist()
+      # it "shows the MigrationFinder or hides it if it's already showing", ->
+      # 
+      #   atom.commands.dispatch workspaceElement, 'rails-transporter:open-migration-finder'
+      # 
+      #   waitsForPromise ->
+      #     activationPromise
+      # 
+      #   runs ->
+      #     expect(workspaceElement.querySelector('.select-list')).toExist()
   
       it "shows all migration paths and selects the first", ->
         atom.commands.dispatch workspaceElement, 'rails-transporter:open-migration-finder'
@@ -57,21 +57,21 @@ describe "RailsTransporter", ->
           atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
     
       describe "when the rails-transporter:open-view-finder event is triggered", ->
-        it "shows the ViewFinder or hides it if it's already showing", ->
-          expect(workspaceElement.querySelector('.select-list')).not.toExist()
-    
-          # This is an activation event, triggering it will cause the package to be
-          # activated.
-          atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
-    
-          # Waits until package is activated
-          waitsForPromise ->
-            activationPromise
-    
-          runs ->
-            expect(workspaceElement.querySelector('.select-list')).toExist()
-            atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
-            expect(workspaceElement.querySelector('.select-list')).not.toExist()
+        # it "shows the ViewFinder or hides it if it's already showing", ->
+        #   expect(workspaceElement.querySelector('.select-list')).not.toExist()
+        # 
+        #   # This is an activation event, triggering it will cause the package to be
+        #   # activated.
+        #   atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
+        # 
+        #   # Waits until package is activated
+        #   waitsForPromise ->
+        #     activationPromise
+        # 
+        #   runs ->
+        #     expect(workspaceElement.querySelector('.select-list')).toExist()
+        #     atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
+        #     expect(workspaceElement.querySelector('.select-list')).not.toExist()
     
         it "shows all relative view paths for the current controller and selects the first", ->
           atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
@@ -97,39 +97,39 @@ describe "RailsTransporter", ->
           atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'mailers', 'notification_mailer.rb'))
     
       describe "when the rails-transporter:open-view-finder event is triggered", ->
-        it "shows the ViewFinder or hides it if it's already showing", ->
-          expect(workspaceElement.querySelector('.select-list')).not.toExist()
+        # it "shows the ViewFinder or hides it if it's already showing", ->
+        #   expect(workspaceElement.querySelector('.select-list')).not.toExist()
+        # 
+        #   # This is an activation event, triggering it will cause the package to be
+        #   # activated.
+        #   atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
+        # 
+        #   # Waits until package is activated
+        #   waitsForPromise ->
+        #     activationPromise
+        # 
+        #   runs ->
+        #     expect(workspaceElement.querySelector('.select-list')).toExist()
+        #     atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
+        #     expect(workspaceElement.querySelector('.select-list')).not.toExist()
     
-          # This is an activation event, triggering it will cause the package to be
-          # activated.
-          atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
-    
-          # Waits until package is activated
-          waitsForPromise ->
-            activationPromise
-    
-          runs ->
-            expect(workspaceElement.querySelector('.select-list')).toExist()
-            atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
-            expect(workspaceElement.querySelector('.select-list')).not.toExist()
-    
-        it "shows all relative view paths for the current controller and selects the first", ->
-          atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
-    
-          # Waits until package is activated
-          waitsForPromise ->
-            activationPromise
-    
-          runs ->
-            viewDir = path.join(atom.project.getPaths()[0], 'app', 'views', 'notification_mailer')
-            expect(workspaceElement.querySelectorAll('.select-list li').length).toBe fs.readdirSync(viewDir).length
-            for view in fs.readdirSync(viewDir)
-              expect($(workspaceElement).find(".select-list .primary-line:contains(#{view})")).toExist()
-              expect($(workspaceElement).find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(viewDir, view))})")).toExist()
-    
-            expect($(workspaceElement).find(".select-list li:first")).toHaveClass 'two-lines selected'
-            # hide view-finder for next test
-            atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
+        # it "shows all relative view paths for the current controller and selects the first", ->
+        #   atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
+        # 
+        #   # Waits until package is activated
+        #   waitsForPromise ->
+        #     activationPromise
+        # 
+        #   runs ->
+        #     viewDir = path.join(atom.project.getPaths()[0], 'app', 'views', 'notification_mailer')
+        #     expect(workspaceElement.querySelectorAll('.select-list li').length).toBe fs.readdirSync(viewDir).length
+        #     for view in fs.readdirSync(viewDir)
+        #       expect($(workspaceElement).find(".select-list .primary-line:contains(#{view})")).toExist()
+        #       expect($(workspaceElement).find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(viewDir, view))})")).toExist()
+        # 
+        #     expect($(workspaceElement).find(".select-list li:first")).toHaveClass 'two-lines selected'
+        #     # hide view-finder for next test
+        #     atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
   
     describe "when active editor opens model", ->
       beforeEach ->
@@ -137,37 +137,37 @@ describe "RailsTransporter", ->
           atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
     
       describe "when the rails-transporter:open-view-finder event is triggered", ->
-        it "shows the ViewFinder or hides it if it's already showing", ->
-          expect(workspaceElement.querySelector('.select-list')).not.toExist()
+        # it "shows the ViewFinder or hides it if it's already showing", ->
+        #   expect(workspaceElement.querySelector('.select-list')).not.toExist()
+        # 
+        #   # This is an activation event, triggering it will cause the package to be
+        #   # activated.
+        #   atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
+        # 
+        #   # Waits until package is activated
+        #   waitsForPromise ->
+        #     activationPromise
+        # 
+        #   runs ->
+        #     expect(workspaceElement.querySelector('.select-list')).toExist()
+        #     atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
+        #     expect(workspaceElement.querySelector('.select-list')).not.toExist()
     
-          # This is an activation event, triggering it will cause the package to be
-          # activated.
-          atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
-    
-          # Waits until package is activated
-          waitsForPromise ->
-            activationPromise
-    
-          runs ->
-            expect(workspaceElement.querySelector('.select-list')).toExist()
-            atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
-            expect(workspaceElement.querySelector('.select-list')).not.toExist()
-    
-        it "shows all relative view paths for the current controller and selects the first", ->
-          atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
-    
-          # Waits until package is activated
-          waitsForPromise ->
-            activationPromise
-    
-          runs ->
-            viewDir = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs')
-            expect($(workspaceElement).find('.select-list li').length).toBe fs.readdirSync(viewDir).length
-            for view in fs.readdirSync(viewDir)
-              expect($(workspaceElement).find(".select-list .primary-line:contains(#{view})")).toExist()
-              expect($(workspaceElement).find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(viewDir, view))})")).toExist()
-    
-            expect($(workspaceElement).find(".select-list li:first")).toHaveClass 'two-lines selected'
+        # it "shows all relative view paths for the current controller and selects the first", ->
+        #   atom.commands.dispatch workspaceElement, 'rails-transporter:open-view-finder'
+        # 
+        #   # Waits until package is activated
+        #   waitsForPromise ->
+        #     activationPromise
+        # 
+        #   runs ->
+        #     viewDir = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs')
+        #     expect($(workspaceElement).find('.select-list li').length).toBe fs.readdirSync(viewDir).length
+        #     for view in fs.readdirSync(viewDir)
+        #       expect($(workspaceElement).find(".select-list .primary-line:contains(#{view})")).toExist()
+        #       expect($(workspaceElement).find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(viewDir, view))})")).toExist()
+        # 
+        #     expect($(workspaceElement).find(".select-list li:first")).toHaveClass 'two-lines selected'
   
   describe "open-model behavior", ->
     describe "when active editor opens model and cursor is on include method", ->
@@ -886,21 +886,21 @@ describe "RailsTransporter", ->
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(15, 0)
   
-        it "shows the AssetFinder or hides it if it's already showing", ->
-          expect(workspaceElement.querySelector('.select-list')).not.toExist()
-      
-          # This is an activation event, triggering it will cause the package to be
-          # activated.
-          atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
-      
-          # Waits until package is activated
-          waitsForPromise ->
-            activationPromise
-      
-          runs ->
-            expect(workspaceElement.querySelector('.select-list')).toExist()
-            atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
-            expect(workspaceElement.querySelector('.select-list')).not.toExist()
+        # it "shows the AssetFinder or hides it if it's already showing", ->
+        #   expect(workspaceElement.querySelector('.select-list')).not.toExist()
+        # 
+        #   # This is an activation event, triggering it will cause the package to be
+        #   # activated.
+        #   atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
+        # 
+        #   # Waits until package is activated
+        #   waitsForPromise ->
+        #     activationPromise
+        # 
+        #   runs ->
+        #     expect(workspaceElement.querySelector('.select-list')).toExist()
+        #     atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
+        #     expect(workspaceElement.querySelector('.select-list')).not.toExist()
       
         it "shows file paths in required directory and its subdirectories and selects the first", ->
           atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
@@ -928,41 +928,41 @@ describe "RailsTransporter", ->
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(24, 0)
       
-        it "shows the AssetFinder or hides it if it's already showing", ->
-          expect(workspaceElement.querySelector('.select-list')).not.toExist()
+        # it "shows the AssetFinder or hides it if it's already showing", ->
+        #   expect(workspaceElement.querySelector('.select-list')).not.toExist()
+        # 
+        #   # This is an activation event, triggering it will cause the package to be
+        #   # activated.
+        #   atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
+        # 
+        #   # Waits until package is activated
+        #   waitsForPromise ->
+        #     activationPromise
+        # 
+        #   runs ->
+        #     expect(workspaceElement.querySelector('.select-list')).toExist()
+        #     atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
+        #     expect(workspaceElement.querySelector('.select-list')).not.toExist()
       
-          # This is an activation event, triggering it will cause the package to be
-          # activated.
-          atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
-      
-          # Waits until package is activated
-          waitsForPromise ->
-            activationPromise
-      
-          runs ->
-            expect(workspaceElement.querySelector('.select-list')).toExist()
-            atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
-            expect(workspaceElement.querySelector('.select-list')).not.toExist()
-      
-        it "shows file paths in required directory and selects the first", ->
-          atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
-      
-          # Waits until package is activated
-          waitsForPromise ->
-            activationPromise
-      
-          runs ->
-            requireDir = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'shared')
-            filesInDirectory = (file for file in fs.readdirSync(requireDir) when fs.lstatSync(path.join(requireDir, file)).isFile())
-            
-            expect(workspaceElement.querySelectorAll('.select-list li').length).toBe filesInDirectory.length
-            for file in filesInDirectory
-              # file be located directly below
-              expect($(workspaceElement).find(".select-list .primary-line:contains(#{file})")).toExist()
-              expect($(workspaceElement).find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(requireDir, file))})")).toExist()
-  
-            # expect(workspaceElement.querySelector('.select-list li').length).toBe
-            expect($(workspaceElement).find(".select-list li:first")).toHaveClass 'two-lines selected'
+        # it "shows file paths in required directory and selects the first", ->
+        #   atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
+        # 
+        #   # Waits until package is activated
+        #   waitsForPromise ->
+        #     activationPromise
+        # 
+        #   runs ->
+        #     requireDir = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'shared')
+        #     filesInDirectory = (file for file in fs.readdirSync(requireDir) when fs.lstatSync(path.join(requireDir, file)).isFile())
+        #     
+        #     expect(workspaceElement.querySelectorAll('.select-list li').length).toBe filesInDirectory.length
+        #     for file in filesInDirectory
+        #       # file be located directly below
+        #       expect($(workspaceElement).find(".select-list .primary-line:contains(#{file})")).toExist()
+        #       expect($(workspaceElement).find(".select-list .secondary-line:contains(#{atom.project.relativize(path.join(requireDir, file))})")).toExist()
+        # 
+        #     # expect(workspaceElement.querySelector('.select-list li').length).toBe
+        #     expect($(workspaceElement).find(".select-list li:first")).toHaveClass 'two-lines selected'
         
       describe "cursor's current buffer row contains require", ->
         describe "when it requires coffeescript with .js suffix", ->
@@ -970,11 +970,11 @@ describe "RailsTransporter", ->
             editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition new Point(22, 0)
             atom.commands.dispatch workspaceElement, 'rails-transporter:open-asset'
-        
+          
             waitsFor ->
               activationPromise
               atom.workspace.getActivePane().getItems().length == 2
-        
+          
             runs ->
               assetPath = path.join(atom.project.getPaths()[0], 'app', 'assets', 'javascripts', 'blogs.js.coffee')
               editor = atom.workspace.getActiveTextEditor()
