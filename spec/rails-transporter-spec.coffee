@@ -41,7 +41,7 @@ describe "RailsTransporter", ->
           activationPromise
   
         runs ->
-          migrationDir = path.join(atom.project.getPaths()[0], "db/migrate")
+          migrationDir = path.join(atom.project.getPaths()[0], 'db', 'migrate')
           expect(workspaceElement.querySelectorAll('.select-list li').length).toBe fs.readdirSync(migrationDir).length
           for migration in fs.readdirSync(migrationDir)
             expect($(workspaceElement).find(".select-list .primary-line:contains(#{migration})")).toExist()
