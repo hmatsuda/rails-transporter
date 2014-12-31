@@ -1,6 +1,7 @@
 fs = require 'fs'
 path = require 'path'
 pluralize = require 'pluralize'
+changeCase = require 'change-case'
 _ = require 'underscore'
 
 AssetFinderView = require './asset-finder-view'
@@ -49,6 +50,9 @@ class FileOpener
     else if @isSpec(@currentFile)
       targetFile = @currentFile.replace(path.join('spec', 'controllers'), path.join('app', 'controllers'))
                                .replace(/_spec\.rb$/, '.rb')
+    else if @isController(@currentFile) and @currentBufferLine.indexOf("include") isnt -1
+      concernsDir = path.join(atom.project.getPaths()[0], 'app', 'controllers', 'concerns')
+      targetFile = @concernPath(concernsDir, @currentBufferLine)
 
     if fs.existsSync targetFile
       @open(targetFile)
@@ -78,6 +82,10 @@ class FileOpener
       resource = path.basename(dir)
       targetFile = @currentFile.replace(path.join('spec', 'factories'), path.join('app', 'models'))
                                .replace(resource, pluralize.singular(resource))
+                               
+    else if @isModel(@currentFile) and @currentBufferLine.indexOf("include") isnt -1
+      concernsDir = path.join(atom.project.getPaths()[0], 'app', 'models', 'concerns')
+      targetFile = @concernPath(concernsDir, @currentBufferLine)
     
     if fs.existsSync targetFile
       @open(targetFile)
@@ -266,4 +274,16 @@ class FileOpener
           for fullExt in ["#{ext}.erb", "#{ext}.scss", "#{ext}.scss.erb", ext]
             fullPath = baseName + fullExt
             return fullPath if fs.existsSync fullPath
+            
+  concernPath: (concernsDir, currentBufferLine)->
+    result = currentBufferLine.match(/include\s+(.+)/)
+    
+    if result?[1]?
+      if result[1].indexOf('::') is -1
+        path.join(concernsDir, changeCase.snakeCase(result[1])) + '.rb' 
+      else
+        concernPaths = (changeCase.snakeCase(concernName) for concernName in result[1].split('::'))
+        path.join(concernsDir, concernPaths.join(path.sep)) + '.rb' 
+          
+    
           

@@ -7,35 +7,58 @@ This package provides commands to open file depending on file which is being ope
 ## Commands
 
 ### open-controller (`ctrl-r c`)
-It opens related controller file from `model`, `view` or `controller-spec`.
+This command provides 2 features.
+
+#### Open related controller
+It opens controller file from `model`, `view` or `ontroller-spec`.
 
 e.g. When active editor is opening: 
-
 `app/models/user.rb`, `app/views/users/*.html.erb` or `spec/controllers/users_controller_spec.rb`,
-
 `open-controller` opens `app/controllers/users_controller.rb`.
 
-If no controller found, show dialog to create new file.
+#### Open controller concern
+It opens concern file from controller.
+
+e.g. If active editor opens below file and cursor is on the `include` method,
+```ruby
+class BlogsController < ApplicationController
+  include Blog::Taggable
+end
+```
+`open-controller` opens `app/controllers/concerns/blog/taggable.rb`.
+
+If no controller or concern found, show dialog to create new file.
 
 ### open-model (`ctrl-r m`)
+This command provides 2 features.
+
+#### Open related model
 It opens related model file from `controller`, `view`, `model-spec` or `factory`.
 
 e.g. When active editor is opening: 
-
 `app/controllers/users_controller.rb`, `app/views/users/*.html.erb`, `spec/models/user_spec.rb` or `spec/factories/users.rb`,
 
 `open-model` opens `app/models/user.rb`.
 
-If no model found, show dialog to create new file.
+#### Open model concern
+It opens concern file from model.
+
+e.g. If active editor opens below file and cursor is on the `include` method,
+```ruby
+class Item < ActiveRecord::Base
+  include Searchable
+end
+```
+`open-model` opens `app/models/concerns/searchable.rb`.
+
+If no model or concern found, show dialog to create new file.
 
 ### open-view (`ctrl-r v`)
 It opens related view for action method of controller.
 
-e.g. When active editor is opening `app/controllers/users_controller.rb` and cursor is inside action method, `open-view` opens the related view file.
+When active editor is opening controller and cursor is inside action method, `open-view` opens the related view file.
 
-e.g.
-
-When you open a below controller,
+e.g. When you open a below controller,
 ```ruby
 class UsersController < ApplicationController
   def index
@@ -176,6 +199,9 @@ If no factory found, show dialog to create new file.
 ## Requirement
 * Ruby 1.9.3+
 * Rails 2.0.0+
+
+## Contributors
+* joseramonc
 
 ## Contributing
 1. Fork it
