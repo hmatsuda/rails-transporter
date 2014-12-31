@@ -4,9 +4,9 @@ This package provides commands to open file depending on file which is being ope
 
 ![screenshot](http://cl.ly/image/43053A1J2b17/rails-transporter.gif)
 
-## Commands
+## Description
 
-### open-controller (`ctrl-r c`)
+### open-controller
 This command provides 2 features.
 
 #### Open related controller
@@ -29,7 +29,7 @@ end
 
 If no controller or concern found, show dialog to create new file.
 
-### open-model (`ctrl-r m`)
+### open-model
 This command provides 2 features.
 
 #### Open related model
@@ -53,7 +53,7 @@ end
 
 If no model or concern found, show dialog to create new file.
 
-### open-view (`ctrl-r v`)
+### open-view
 It opens related view for action method of controller.
 
 When active editor is opening controller and cursor is inside action method, `open-view` opens the related view file.
@@ -79,13 +79,13 @@ If no related view found, show dialog to create new file.
 If you want to change template engine like haml, override default setting in setting view.
 ![View File Extension](http://cl.ly/image/2m31390Z0Z34/Settings_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_-_Atom.png)
 
-### open-view-finder (`ctrl-r v`)
+### open-view-finder
 It opens related view files of controller.
 
 e.g. When active editor is opening `app/controllers/blogs_controller.rb`, `open-view-finder` opens related view list.
 ![](http://cl.ly/image/1t0A0D220S3C/blogs_controller_rb_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)
 
-### open-layout (`ctrl-r l`)
+### open-layout
 It opens related layout from `layout` method in controller.
 
 e.g. When active editor is opening controller, `open-layout` opens the related view layout file.
@@ -103,7 +103,7 @@ Second, when cursor isn't on the `layout` method, it opens `app/views/layouts/us
 
 The first behavior has a priority to apply.
 
-### open-helper (`ctrl-r h`)
+### open-helper
 It opens related helper from `controller`, `model`, `view` or `helper-spec`.
 
 e.g. When active editor is opening: 
@@ -115,7 +115,7 @@ e.g. When active editor is opening:
 If no helper found, show dialog to create new file.
 
 
-### open-spec (`ctrl-r s`)
+### open-spec
 It opens related spec from `controller`, `model`, `helper` or `factory`.
 
 e.g. When active editor is opening: 
@@ -130,7 +130,7 @@ e.g. When active editor is opening:
 
 If no spec found, show dialog to create new file.
 
-### open-partial-template (`ctrl-r p`)
+### open-partial-template
 It opens partial template from `render` method.
 
 e.g. When active editor is opening a below view file and cursor is on the `render` method,
@@ -145,7 +145,7 @@ e.g. When active editor is opening a below view file and cursor is on the `rende
 
 If no related view found, show dialog to create new file.
 
-### open-asset (`ctrl-r a`)
+### open-asset
 It opens related asset file from view or asset file.
 
 e.g. 
@@ -180,11 +180,11 @@ it opens javascript file if it exists.
 it opens related asset file list
 ![](http://cl.ly/image/1G2D240f1A0i/application01_js_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)
 
-### open-mingration-finder (`ctrl-r d m`)
+### open-mingration-finder
 It opens all of migration list.
 ![](http://cl.ly/image/3y0F2D1H1w2F/application01_js_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)
 
-### open-factory (`ctrl-r f`)
+### open-factory
 It opens related factory file from `model` or `model-spec`.
 
 e.g. When active editor is opening: 
@@ -195,6 +195,20 @@ e.g. When active editor is opening:
 
 If no factory found, show dialog to create new file.
 
+## Default Keymaps
+Command | Keymap
+--------|-------
+open-controller|`ctrl-r c`
+open-view-finder|`ctrl-r v f`
+open-view|`ctrl-r v`
+open-layout|`ctrl-r l`
+open-model|`ctrl-r m`
+open-helper|`ctrl-r h`
+open-spec|`ctrl-r s`
+open-partial-template|`ctrl-r p`
+open-asset|`ctrl-r a`
+open-migration-finder|`ctrl-r d m`
+open-factory|`ctrl-r f`
 
 ## Requirement
 * Ruby 1.9.3+
