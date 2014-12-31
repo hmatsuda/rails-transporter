@@ -51,7 +51,7 @@ class BaseFinderView extends SelectListView
     filePath = @getSelectedItem() ? {}
     return unless filePath
 
-    if pane = atom.workspace.getActivePaneView()
+    if pane = atom.workspace.getActivePane()
       atom.project.open(filePath).done (editor) =>
         fn(pane, editor)
     else
