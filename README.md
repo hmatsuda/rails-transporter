@@ -200,6 +200,9 @@ If no factory found, show dialog to create new file.
 * Ruby 1.9.3+
 * Rails 2.0.0+
 
+## Contributors
+* joseramonc
+
 ## Contributing
 1. Fork it
 2. Create your feature branch (git checkout -b my-new-feature)
