@@ -4,7 +4,7 @@ This package provides commands to open file depending on file which is being ope
 
 ![screenshot](http://cl.ly/image/43053A1J2b17/rails-transporter.gif)
 
-## Description
+## Command Description
 
 ### open-controller
 This command provides 2 features.
