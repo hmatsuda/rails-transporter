@@ -7,7 +7,7 @@
 
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
-'.workspace':
+'atom-workspace':
   'ctrl-r c': 'rails-transporter:open-controller'
   'ctrl-r v f': 'rails-transporter:open-view-finder'
   'ctrl-r v': 'rails-transporter:open-view'
