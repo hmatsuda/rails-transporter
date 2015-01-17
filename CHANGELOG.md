@@ -1,3 +1,5 @@
+## 1.1.1 - Remove deprecated selectors
+
 ## 1.1.0 - Bugfixes
 * Fix bug that couldn't work to open file with new pane from finder
 
