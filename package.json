@@ -1,7 +1,7 @@
 {
   "name": "rails-transporter",
   "main": "./lib/rails-transporter",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Open related Rails files depending on current context",
   "activationCommands": {
     "atom-workspace": [
