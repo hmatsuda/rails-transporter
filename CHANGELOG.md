@@ -1,3 +1,5 @@
+## 1.1.2 - Fix semver
+
 ## 1.1.1 - Remove deprecated selectors
 
 ## 1.1.0 - Bugfixes
