@@ -222,6 +222,7 @@ You can change these from the Settings menu.
 
 ## Contributors
 * joseramonc
+* chibicode
 
 ## Contributing
 1. Fork it
