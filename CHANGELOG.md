@@ -1,3 +1,6 @@
+## 1.2.0 - Support requests spec
+* Support `open-controller` command to open controller from requests spec
+
 ## 1.1.2 - Fix semver
 
 ## 1.1.1 - Remove deprecated selectors
