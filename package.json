@@ -3,6 +3,12 @@
   "main": "./lib/rails-transporter",
   "version": "1.1.2",
   "description": "Open related Rails files depending on current context",
+  "keywords": [
+    "rails",
+    "ruby on rails",
+    "ruby",
+    "rspec"
+  ],
   "activationCommands": {
     "atom-workspace": [
       "rails-transporter:open-controller",
