@@ -10,7 +10,7 @@ This package provides commands to open file depending on file which is being ope
 This command provides 2 features.
 
 #### Open related controller
-It opens controller file from `model`, `view` or `ontroller-spec`.
+It opens controller file from `model`, `view`, `controller-spec` or `requests-spec`.
 
 e.g. When active editor is opening: 
 `app/models/user.rb`, `app/views/users/*.html.erb` or `spec/controllers/users_controller_spec.rb`,

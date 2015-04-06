@@ -48,8 +48,12 @@ class FileOpener
       targetFile = path.dirname(@currentFile)
                    .replace(path.join('app', 'views'), path.join('app', 'controllers')) + '_controller.rb'
     else if @isSpec(@currentFile)
-      targetFile = @currentFile.replace(path.join('spec', 'controllers'), path.join('app', 'controllers'))
-                               .replace(/_spec\.rb$/, '.rb')
+      if @currentFile.indexOf('spec/requests') isnt -1
+        targetFile = @currentFile.replace(path.join('spec', 'requests'), path.join('app', 'controllers'))
+                                 .replace(/_spec\.rb$/, '_controller.rb')
+      else
+        targetFile = @currentFile.replace(path.join('spec', 'controllers'), path.join('app', 'controllers'))
+                                 .replace(/_spec\.rb$/, '.rb')
     else if @isController(@currentFile) and @currentBufferLine.indexOf("include") isnt -1
       concernsDir = path.join(atom.project.getPaths()[0], 'app', 'controllers', 'concerns')
       targetFile = @concernPath(concernsDir, @currentBufferLine)
