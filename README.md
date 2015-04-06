@@ -210,6 +210,12 @@ open-asset|`ctrl-r a`
 open-migration-finder|`ctrl-r d m`
 open-factory|`ctrl-r f`
 
+## Configurations
+
+You can change these from the Settings menu.
+
+- `newFileExtention`: Extension of the view files. Use this to support [Haml](http://haml.info/), [Slim](http://slim-lang.com/), etc.
+
 ## Requirement
 * Ruby 1.9.3+
 * Rails 2.0.0+
