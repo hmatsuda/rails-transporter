@@ -1,3 +1,6 @@
+## 1.2.1 - Support to open requests spec from controller
+* Support `open-spec` command to open request spec from controller 
+
 ## 1.2.0 - Support requests spec
 * Support `open-controller` command to open controller from requests spec
 

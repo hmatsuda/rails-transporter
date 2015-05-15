@@ -8,6 +8,11 @@ module.exports =
       type:        'string'
       description: 'This is the extension of the view files.'
       default:     'html.erb'
+    controllerSpecType:
+      type:        'string'
+      description: 'This is the type of the controller spec. controllers, requests or features'
+      default:     'controllers'
+      enum:        ['controllers', 'requests', 'features', 'api', 'integration']
 
   activate: (state) ->
     atom.commands.add 'atom-workspace',

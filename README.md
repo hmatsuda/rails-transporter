@@ -120,7 +120,7 @@ It opens related spec from `controller`, `model`, `helper` or `factory`.
 
 e.g. When active editor is opening: 
 
-`app/controllers/users_controller.rb`, it opens `spec/controllers/users_controller_spec.rb`.
+`app/controllers/users_controller.rb`, it opens `spec/controllers/users_controller_spec.rb`, feautres or requests spec.
 
 `app/models/user.rb` or `spec/factories/users.rb`, it opens `spec/models/user_spec.rb`.
 
@@ -215,6 +215,7 @@ open-factory|`ctrl-r f`
 You can change these from the Settings menu.
 
 - `newFileExtention`: Extension of the view files. Use this to support [Haml](http://haml.info/), [Slim](http://slim-lang.com/), etc.
+- `controllerSpecType`: type of controller spec files. Use this to support [controller spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/controller-specs), [request spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/request-specs/request-spec) or [feature spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/feature-specs).
 
 ## Requirement
 * Ruby 1.9.3+

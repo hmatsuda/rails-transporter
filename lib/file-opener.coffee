@@ -120,8 +120,17 @@ class FileOpener
   openSpec: ->
     @reloadCurrentEditor()
     if @isController(@currentFile)
-      targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('spec', 'controllers'))
-                               .replace(/controller\.rb$/, 'controller_spec.rb')
+      controllerSpecType = atom.config.get('rails-transporter.controllerSpecType')
+      if controllerSpecType is 'controllers'
+        targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('spec', 'controllers'))
+                                 .replace(/controller\.rb$/, 'controller_spec.rb')
+      else if controllerSpecType is 'requests'
+        targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('spec', 'requests'))
+                                 .replace(/controller\.rb$/, 'spec.rb')
+      else if controllerSpecType is 'features'
+        targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('spec', 'features'))
+                                 .replace(/controller\.rb$/, 'spec.rb')
+
     else if @isHelper(@currentFile)
       targetFile = @currentFile.replace(path.join('app', 'helpers'), path.join('spec', 'helpers'))
                                .replace(/\.rb$/, '_spec.rb')
