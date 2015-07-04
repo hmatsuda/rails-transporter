@@ -9,6 +9,7 @@
         { 'label': 'Open Layout', 'command': 'rails-transporter:open-layout' }
         { 'label': 'Open Model', 'command': 'rails-transporter:open-model' }
         { 'label': 'Open Helper', 'command': 'rails-transporter:open-helper' }
+        { 'label': 'Open Test', 'command': 'rails-transporter:open-test' }
         { 'label': 'Open Spec', 'command': 'rails-transporter:open-spec' }
         { 'label': 'Open Partial Template', 'command': 'rails-transporter:open-partial-template' }
         { 'label': 'Open Asset', 'command': 'rails-transporter:open-asset' }
