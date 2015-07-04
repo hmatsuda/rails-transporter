@@ -218,6 +218,7 @@ open-view|`ctrl-r v`
 open-layout|`ctrl-r l`
 open-model|`ctrl-r m`
 open-helper|`ctrl-r h`
+open-test|`ctrl-r t`
 open-spec|`ctrl-r s`
 open-partial-template|`ctrl-r p`
 open-asset|`ctrl-r a`
