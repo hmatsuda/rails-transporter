@@ -47,6 +47,9 @@ class FileOpener
     else if @isView(@currentFile)
       targetFile = path.dirname(@currentFile)
                    .replace(path.join('app', 'views'), path.join('app', 'controllers')) + '_controller.rb'
+    else if @isTest(@currentFile)
+      targetFile = @currentFile.replace(path.join('test', 'controllers'), path.join('app', 'controllers'))
+                               .replace(/_test\.rb$/, '.rb')
     else if @isSpec(@currentFile)
       if @currentFile.indexOf('spec/requests') isnt -1
         targetFile = @currentFile.replace(path.join('spec', 'requests'), path.join('app', 'controllers'))
@@ -76,6 +79,10 @@ class FileOpener
       resource = path.basename(dir)
       targetFile = dir.replace(path.join('app', 'views'), path.join('app', 'models'))
                       .replace(resource, "#{pluralize.singular(resource)}.rb")
+                      
+    else if @isTest(@currentFile)
+      targetFile = @currentFile.replace(path.join('test', 'models'), path.join('app', 'models'))
+                               .replace(/_test\.rb$/, '.rb')
 
     else if @isSpec(@currentFile)
       targetFile = @currentFile.replace(path.join('spec', 'models'), path.join('app', 'models'))
@@ -101,6 +108,9 @@ class FileOpener
     if @isController(@currentFile)
       targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'helpers'))
                                .replace(/controller\.rb/, 'helper.rb')
+    else if @isTest(@currentFile)
+      targetFile = @currentFile.replace(path.join('test', 'helpers'), path.join('app', 'helpers'))
+                               .replace(/_test\.rb/, '.rb')
     else if @isSpec(@currentFile)
       targetFile = @currentFile.replace(path.join('spec', 'helpers'), path.join('app', 'helpers'))
                                .replace(/_spec\.rb/, '.rb')
