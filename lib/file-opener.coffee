@@ -117,6 +117,28 @@ class FileOpener
     else
       @openDialog(targetFile)
 
+  openTest: ->
+    @reloadCurrentEditor()
+    if @isController(@currentFile)
+      targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('test', 'controllers'))
+                               .replace(/controller\.rb$/, 'controller_test.rb')
+    else if @isHelper(@currentFile)
+      targetFile = @currentFile.replace(path.join('app', 'helpers'), path.join('test', 'helpers'))
+                               .replace(/\.rb$/, '_test.rb')
+    else if @isModel(@currentFile)
+      targetFile = @currentFile.replace(path.join('app', 'models'), path.join('test', 'models'))
+                               .replace(/\.rb$/, '_test.rb')
+    else if @isFactory(@currentFile)
+      resource = path.basename(@currentFile.replace(/_test\.rb/, '.rb'), '.rb')
+      targetFile = @currentFile.replace(path.join('test', 'factories'), path.join('test', 'models'))
+                               .replace("#{resource}.rb", "#{pluralize.singular(resource)}_test.rb")
+    
+                               
+    if fs.existsSync targetFile
+      @open(targetFile)
+    else
+      @openDialog(targetFile)
+
   openSpec: ->
     @reloadCurrentEditor()
     if @isController(@currentFile)
