@@ -1,4 +1,5 @@
-## 1.2.1 - Support to open requests spec from controller
+## 1.3.0 - Support to open minitest files
+* Support `open-test` command to open minitest
 * Support `open-spec` command to open request spec from controller 
 
 ## 1.2.0 - Support requests spec

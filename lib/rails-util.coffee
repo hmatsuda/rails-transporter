@@ -11,6 +11,11 @@ class RailsUtil
     filePath? and 
     atom.project.relativize(filePath).indexOf(path.join('app', 'views')) isnt -1
 
+  isTest: (filePath) ->
+    filePath? and 
+    atom.project.relativize(filePath).indexOf(path.join('test')) isnt -1 and
+    filePath.search(/_test\.rb$/) isnt -1
+
   isSpec: (filePath) ->
     filePath? and 
     atom.project.relativize(filePath).indexOf(path.join('spec')) isnt -1 and

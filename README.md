@@ -10,7 +10,7 @@ This package provides commands to open file depending on file which is being ope
 This command provides 2 features.
 
 #### Open related controller
-It opens controller file from `model`, `view`, `controller-spec` or `requests-spec`.
+It opens controller file from `model`, `view`, `controller-test`, `controller-spec` or `requests-spec`.
 
 e.g. When active editor is opening: 
 `app/models/user.rb`, `app/views/users/*.html.erb` or `spec/controllers/users_controller_spec.rb`,
@@ -33,7 +33,7 @@ If no controller or concern found, show dialog to create new file.
 This command provides 2 features.
 
 #### Open related model
-It opens related model file from `controller`, `view`, `model-spec` or `factory`.
+It opens related model file from `controller`, `view`, `model-test`, `model-spec` or `factory`.
 
 e.g. When active editor is opening: 
 `app/controllers/users_controller.rb`, `app/views/users/*.html.erb`, `spec/models/user_spec.rb` or `spec/factories/users.rb`,
@@ -104,7 +104,7 @@ Second, when cursor isn't on the `layout` method, it opens `app/views/layouts/us
 The first behavior has a priority to apply.
 
 ### open-helper
-It opens related helper from `controller`, `model`, `view` or `helper-spec`.
+It opens related helper from `controller`, `model`, `view`, `helper-test` or `helper-spec`.
 
 e.g. When active editor is opening: 
 
@@ -113,6 +113,20 @@ e.g. When active editor is opening:
 `open-helper` opens `app/helpers/users_helper.rb`.
 
 If no helper found, show dialog to create new file.
+
+
+### open-test
+It opens related test from `controller`, `model`, `helper` or `factory`.
+
+e.g. When active editor is opening: 
+
+`app/controllers/users_controller.rb`, it opens `spec/controllers/users_controller_test.rb`.
+
+`app/models/user.rb`, it opens `test/models/user_test.rb`.
+
+`app/helpers/users_helper.rb`, it opens `test/helpers/users_helper_test.rb`.
+
+If no test found, show dialog to create new file.
 
 
 ### open-spec

@@ -14,6 +14,7 @@
   'ctrl-r l': 'rails-transporter:open-layout'
   'ctrl-r m': 'rails-transporter:open-model'
   'ctrl-r h': 'rails-transporter:open-helper'
+  'ctrl-r t': 'rails-transporter:open-test'
   'ctrl-r s': 'rails-transporter:open-spec'
   'ctrl-r p': 'rails-transporter:open-partial-template'
   'ctrl-r a': 'rails-transporter:open-asset'

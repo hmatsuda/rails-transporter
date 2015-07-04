@@ -26,6 +26,8 @@ module.exports =
         @createFileOpener().openHelper()
       'rails-transporter:open-partial-template': =>
         @createFileOpener().openPartial()
+      'rails-transporter:open-test': =>
+        @createFileOpener().openTest()
       'rails-transporter:open-spec': =>
         @createFileOpener().openSpec()
       'rails-transporter:open-asset': =>

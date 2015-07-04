@@ -7,7 +7,8 @@
     "rails",
     "ruby on rails",
     "ruby",
-    "rspec"
+    "rspec",
+    "minitest"
   ],
   "activationCommands": {
     "atom-workspace": [
@@ -16,6 +17,7 @@
       "rails-transporter:open-layout",
       "rails-transporter:open-model",
       "rails-transporter:open-helper",
+      "rails-transporter:open-test",
       "rails-transporter:open-spec",
       "rails-transporter:open-partial-template",
       "rails-transporter:open-asset",
