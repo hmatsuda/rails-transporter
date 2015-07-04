@@ -7,7 +7,8 @@
     "rails",
     "ruby on rails",
     "ruby",
-    "rspec"
+    "rspec",
+    "minitest"
   ],
   "activationCommands": {
     "atom-workspace": [
