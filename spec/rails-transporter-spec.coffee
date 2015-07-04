@@ -627,7 +627,6 @@ describe "RailsTransporter", ->
           expect(editor.getPath()).toBe specPath
           expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^describe Blog /
     
-  
     describe "when active editor opens helper", ->
       beforeEach ->
         waitsForPromise ->
@@ -645,6 +644,64 @@ describe "RailsTransporter", ->
           editor = atom.workspace.getActiveTextEditor()
           editor.setCursorBufferPosition new Point(12, 0)
           expect(editor.getPath()).toBe specPath
+          expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^describe BlogsHelper/
+  
+  describe "open-test behavior", ->
+    describe "when active editor opens controller", ->
+      beforeEach ->
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
+    
+      it "opens controller test", ->
+        atom.commands.dispatch workspaceElement, 'rails-transporter:open-test'
+    
+        waitsFor ->
+          activationPromise
+          atom.workspace.getActivePane().getItems().length == 2
+          
+        runs ->
+          testPath = path.join(atom.project.getPaths()[0], 'test', 'controllers', 'blogs_controller_test.rb')
+          editor = atom.workspace.getActiveTextEditor()
+          editor.setCursorBufferPosition new Point(2, 0)
+          expect(editor.getPath()).toBe testPath
+          expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^describe BlogsController/
+      
+    describe "when active editor opens model", ->
+      beforeEach ->
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb'))
+    
+      it "opens model test", ->
+        atom.commands.dispatch workspaceElement, 'rails-transporter:open-test'
+    
+        waitsFor ->
+          activationPromise
+          atom.workspace.getActivePane().getItems().length == 2
+          
+        runs ->
+          testPath = path.join(atom.project.getPaths()[0], 'test', 'models', 'blog_test.rb')
+          editor = atom.workspace.getActiveTextEditor()
+          editor.setCursorBufferPosition new Point(2, 0)
+          expect(editor.getPath()).toBe testPath
+          expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^describe Blog /
+          
+    describe "when active editor opens helper", ->
+      beforeEach ->
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'helpers', 'blogs_helper.rb'))
+    
+      it "opens helper test", ->
+        atom.commands.dispatch workspaceElement, 'rails-transporter:open-test'
+    
+        waitsFor ->
+          activationPromise
+          atom.workspace.getActivePane().getItems().length == 2
+          
+        runs ->
+          testPath = path.join(atom.project.getPaths()[0], 'test', 'helpers', 'blogs_helper_test.rb')
+          editor = atom.workspace.getActiveTextEditor()
+          editor.setCursorBufferPosition new Point(2, 0)
+          expect(editor.getPath()).toBe testPath
           expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^describe BlogsHelper/
   
   describe "open-asset behavior",  ->
