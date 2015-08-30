@@ -10,7 +10,7 @@ init:
 
 # scripts that run after cloning repository
 install:
-  - cinst atom
+  - cinst atom -y
   - cd %APPVEYOR_BUILD_FOLDER%
   - "%LOCALAPPDATA%/atom/bin/apm install"
 
