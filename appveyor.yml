@@ -4,14 +4,15 @@ version: "{build}"
 # Operating system (build VM template)
 os: Windows Server 2012 R2
 
-init:
-  - cmd: rd /s /q %CHOCOLATEYINSTALL%
-  - ps: iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+#init:
+#  - cmd: rd /s /q %CHOCOLATEYINSTALL%
+#  - ps: iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
 
 # scripts that run after cloning repository
 install:
-  - cinst atom -y
+  - choco install atom -y
   - cd %APPVEYOR_BUILD_FOLDER%
+  - "%LOCALAPPDATA%/atom/bin/apm clean"
   - "%LOCALAPPDATA%/atom/bin/apm install"
 
 # to run your custom scripts instead of automatic MSBuild
