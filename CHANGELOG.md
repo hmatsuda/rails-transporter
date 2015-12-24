@@ -1,3 +1,6 @@
+## master 
+* Support `open-model` to open non-namespaced model
+
 ## 1.3.0 - Support to open minitest files
 * Support `open-test` command to open minitest
 * Support `open-spec` command to open request spec from controller 

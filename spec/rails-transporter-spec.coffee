@@ -212,6 +212,27 @@ describe "RailsTransporter", ->
           expect(editor.getPath()).toBe modelPath
           expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^class Blog < ActiveRecord::Base$/
             
+    describe "when active editor opens namespaced controller", ->
+      beforeEach ->
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'admins', 'blogs_controller.rb'))
+    
+      it "opens related model", ->
+        atom.commands.dispatch workspaceElement, 'rails-transporter:open-model'
+    
+        # Waits until package is activated and active panes count is 2
+        waitsFor ->
+          activationPromise
+          atom.workspace.getActivePane().getItems().length == 2
+    
+        runs ->
+          modelPath = path.join(atom.project.getPaths()[0], 'app', 'models', 'blog.rb')
+          editor = atom.workspace.getActiveTextEditor()
+          editor.setCursorBufferPosition new Point(0, 0)
+          expect(editor.getPath()).toBe modelPath
+          expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^class Blog < ActiveRecord::Base$/
+
+            
    describe "when active editor opens model test", ->
      beforeEach ->
        waitsForPromise ->
