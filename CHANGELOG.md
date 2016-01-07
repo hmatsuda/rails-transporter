@@ -1,3 +1,6 @@
+## 1.3.1 - Bugfixes
+* Fix bug https://github.com/hmatsuda/rails-transporter/issues/80 
+
 ## 1.3.0 - Support to open minitest files
 * Support `open-test` command to open minitest
 * Support `open-spec` command to open request spec from controller 

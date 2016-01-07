@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "atom-space-pen-views": "^0.21.0",
-    "pluralize": "0.0.9",
+    "pluralize": "1.2.1",
     "temp": "~0.6.0",
     "wrench": "^1.5",
     "underscore": "1.x",
