@@ -1,7 +1,7 @@
 {
   "name": "rails-transporter",
   "main": "./lib/rails-transporter",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Open related Rails files depending on current context",
   "keywords": [
     "rails",
