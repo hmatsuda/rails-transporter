@@ -1,3 +1,6 @@
+## 1.4.4
+* Support `open-model` to open non-namespaced model
+
 ## 1.3.1 - Bugfixes
 * Fix bug https://github.com/hmatsuda/rails-transporter/issues/80 
 
