@@ -4,6 +4,7 @@ pluralize = require 'pluralize'
 changeCase = require 'change-case'
 _ = require 'underscore'
 
+DialogView = require './dialog-view'
 AssetFinderView = require './asset-finder-view'
 RailsUtil = require './rails-util'
 
@@ -276,20 +277,14 @@ class FileOpener
       atom.workspace.open(file) if fs.existsSync(file)
   
   openDialog: (targetFile) ->
-    if targetFile?
-      atom.confirm
-        message: "No #{targetFile} found"
-        detailedMessage: "Shall we create #{targetFile} for you?"
-        buttons:
-          Yes: ->
-            atom.workspace.open(targetFile)
-            return
-          No: ->
-            atom.beep()
-            return
-    else
-      atom.beep()
-    
+    unless @dialogView?
+      @dialogView = new DialogView()
+      @dialogPanel = atom.workspace.addModalPanel(item: @dialogView, visible: false)
+      @dialogView.setPanel(@dialogPanel)
+      
+    @dialogView.setTargetFile(targetFile)
+    @dialogPanel.show()
+    @dialogView.focusTextField()
 
   partialFullPath: (currentFile, partialName) ->
     configExtension = atom.config.get('rails-transporter.viewFileExtension')
