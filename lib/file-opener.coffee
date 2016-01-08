@@ -71,8 +71,11 @@ class FileOpener
     @reloadCurrentEditor()
     if @isController(@currentFile)
       resourceName = pluralize.singular(@currentFile.match(/([\w]+)_controller\.rb$/)[1])
-      targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'models'))
-                               .replace(/([\w]+)_controller\.rb$/, "#{resourceName}.rb")
+      
+      targetFile = path.join(atom.project.getPaths()[0], 'app', 'models', "#{resourceName}.rb")
+      unless fs.existsSync targetFile
+        targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'models'))
+                                 .replace(/([\w]+)_controller\.rb$/, "#{resourceName}.rb")
 
     else if @isView(@currentFile)
       dir = path.dirname(@currentFile)
