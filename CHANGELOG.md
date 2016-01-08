@@ -1,5 +1,8 @@
+## 1.4.5
+* Support `open-model` to open non-namespaced model from view file
+
 ## 1.4.4
-* Support `open-model` to open non-namespaced model
+* Support `open-model` to open non-namespaced model from controller file
 
 ## 1.3.1 - Bugfixes
 * Fix bug https://github.com/hmatsuda/rails-transporter/issues/80 

@@ -80,8 +80,11 @@ class FileOpener
     else if @isView(@currentFile)
       dir = path.dirname(@currentFile)
       resource = path.basename(dir)
-      targetFile = dir.replace(path.join('app', 'views'), path.join('app', 'models'))
-                      .replace(resource, "#{pluralize.singular(resource)}.rb")
+      
+      targetFile = path.join(atom.project.getPaths()[0], 'app', 'models', "#{resource}.rb")
+      unless fs.existsSync targetFile
+        targetFile = dir.replace(path.join('app', 'views'), path.join('app', 'models'))
+                        .replace(resource, "#{pluralize.singular(resource)}.rb")
                       
     else if @isTest(@currentFile)
       targetFile = @currentFile.replace(path.join('test', 'models'), path.join('app', 'models'))
