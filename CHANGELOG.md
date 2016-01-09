@@ -1,3 +1,7 @@
+## 1.5.0 Change UI for to open file dialog
+* Show modal panel instead of system dialog
+* Fix bug https://github.com/hmatsuda/rails-transporter/issues/78
+
 ## 1.4.5
 * Support `open-model` to open non-namespaced model from view file
 
