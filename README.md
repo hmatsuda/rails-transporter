@@ -1,4 +1,4 @@
-# Rails Transporter [![Build Status](https://travis-ci.org/hmatsuda/rails-transporter.svg?branch=master)](https://travis-ci.org/hmatsuda/rails-transporter) [![Build status](https://ci.appveyor.com/api/projects/status/jnr0p97ero2wh1j2/branch/master?svg=true)](https://ci.appveyor.com/project/hmatsuda/rails-transporter/branch/master)
+# Rails Transporter [![Build Status](https://travis-ci.org/hmatsuda/rails-transporter.svg?branch=master)](https://travis-ci.org/hmatsuda/rails-transporter) 
 
 This package provides commands to open file depending on file which is being opened by active editor.
 
@@ -229,7 +229,7 @@ open-factory|`ctrl-r f`
 
 You can change these from the Settings menu.
 
-- `newFileExtention`: Extension of the view files. Use this to support [Haml](http://haml.info/), [Slim](http://slim-lang.com/), etc.
+- `viewFileExtension`: Extension of the view files. Use this to support [Haml](http://haml.info/), [Slim](http://slim-lang.com/), etc.
 - `controllerSpecType`: type of controller spec files. Use this to support [controller spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/controller-specs), [request spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/request-specs/request-spec) or [feature spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/feature-specs).
 
 ## Requirement
