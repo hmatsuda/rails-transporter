@@ -14,6 +14,7 @@ class FileOpener
 
   openView: ->
     configExtension = atom.config.get('rails-transporter.viewFileExtension')
+    configExtensionFallbacks = atom.config.get('rails-transporter.viewFileExtensionFallbacks')
     @reloadCurrentEditor()
 
     for rowNumber in [@cusorPos.row..0]
@@ -22,8 +23,15 @@ class FileOpener
       if result?[1]?
         
         if @isController(@currentFile)
-          targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'views'))
-                                   .replace(/_controller\.rb$/, "#{path.sep}#{result[1]}.#{configExtension}")
+          fileBase = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'views'))
+                                 .replace(/_controller\.rb$/, "#{path.sep}#{result[1]}")
+          targetFile = "#{fileBase}.#{configExtension}"
+          unless fs.existsSync targetFile
+            for extension in configExtensionFallbacks
+              if fs.existsSync "#{fileBase}.#{extension}"
+                targetFile = "#{fileBase}.#{extension}"
+                break
+
         else if @isMailer(@currentFile)
           targetFile = @currentFile.replace(path.join('app', 'mailers'), path.join('app', 'views'))
                                    .replace(/\.rb$/, "#{path.sep}#{result[1]}.#{configExtension}")

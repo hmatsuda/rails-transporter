@@ -49,6 +49,52 @@ describe "RailsTransporter", ->
           
           # expect(workspaceElement.querySelector(".select-list li")).toHaveClass 'two-lines selected'
   
+  describe "open-view behavior", ->
+    describe "when active editor opens controller", ->
+      describe "open file for viewFileExtension", ->
+        beforeEach ->
+          waitsForPromise ->
+            atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
+      
+        it "opens related view", ->
+          editor = atom.workspace.getActiveTextEditor()
+          editor.setCursorBufferPosition new Point(9, 0)
+          atom.commands.dispatch workspaceElement, 'rails-transporter:open-view'
+      
+          # Waits until package is activated and active panes count is 2
+          waitsFor ->
+            activationPromise
+            atom.workspace.getActivePane().getItems().length == 2
+      
+          runs ->
+            viewPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'blogs', 'index.html.erb')
+            editor = atom.workspace.getActiveTextEditor()
+            expect(editor.getPath()).toBe viewPath
+            expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^<h1>Listing blogs<\/h1>$/
+            
+      describe "open file for viewFileExtensionFallbacks", ->
+        beforeEach ->
+          waitsForPromise ->
+            atom.config.set('rails-transporter.viewFileExtensionFallbacks', ['json.jbuilder'])
+            atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'api', 'blogs_controller.rb'))
+      
+        it "opens related view", ->
+          editor = atom.workspace.getActiveTextEditor()
+          editor.setCursorBufferPosition new Point(4, 0)
+          atom.commands.dispatch workspaceElement, 'rails-transporter:open-view'
+      
+          # Waits until package is activated and active panes count is 2
+          waitsFor ->
+            activationPromise
+            atom.workspace.getActivePane().getItems().length == 2
+      
+          runs ->
+            viewPath = path.join(atom.project.getPaths()[0], 'app', 'views', 'api', 'blogs', 'index.json.jbuilder')
+            editor = atom.workspace.getActiveTextEditor()
+            expect(editor.getPath()).toBe viewPath
+            expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^json.array!(@blogs) do |blog|$/
+
+
   describe "open-view-finder behavior", ->
   
     describe "when active editor opens controller", ->

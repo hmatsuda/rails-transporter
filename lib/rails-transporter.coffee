@@ -8,6 +8,12 @@ module.exports =
       type:        'string'
       description: 'This is the extension of the view files.'
       default:     'html.erb'
+    viewFileExtensionFallbacks:
+      type:        'array'
+      description: 'Fallbacks for the viewFileExtension. set extension names commna-delimited.'
+      default:     []
+      items: 
+        type: 'string'
     controllerSpecType:
       type:        'string'
       description: 'This is the type of the controller spec. controllers, requests or features'

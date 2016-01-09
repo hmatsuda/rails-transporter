@@ -1,3 +1,6 @@
+## 1.6.0 viewFileExtension fallback
+* Support viewFileExtensionFallback option
+
 ## 1.5.0 Change UI for to open file dialog
 * Show modal panel instead of system dialog
 * Fix bug https://github.com/hmatsuda/rails-transporter/issues/78

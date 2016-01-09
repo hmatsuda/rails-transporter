@@ -229,8 +229,25 @@ open-factory|`ctrl-r f`
 
 You can change these from the Settings menu.
 
-- `viewFileExtension`: Extension of the view files. Use this to support [Haml](http://haml.info/), [Slim](http://slim-lang.com/), etc.
-- `controllerSpecType`: type of controller spec files. Use this to support [controller spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/controller-specs), [request spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/request-specs/request-spec) or [feature spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/feature-specs).
+### `viewFileExtension`
+Extension of the view files. Use this to support [Haml](http://haml.info/), [Slim](http://slim-lang.com/), etc.
+
+if it's value is `html.haml`, `open-view` atempt to open `html.haml`.
+ 
+### `viewFileExtensionfallbacks`
+Fallbacks for extension of the view files.
+
+if it's value is `html.haml, json.jbuilder` and viewFileExtension's value is `html.erb`,
+`open-view` attempts to open following:
+
+```
+1. html.erb
+2. html.haml
+3. json.jbuilder
+```
+ 
+### `controllerSpecType`
+type of controller spec files. Use this to support [controller spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/controller-specs), [request spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/request-specs/request-spec) or [feature spec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs/feature-specs).
 
 ## Requirement
 * Ruby 1.9.3+
