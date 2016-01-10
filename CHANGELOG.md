@@ -1,4 +1,5 @@
 ## 1.6.1 Bugfixes
+* `open-migration-finder` return files order by name desc
 * Fix bug https://github.com/hmatsuda/rails-transporter/issues/84
 
 ## 1.6.0 viewFileExtension fallback
