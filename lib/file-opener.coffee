@@ -56,6 +56,9 @@ class FileOpener
     else if @isView(@currentFile)
       targetFile = path.dirname(@currentFile)
                    .replace(path.join('app', 'views'), path.join('app', 'controllers')) + '_controller.rb'
+    else if @isHelper(@currentFile)
+      targetFile = @currentFile.replace(path.join('app', 'helpers'), path.join('app', 'controllers'))
+                               .replace(/_helper\.rb$/, '_controller.rb')
     else if @isTest(@currentFile)
       targetFile = @currentFile.replace(path.join('test', 'controllers'), path.join('app', 'controllers'))
                                .replace(/_test\.rb$/, '.rb')
@@ -85,6 +88,14 @@ class FileOpener
       unless fs.existsSync targetFile
         targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'models'))
                                  .replace(/([\w]+)_controller\.rb$/, "#{resourceName}.rb")
+
+    else if @isHelper(@currentFile)
+      resourceName = pluralize.singular(@currentFile.match(/([\w]+)_helper\.rb$/)[1])
+      
+      targetFile = path.join(atom.project.getPaths()[0], 'app', 'models', "#{resourceName}.rb")
+      unless fs.existsSync targetFile
+        targetFile = @currentFile.replace(path.join('app', 'helpers'), path.join('app', 'models'))
+                                 .replace(/([\w]+)_helper\.rb$/, "#{resourceName}.rb")
 
     else if @isView(@currentFile)
       dir = path.dirname(@currentFile)
