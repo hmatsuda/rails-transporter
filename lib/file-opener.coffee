@@ -50,7 +50,7 @@ class FileOpener
     if @isModel(@currentFile)
       resource = path.basename(@currentFile, '.rb')
       targetFile = @currentFile.replace(path.join('app', 'models'), path.join('app', 'controllers'))
-                               .replace(resource, "#{pluralize(resource)}_controller")
+                               .replace(///#{resource}\.rb$///, "#{pluralize(resource)}_controller.rb")
     else if @isView(@currentFile)
       targetFile = path.dirname(@currentFile)
                    .replace(path.join('app', 'views'), path.join('app', 'controllers')) + '_controller.rb'
@@ -102,7 +102,7 @@ class FileOpener
       targetFile = path.join(atom.project.getPaths()[0], 'app', 'models', "#{resource}.rb")
       unless fs.existsSync targetFile
         targetFile = dir.replace(path.join('app', 'views'), path.join('app', 'models'))
-                        .replace(resource, "#{pluralize.singular(resource)}.rb")
+                        .replace(///#{resource}\/*\.*$///, "#{pluralize.singular(resource)}.rb")
                       
     else if @isTest(@currentFile)
       targetFile = @currentFile.replace(path.join('test', 'models'), path.join('app', 'models'))
@@ -116,7 +116,7 @@ class FileOpener
       dir = path.basename(@currentFile, '.rb')
       resource = path.basename(dir)
       targetFile = @currentFile.replace(path.join('spec', 'factories'), path.join('app', 'models'))
-                               .replace(resource, pluralize.singular(resource))
+                               .replace(///#{resource}\.rb$///, "#{pluralize.singular(resource)}.rb")
                                
     else if @isModel(@currentFile) and @currentBufferLine.indexOf("include") isnt -1
       concernsDir = path.join(atom.project.getPaths()[0], 'app', 'models', 'concerns')
@@ -141,7 +141,7 @@ class FileOpener
     else if @isModel(@currentFile)
       resource = path.basename(@currentFile, '.rb')
       targetFile = @currentFile.replace(path.join('app', 'models'), path.join('app', 'helpers'))
-                               .replace(resource, "#{pluralize(resource)}_helper")
+                               .replace(///#{resource}\.rb$///, "#{pluralize(resource)}_helper.rb")
     else if @isView(@currentFile)
       targetFile = path.dirname(@currentFile)
                        .replace(path.join('app', 'views'), path.join('app', 'helpers')) + "_helper.rb"
@@ -284,12 +284,11 @@ class FileOpener
     if @isModel(@currentFile)
       resource = path.basename(@currentFile, '.rb')
       targetFile = @currentFile.replace(path.join('app', 'models'), path.join('spec', 'factories'))
-                               .replace(resource, pluralize(resource))
+                               .replace(///#{resource}\.rb$///, "#{pluralize(resource)}.rb")
     else if @isSpec(@currentFile)
       resource = path.basename(@currentFile.replace(/_spec\.rb/, '.rb'), '.rb')
       targetFile = @currentFile.replace(path.join('spec', 'models'), path.join('spec', 'factories'))
-                               .replace(resource, pluralize(resource))
-                               .replace(/_spec\.rb/, '.rb')
+                               .replace(///#{resource}_spec\.rb$///, "#{pluralize(resource)}.rb")
 
     if fs.existsSync targetFile
       @open(targetFile)
