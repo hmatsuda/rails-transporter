@@ -192,10 +192,12 @@ it opens javascript file if it exists.
 //= require_directory shared
 ```
 it opens related asset file list
+
 ![](http://cl.ly/image/1G2D240f1A0i/application01_js_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)
 
 ### open-mingration-finder
 It opens all of migration list.
+
 ![](http://cl.ly/image/3y0F2D1H1w2F/application01_js_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)
 
 ### open-factory
