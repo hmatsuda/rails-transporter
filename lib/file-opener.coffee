@@ -13,8 +13,7 @@ class FileOpener
   _.extend this::, RailsUtil::
 
   openView: ->
-    configExtension = atom.config.get('rails-transporter.viewFileExtension')
-    configExtensionFallbacks = atom.config.get('rails-transporter.viewFileExtensionFallbacks')
+    configExtensions = atom.config.get('rails-transporter.viewFileExtension')
     @reloadCurrentEditor()
 
     for rowNumber in [@cusorPos.row..0]
@@ -25,16 +24,15 @@ class FileOpener
         if @isController(@currentFile)
           fileBase = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'views'))
                                  .replace(/_controller\.rb$/, "#{path.sep}#{result[1]}")
-          targetFile = "#{fileBase}.#{configExtension}"
-          unless fs.existsSync targetFile
-            for extension in configExtensionFallbacks
-              if fs.existsSync "#{fileBase}.#{extension}"
-                targetFile = "#{fileBase}.#{extension}"
-                break
+          for extension in configExtensions
+            if fs.existsSync "#{fileBase}.#{extension}"
+              targetFile = "#{fileBase}.#{extension}"
+              break
 
+          targetFile = "#{fileBase}.#{configExtensions[0]}" unless targetFile?
         else if @isMailer(@currentFile)
           targetFile = @currentFile.replace(path.join('app', 'mailers'), path.join('app', 'views'))
-                                   .replace(/\.rb$/, "#{path.sep}#{result[1]}.#{configExtension}")
+                                   .replace(/\.rb$/, "#{path.sep}#{result[1]}.#{configExtensions[0]}")
         else
           targetFile = null
           
@@ -247,18 +245,37 @@ class FileOpener
     @open(targetFile)
 
   openLayout: ->
-    configExtension = atom.config.get('rails-transporter.viewFileExtension')
+    configExtensions = atom.config.get('rails-transporter.viewFileExtension')
     @reloadCurrentEditor()
     layoutDir = path.join(atom.project.getPaths()[0], 'app', 'views', 'layouts')
     if @isController(@currentFile)
       if @currentBufferLine.indexOf("layout") isnt -1
         result = @currentBufferLine.match(/layout\s*\(?\s*["'](.+?)["']/)
-        targetFile = path.join(layoutDir, "#{result[1]}.#{configExtension}") if result?[1]?
+        
+        if result?[1]?
+          fileBase = path.join(layoutDir, result[1])
+          for extension in configExtensions
+            if fs.existsSync "#{fileBase}.#{extension}"
+              targetFile = "#{fileBase}.#{extension}"
+              break
+
       else
-        targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'views', 'layouts'))
-                                 .replace('_controller.rb', ".#{configExtension}")
-        unless fs.existsSync(targetFile)
-          targetFile = path.join(path.dirname(targetFile), "application.#{configExtension}")
+        fileBase = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'views', 'layouts'))
+                               .replace('_controller.rb', '')
+        for extension in configExtensions
+          if fs.existsSync "#{fileBase}.#{extension}"
+            targetFile = "#{fileBase}.#{extension}"
+            break
+            
+        unless targetFile?
+          fileBase = path.join(layoutDir, "application")
+          for extension in configExtensions
+            if fs.existsSync "#{fileBase}.#{extension}"
+              targetFile = "#{fileBase}.#{extension}"
+              break
+      
+    unless fs.existsSync(targetFile)
+      targetFile = "#{fileBase}.#{configExtensions[0]}"
 
     @open(targetFile)
     
@@ -309,12 +326,26 @@ class FileOpener
     @dialogView.focusTextField()
 
   partialFullPath: (currentFile, partialName) ->
-    configExtension = atom.config.get('rails-transporter.viewFileExtension')
+    configExtensions = atom.config.get('rails-transporter.viewFileExtension')
     
     if partialName.indexOf("/") is -1
-      path.join(path.dirname(currentFile), "_#{partialName}.#{configExtension}")
+      fileBase = path.join(path.dirname(currentFile), "_#{partialName}")
+      for extension in configExtensions
+        if fs.existsSync "#{fileBase}.#{extension}"
+          targetFile = "#{fileBase}.#{extension}"
+          break
+          
+      targetFile = "#{fileBase}.#{configExtensions[0]}" unless targetFile?
     else
-      path.join(atom.project.getPaths()[0], 'app', 'views', path.dirname(partialName), "_#{path.basename(partialName)}.#{configExtension}")
+      fileBase = path.join(atom.project.getPaths()[0], 'app', 'views', path.dirname(partialName), "_#{path.basename(partialName)}")
+      for extension in configExtensions
+        if fs.existsSync "#{fileBase}.#{extension}"
+          targetFile = "#{fileBase}.#{extension}"
+          break
+      
+      targetFile = "#{fileBase}.#{configExtensions[0]}" unless targetFile?
+    
+    return targetFile
 
   assetFullPath: (assetName, type) ->
     fileName = path.basename(assetName)

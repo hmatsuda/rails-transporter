@@ -230,15 +230,9 @@ open-factory|`ctrl-r f`
 You can change these from the Settings menu.
 
 ### `viewFileExtension`
-Extension of the view files. Use this to support [Haml](http://haml.info/), [Slim](http://slim-lang.com/), etc.
+Extension of the view files.
 
-if it's value is `html.haml`, `open-view` atempt to open `html.haml`.
- 
-### `viewFileExtensionfallbacks`
-Fallbacks for extension of the view files.
-
-if it's value is `html.haml, json.jbuilder` and viewFileExtension's value is `html.erb`,
-`open-view` attempts to open following:
+if it's value is `html.erb, html.haml, json.jbuilder`, `open-view` attempts to open following:
 
 ```
 1. html.erb

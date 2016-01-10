@@ -5,13 +5,9 @@ FileOpener = require './file-opener'
 module.exports =
   config:
     viewFileExtension:
-      type:        'string'
-      description: 'This is the extension of the view files.'
-      default:     'html.erb'
-    viewFileExtensionFallbacks:
       type:        'array'
-      description: 'Fallbacks for the viewFileExtension. set extension names commna-delimited.'
-      default:     []
+      description: 'This is the extension of the view files.'
+      default:     ['html.erb', 'html.slim', 'html.haml']
       items: 
         type: 'string'
     controllerSpecType:

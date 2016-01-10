@@ -51,7 +51,7 @@ describe "RailsTransporter", ->
   
   describe "open-view behavior", ->
     describe "when active editor opens controller", ->
-      describe "open file for viewFileExtension", ->
+      describe "open file", ->
         beforeEach ->
           waitsForPromise ->
             atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'blogs_controller.rb'))
@@ -72,10 +72,10 @@ describe "RailsTransporter", ->
             expect(editor.getPath()).toBe viewPath
             expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^<h1>Listing blogs<\/h1>$/
             
-      describe "open file for viewFileExtensionFallbacks", ->
+      describe "open file for fallbacks", ->
         beforeEach ->
           waitsForPromise ->
-            atom.config.set('rails-transporter.viewFileExtensionFallbacks', ['json.jbuilder'])
+            atom.config.set('rails-transporter.viewFileExtension', ['json.jbuilder'])
             atom.workspace.open(path.join(atom.project.getPaths()[0], 'app', 'controllers', 'api', 'blogs_controller.rb'))
       
         it "opens related view", ->
