@@ -1,3 +1,6 @@
+## 1.6.1 Bugfixes
+* Fix bug https://github.com/hmatsuda/rails-transporter/issues/84
+
 ## 1.6.0 viewFileExtension fallback
 * Support viewFileExtensionFallback option
 
