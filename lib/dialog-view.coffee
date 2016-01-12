@@ -39,7 +39,12 @@ class DialogView extends View
     @panel?.hide()
     
   setTargetFile: (path) =>
-    projectPath = atom.project.relativizePath(path)
+    if path?
+      projectPath = atom.project.relativizePath(path)
+    else
+      currentFile = atom.workspace.getActiveTextEditor().getPath()
+      projectPath = atom.project.relativizePath(currentFile)
+      
     @fileEditor.setText(projectPath[1])
 
   focusTextField: =>
