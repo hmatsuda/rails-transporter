@@ -24,17 +24,16 @@ class FileOpener
         if @isController(@currentFile)
           fileBase = @currentFile.replace(path.join('app', 'controllers'), path.join('app', 'views'))
                                  .replace(/_controller\.rb$/, "#{path.sep}#{result[1]}")
-          for extension in configExtensions
-            if fs.existsSync "#{fileBase}.#{extension}"
-              targetFile = "#{fileBase}.#{extension}"
-              break
-
-          targetFile = "#{fileBase}.#{configExtensions[0]}" unless targetFile?
         else if @isMailer(@currentFile)
-          targetFile = @currentFile.replace(path.join('app', 'mailers'), path.join('app', 'views'))
-                                   .replace(/\.rb$/, "#{path.sep}#{result[1]}.#{configExtensions[0]}")
-        else
-          targetFile = null
+          fileBase = @currentFile.replace(path.join('app', 'mailers'), path.join('app', 'views'))
+                                 .replace(/\.rb$/, "#{path.sep}#{result[1]}")
+                       
+        for extension in configExtensions
+          if fs.existsSync "#{fileBase}.#{extension}"
+            targetFile = "#{fileBase}.#{extension}"
+            break
+
+        targetFile = "#{fileBase}.#{configExtensions[0]}" unless targetFile?
           
         if fs.existsSync targetFile
           @open(targetFile)
