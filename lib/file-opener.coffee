@@ -282,15 +282,18 @@ class FileOpener
     @reloadCurrentEditor()
     if @isModel(@currentFile)
       resource = path.basename(@currentFile, '.rb')
-      targetFile = @currentFile.replace(path.join('app', 'models'), path.join('spec', 'factories'))
-                               .replace(///#{resource}\.rb$///, "#{pluralize(resource)}.rb")
+      fileBase = path.dirname(@currentFile.replace(path.join('app', 'models'), path.join('spec', 'factories')))
     else if @isSpec(@currentFile)
       resource = path.basename(@currentFile.replace(/_spec\.rb/, '.rb'), '.rb')
-      targetFile = @currentFile.replace(path.join('spec', 'models'), path.join('spec', 'factories'))
-                               .replace(///#{resource}_spec\.rb$///, "#{pluralize(resource)}.rb")
-
-    if fs.existsSync targetFile
-      @open(targetFile)
+      fileBase = path.dirname(@currentFile.replace(path.join('spec', 'models'), path.join('spec', 'factories')))
+      
+    if fileBase?
+      for fileName in ["#{resource}.rb", "#{pluralize(resource)}.rb"]
+        targetFile = path.join(fileBase, fileName)
+        if fs.existsSync targetFile
+          @open(targetFile)
+          break
+        @openDialog(targetFile)
     else
       @openDialog(targetFile)
 
