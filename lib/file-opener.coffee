@@ -57,7 +57,7 @@ class FileOpener
       targetFile = @currentFile.replace(path.join('app', 'helpers'), path.join('app', 'controllers'))
                                .replace(/_helper\.rb$/, '_controller.rb')
     else if @isTest(@currentFile)
-      targetFile = @currentFile.replace(path.join('test', 'controllers'), path.join('app', 'controllers'))
+      targetFile = @currentFile.replace(@controllerTestsDirectory(), path.join('app', 'controllers'))
                                .replace(/_test\.rb$/, '.rb')
     else if @isSpec(@currentFile)
       if @currentFile.indexOf('spec/requests') isnt -1
@@ -104,7 +104,7 @@ class FileOpener
                         .replace(///#{resource}\/*\.*$///, "#{pluralize.singular(resource)}.rb")
                       
     else if @isTest(@currentFile)
-      targetFile = @currentFile.replace(path.join('test', 'models'), path.join('app', 'models'))
+      targetFile = @currentFile.replace(@modelTestsDirectory(), path.join('app', 'models'))
                                .replace(/_test\.rb$/, '.rb')
 
     else if @isSpec(@currentFile)
@@ -153,17 +153,17 @@ class FileOpener
   openTest: ->
     @reloadCurrentEditor()
     if @isController(@currentFile)
-      targetFile = @currentFile.replace(path.join('app', 'controllers'), path.join('test', 'controllers'))
+      targetFile = @currentFile.replace(path.join('app', 'controllers'), @controllerTestsDirectory())
                                .replace(/controller\.rb$/, 'controller_test.rb')
     else if @isHelper(@currentFile)
       targetFile = @currentFile.replace(path.join('app', 'helpers'), path.join('test', 'helpers'))
                                .replace(/\.rb$/, '_test.rb')
     else if @isModel(@currentFile)
-      targetFile = @currentFile.replace(path.join('app', 'models'), path.join('test', 'models'))
+      targetFile = @currentFile.replace(path.join('app', 'models'), @modelTestsDirectory())
                                .replace(/\.rb$/, '_test.rb')
     else if @isFactory(@currentFile)
       resource = path.basename(@currentFile.replace(/_test\.rb/, '.rb'), '.rb')
-      targetFile = @currentFile.replace(path.join('test', 'factories'), path.join('test', 'models'))
+      targetFile = @currentFile.replace(path.join('test', 'factories'), @modelTestsDirectory())
                                .replace("#{resource}.rb", "#{pluralize.singular(resource)}_test.rb")
     
                                
@@ -384,3 +384,16 @@ class FileOpener
           
     
           
+
+  controllerTestsDirectory: ->
+    @handleLegacyDirectory('functional', 'controllers')
+
+  modelTestsDirectory: ->
+    @handleLegacyDirectory('unit', 'models')
+
+  handleLegacyDirectory: (legacyDirectory, newDirectory)->
+    legacyDirectory = path.join('test', legacyDirectory)
+    if fs.existsSync path.join(atom.project.getPaths()[0], legacyDirectory)
+      legacyDirectory
+    else
+      path.join('test', newDirectory)
