@@ -1,3 +1,7 @@
+## 1.7.0
+* Support `open-test` command to open test from service file
+* Support `open-spec` command to open spec from service file
+
 ## 1.6.1 Bugfixes
 * `open-migration-finder` return files order by name desc
 * Fix bug https://github.com/hmatsuda/rails-transporter/issues/84
