@@ -166,9 +166,9 @@ class FileOpener
       targetFile = @currentFile.replace(path.join('test', 'factories'), path.join('test', 'models'))
                                .replace("#{resource}.rb", "#{pluralize.singular(resource)}_test.rb")
     else if @isService(@currentFile)
-      targetFile = @currentFile.replace(RegExp(path.join('app', '(\\w+)')), path.join('test', '$1'))
-                               .replace(/\.rb$/, '_test.rb')
-
+      [project_path, file_path] = atom.project.relativizePath(@currentFile)
+      targetFile = path.join(project_path, file_path.replace(RegExp(path.join('app', '(\\w+)')), path.join('test', '$1'))
+                               .replace(/\.rb$/, '_test.rb'))
 
     if fs.existsSync targetFile
       @open(targetFile)
@@ -203,8 +203,9 @@ class FileOpener
                                .replace("#{resource}.rb", "#{pluralize.singular(resource)}_spec.rb")
 
     else if @isService(@currentFile)
-      targetFile = @currentFile.replace(RegExp(path.join('app', '(\\w+)')), path.join('spec', '$1'))
-                               .replace(/\.rb$/, '_spec.rb')
+      [project_path, file_path] = atom.project.relativizePath(@currentFile)
+      targetFile = path.join(project_path, file_path.replace(RegExp(path.join('app', '(\\w+)')), path.join('spec', '$1'))
+                               .replace(/\.rb$/, '_spec.rb'))
 
     if fs.existsSync targetFile
       @open(targetFile)
