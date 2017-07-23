@@ -1,3 +1,5 @@
+## 1.7.1 Bugfixes
+
 ## 1.7.0
 * Support `open-test` command to open test from service file
 * Support `open-spec` command to open spec from service file
