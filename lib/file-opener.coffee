@@ -206,6 +206,9 @@ class FileOpener
       [project_path, file_path] = atom.project.relativizePath(@currentFile)
       targetFile = path.join(project_path, file_path.replace(RegExp(path.join('app', '(\\w+)')), path.join('spec', '$1'))
                                .replace(/\.rb$/, '_spec.rb'))
+    else if @isView(@currentFile)
+      targetFile = @currentFile.replace(path.join('app', 'views'), path.join('spec', 'views'))
+                               .replace(/\.erb$/, '.erb_spec.rb')
 
     if fs.existsSync targetFile
       @open(targetFile)
