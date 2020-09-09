@@ -1,0 +1,2 @@
+class CustomArray < Array
+end
