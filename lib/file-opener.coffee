@@ -207,6 +207,10 @@ class FileOpener
       targetFile = path.join(project_path, file_path.replace(RegExp(path.join('app', '(\\w+)')), path.join('spec', '$1'))
                                .replace(/\.rb$/, '_spec.rb'))
 
+    else if @isLib(@currentFile)
+      libSpecDirectory = atom.config.get('rails-transporter.libSpecDirectory')
+      targetFile = @currentFile.replace(path.join('lib'), path.join('spec', libSpecDirectory)).replace(/\.rb$/, '_spec.rb')
+
     if fs.existsSync targetFile
       @open(targetFile)
     else

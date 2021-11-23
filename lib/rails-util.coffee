@@ -49,3 +49,8 @@ class RailsUtil
     filePath? and
     atom.project.relativize(filePath).search(RegExp(path.join('app', '\\w+'))) isnt -1 and
     filePath.search(/\.rb$/) isnt -1
+
+  isLib: (filePath) ->
+    filePath? and
+    atom.project.relativize(filePath).search(RegExp(path.join('lib', '\\w+'))) isnt -1 and
+    filePath.search(/\.rb$/) isnt -1

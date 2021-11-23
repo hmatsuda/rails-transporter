@@ -791,6 +791,25 @@ describe "RailsTransporter", ->
           expect(editor.getPath()).toBe specPath
           expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^describe BlogPostAnalyticsWorker /
 
+    describe "when active editor opens lib/ object", ->
+      beforeEach ->
+        waitsForPromise ->
+          atom.workspace.open(path.join(atom.project.getPaths()[0], 'lib', 'custom_array.rb'))
+
+      it "opens lib/ object spec", ->
+        atom.commands.dispatch workspaceElement, 'rails-transporter:open-spec'
+
+        waitsFor ->
+          activationPromise
+          atom.workspace.getActivePane().getItems().length == 2
+
+        runs ->
+          specPath = path.join(atom.project.getPaths()[0], 'spec', 'framework', 'lib', 'custom_array_spec.rb')
+          editor = atom.workspace.getActiveTextEditor()
+          editor.setCursorBufferPosition new Point(2, 0)
+          expect(editor.getPath()).toBe specPath
+          expect(editor.getLastCursor().getCurrentBufferLine()).toMatch /^RSpec\.describe CustomArray /
+
   describe "open-test behavior", ->
     describe "when active editor opens controller", ->
       beforeEach ->

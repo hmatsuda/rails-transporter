@@ -15,6 +15,10 @@ module.exports =
       description: 'This is the type of the controller spec. controllers, requests or features'
       default:     'controllers'
       enum:        ['controllers', 'requests', 'features', 'api', 'integration']
+    libSpecDirectory:
+      type:        'string'
+      description: 'The subdirectory of "spec/" where specs for files in "lib/" should be searched for.'
+      default:     'framework/lib'
 
   activate: (state) ->
     atom.commands.add 'atom-workspace',
